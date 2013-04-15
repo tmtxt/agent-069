@@ -18,6 +18,7 @@ public class MainScene implements ApplicationListener {
 	
 	@Override
 	public void create() {		
+		// COMMENT
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
 		
