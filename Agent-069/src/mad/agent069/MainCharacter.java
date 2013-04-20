@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MainCharacter {
 	// The initial position of the main character
 	public static final float ORIGINAL_X = 20;
-	public static final float ORIGINAL_Y = 20;
+	public static final float ORIGINAL_Y = Scene.SCENE_FLOOR_POSITION_Y;
 
 	// The current position of the main character
 	private float currentX;
