@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene1 extends Scene {
 	
@@ -14,11 +15,17 @@ public class Scene1 extends Scene {
 	// Current track position
 	private float currentTrackX;
 	
+	// Last time draw track
+	private long lastTimeTrack;
+	
 	// The sky texture
 	private Texture skyTexture;
 	
 	// Current sky position
 	private float currentSkyX;
+	
+	// Last time draw sky
+	private long lastTimeSky;
 
 	@Override
 	public void create() {
@@ -45,6 +52,11 @@ public class Scene1 extends Scene {
 		// Init the texture to draw the sky
 		this.skyTexture = new Texture(Gdx.files.internal("scene1sky.png"));
 		this.currentSkyX = Scene.SCENE_HEIGHT;
+		
+		// Last time draw
+		long currentTime = TimeUtils.nanoTime();
+		this.lastTimeSky = currentTime;
+		this.lastTimeTrack = currentTime;
 	}
 
 	@Override
@@ -62,7 +74,45 @@ public class Scene1 extends Scene {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		
+		// Set the camera
+		batch.setProjectionMatrix(this.camera.combined);
 		
+		// Begin drawing
+		batch.begin();
+		
+		// Draw the sky
+		batch.draw(skyTexture, currentSkyX - 2048, 150);
+		batch.draw(skyTexture, currentSkyX, 150);
+		
+		// Draw the track
+		batch.draw(trackTexture, currentTrackX - 2048, 0);
+		batch.draw(trackTexture, currentTrackX, 0);
+		
+		batch.end();
+		// End drawing
+		
+		// Current time
+		long currentTime = TimeUtils.nanoTime();
+		
+		// Move the sky backward
+		if(currentTime - this.lastTimeSky > 30000000){
+			this.currentSkyX -= 10;
+			this.lastTimeSky = currentTime;
+		}
+		
+		// Move the track backward
+		if(currentTime - this.lastTimeTrack > 30000000){
+			this.currentTrackX -= 20;
+			this.lastTimeTrack = currentTime;
+		}
+		
+		// Move the sky back to starting position if it reach the end
+		if(this.currentSkyX <= 800 - 2048){
+			currentSkyX = 800;
+		}
+		if(this.currentTrackX <= 800 - 2048){
+			currentTrackX = 800;
+		}
 	}
 
 	@Override
