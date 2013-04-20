@@ -17,6 +17,9 @@ public class Scene implements ApplicationListener{
 	
 	// Sprite batch
 	protected SpriteBatch batch;
+	
+	// Main character
+	protected MainCharacter mainCharacter;
 
 	// Determine the speed of the current scene
 	// This speed is used for calculating background speed, obstacle speed,...
