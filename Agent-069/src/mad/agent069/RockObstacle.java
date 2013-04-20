@@ -9,8 +9,8 @@ public class RockObstacle extends Obstacle {
 	// The texture to draw this obstacle
 	private Texture rockTexture;
 
-	public RockObstacle(Scene currentScene) {
-		super(currentScene);
+	public RockObstacle(Scene currentScene, long lastTimeObstacle) {
+		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 		
 		// The speed of this obstacle
@@ -30,9 +30,15 @@ public class RockObstacle extends Obstacle {
 	}
 
 	@Override
-	public void drawObstacle(SpriteBatch batch, long currentTime) {
+	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
+		
+		
+		// draw the obstacle
 		batch.draw(this.rockTexture, this.currentX, this.currentY);
+		
+		
+		
 	}
 	
 }

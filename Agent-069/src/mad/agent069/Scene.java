@@ -41,12 +41,97 @@ public class Scene implements ApplicationListener {
 
 	// The length of the scene
 	protected long length;
+	
+	// The distance each time the background move
+	protected final float backgroundMovingDistance = 20;
+	
+	public OrthographicCamera getCamera() {
+		return camera;
+	}
+
+	public void setCamera(OrthographicCamera camera) {
+		this.camera = camera;
+	}
+
+	public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	public void setBatch(SpriteBatch batch) {
+		this.batch = batch;
+	}
+
+	public MainCharacter getMainCharacter() {
+		return mainCharacter;
+	}
+
+	public void setMainCharacter(MainCharacter mainCharacter) {
+		this.mainCharacter = mainCharacter;
+	}
+
+	public long getLength() {
+		return length;
+	}
+
+	public void setLength(long length) {
+		this.length = length;
+	}
+
+	public long getActualNextObstacleMinTime() {
+		return actualNextObstacleMinTime;
+	}
+
+	public void setActualNextObstacleMinTime(long actualNextObstacleMinTime) {
+		this.actualNextObstacleMinTime = actualNextObstacleMinTime;
+	}
+
+	public long getActualNextObstacleMaxTime() {
+		return actualNextObstacleMaxTime;
+	}
+
+	public void setActualNextObstacleMaxTime(long actualNextObstacleMaxTime) {
+		this.actualNextObstacleMaxTime = actualNextObstacleMaxTime;
+	}
+
+	public String[] getObstacleClassNames() {
+		return obstacleClassNames;
+	}
+
+	public void setObstacleClassNames(String[] obstacleClassNames) {
+		this.obstacleClassNames = obstacleClassNames;
+	}
+
+	public float getBackgroundMovingDistance() {
+		return backgroundMovingDistance;
+	}
+
+	public long getNextObstacleMinTime() {
+		return nextObstacleMinTime;
+	}
+
+	public long getNextObstacleMaxTime() {
+		return nextObstacleMaxTime;
+	}
+
+	public void setSceneSpeed(float sceneSpeed) {
+		this.sceneSpeed = sceneSpeed;
+	}
+
+	// The time for the next obstacle to appear
+	// This is not the actual time, just a number to used with scene speed
+	// to calculate the time for next obstacle
+	protected final long nextObstacleMinTime = 1000000000;
+	protected final long nextObstacleMaxTime = 2000000000;
+	
+	// The actual time for next obstacle to appear
+	protected long actualNextObstacleMinTime;
+	protected long actualNextObstacleMaxTime;
 
 	// The list of obstacle class names
 	String[] obstacleClassNames = { "RockObstacle", "TankObstacle" };
 
 	// Create a new obstacle
-	protected Obstacle createNewObstacle() {
+	protected Obstacle createNewObstacle(long currentTime) {
 		Random random = new Random();
 		Obstacle obstacle = null;
 		
@@ -56,8 +141,8 @@ public class Scene implements ApplicationListener {
 
 		try {
 			Constructor c = Class.forName(obstacleClassName)
-					.getConstructor(Scene.class);
-			obstacle = (Obstacle) c.newInstance(this);
+					.getConstructor(Scene.class, long.class);
+			obstacle = (Obstacle) c.newInstance(this, currentTime);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,6 +171,10 @@ public class Scene implements ApplicationListener {
 
 	public float getSceneSpeed() {
 		return sceneSpeed;
+	}
+	
+	protected void initObstacleSpeed(){
+		
 	}
 
 	@Override

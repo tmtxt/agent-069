@@ -1,5 +1,8 @@
 package mad.agent069;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -22,7 +25,7 @@ public class Scene1 extends Scene {
 	// Track moving time
 	private long trackMovingTime;
 	// Track moving distance (pixel)
-	private float trackMovingDistance = 20;
+	private float trackMovingDistance = this.backgroundMovingDistance;
 
 	// The sky texture
 	private Texture skyTexture;
@@ -38,6 +41,8 @@ public class Scene1 extends Scene {
 	private long skyMovingTime;
 	// Sky moving distance (pixel)
 	private final float skyMovingDistance = 10;
+
+	private Obstacle obstacle;
 
 	@Override
 	public void create() {
@@ -74,6 +79,8 @@ public class Scene1 extends Scene {
 		long currentTime = TimeUtils.nanoTime();
 		this.lastTimeSky = currentTime;
 		this.lastTimeTrack = currentTime;
+
+		this.obstacle = this.createNewObstacle(currentTime);
 	}
 
 	@Override
@@ -96,7 +103,7 @@ public class Scene1 extends Scene {
 
 		// Current time
 		long currentTime = TimeUtils.nanoTime();
-		
+
 		// Begin drawing
 		batch.begin();
 
@@ -105,11 +112,14 @@ public class Scene1 extends Scene {
 		batch.draw(skyTexture, currentSkyX, this.skyY);
 
 		// Draw the track
-		batch.draw(trackTexture, currentTrackX - this.trackTextureWidth, this.trackY);
+		batch.draw(trackTexture, currentTrackX - this.trackTextureWidth,
+				this.trackY);
 		batch.draw(trackTexture, currentTrackX, this.trackY);
-		
+
 		// Draw the main character
 		this.mainCharacter.drawMainCharacter(batch, currentTime);
+
+		obstacle.drawObstacle(batch, currentTime);
 
 		batch.end();
 		// End drawing
