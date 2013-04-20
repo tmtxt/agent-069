@@ -101,7 +101,12 @@ public class MainCharacter {
 	}
 
 	public void setCurrentStatus(int currentStatus) {
-		this.currentStatus = currentStatus;
+		// Only allow to change status when the current status is normal status
+		// If the current status is not normal status (jumping or lowerhead), continue to draw
+		// the texture until it come back to normal status
+		if(this.currentStatus == MainCharacter.CURRENT_STATUS_NORMAL){
+			this.currentStatus = currentStatus;
+		}
 	}
 
 	public Texture getCurrentTexture() {
