@@ -1,5 +1,9 @@
 package mad.agent069;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
+
 import mad.agent069.DirectionGestureDetector.DirectionListener;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -13,6 +17,9 @@ public class Scene implements ApplicationListener {
 	// The screen size of the game, measured in pixel
 	public static final int SCENE_WIDTH = 800;
 	public static final int SCENE_HEIGHT = 400;
+
+	// The position of the floor
+	public static final float SCENE_FLOOR_POSITION_Y = 20;
 
 	// The camera of the game
 	protected OrthographicCamera camera;
@@ -35,6 +42,48 @@ public class Scene implements ApplicationListener {
 	// The length of the scene
 	protected long length;
 
+	// The list of obstacle class names
+	String[] obstacleClassNames = { "RockObstacle", "TankObstacle" };
+
+	// Create a new obstacle
+	protected Obstacle createNewObstacle() {
+		Random random = new Random();
+		Obstacle obstacle = null;
+		
+		// Get the random obstacle class name
+		String obstacleClassName = "mad.agent069."
+				+ this.obstacleClassNames[random.nextInt(this.obstacleClassNames.length)];
+
+		try {
+			Constructor c = Class.forName(obstacleClassName)
+					.getConstructor(Scene.class);
+			obstacle = (Obstacle) c.newInstance(this);
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return obstacle;
+	}
+
 	public float getSceneSpeed() {
 		return sceneSpeed;
 	}
@@ -45,19 +94,21 @@ public class Scene implements ApplicationListener {
 		// Gesture Detector for the game
 		this.setGestureDetector();
 	}
-	
+
 	/**
 	 * Handler for swipe up gesture
 	 */
-	protected void swipeUpHandler(){
-		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_JUMPING, TimeUtils.nanoTime());
+	protected void swipeUpHandler() {
+		this.mainCharacter.setCurrentStatus(
+				MainCharacter.CURRENT_STATUS_JUMPING, TimeUtils.nanoTime());
 	}
-	
+
 	/**
 	 * Handler for swipe down gesture
 	 */
-	protected void swipeDownHandler(){
-		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_LOWERHEAD, TimeUtils.nanoTime());
+	protected void swipeDownHandler() {
+		this.mainCharacter.setCurrentStatus(
+				MainCharacter.CURRENT_STATUS_LOWERHEAD, TimeUtils.nanoTime());
 	}
 
 	/**
