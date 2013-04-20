@@ -2,6 +2,7 @@ package mad.agent069;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene implements ApplicationListener{
 
@@ -11,6 +12,9 @@ public class Scene implements ApplicationListener{
 	
 	// Time for the background to move backward
 	protected long backgroundMovingTime;
+	
+	// The length of the scene
+	protected long length;
 	
 	public float getSceneSpeed() {
 		return sceneSpeed;
