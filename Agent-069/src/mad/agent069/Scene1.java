@@ -62,13 +62,13 @@ public class Scene1 extends Scene {
 		this.trackTexture = new Texture(Gdx.files.internal("scene1/track.png"));
 		this.currentTrackX = Scene.SCENE_WIDTH;
 		this.trackTextureWidth = this.trackTexture.getWidth();
-		this.trackMovingTime = (long)(Scene.SCENE_MOVING_TIME / this.sceneSpeed);
+		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.sceneSpeed);
 
 		// Init the texture to draw the sky
 		this.skyTexture = new Texture(Gdx.files.internal("scene1/sky.png"));
 		this.currentSkyX = Scene.SCENE_WIDTH;
 		this.skyTextureWidth = this.skyTexture.getWidth();
-		this.skyMovingTime = (long)(Scene.SCENE_MOVING_TIME / this.sceneSpeed);
+		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.sceneSpeed);
 
 		// Last time draw
 		long currentTime = TimeUtils.nanoTime();
@@ -94,6 +94,9 @@ public class Scene1 extends Scene {
 		// Set the camera
 		batch.setProjectionMatrix(this.camera.combined);
 
+		// Current time
+		long currentTime = TimeUtils.nanoTime();
+		
 		// Begin drawing
 		batch.begin();
 
@@ -106,13 +109,10 @@ public class Scene1 extends Scene {
 		batch.draw(trackTexture, currentTrackX, this.trackY);
 		
 		// Draw the main character
-		this.mainCharacter.drawMainCharacter(batch);
+		this.mainCharacter.drawMainCharacter(batch, currentTime);
 
 		batch.end();
 		// End drawing
-
-		// Current time
-		long currentTime = TimeUtils.nanoTime();
 
 		// Move the sky backward
 		if (currentTime - this.lastTimeSky > this.skyMovingTime) {

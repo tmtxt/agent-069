@@ -18,6 +18,17 @@ public class MainCharacter {
 	public static final int CURRENT_STATUS_NORMAL = 1;
 	public static final int CURRENT_STATUS_JUMPING = 2;
 	public static final int CURRENT_STATUS_LOWERHEAD = 3;
+	
+	// The lowerhead time
+	// This is not the actual lower head time, just a number for used with current scene speed
+	// to calcualte the real lower head time in nanosecond
+	public static final long LOWERHEAD_TIME = 1000000000;
+	
+	// The actual lowerhead time
+	private long actualLowerheadTime;
+	
+	// Last time draw lowerhead
+	private long startLowerheadTime;
 
 	// The current texture of the main character
 	private Texture currentTexture;
@@ -50,22 +61,25 @@ public class MainCharacter {
 		// Set the current position of the main character
 		this.currentX = MainCharacter.ORIGINAL_X;
 		this.currentY = MainCharacter.ORIGINAL_Y;
+		
+		// Calculate the actual lowerhead time
+		this.actualLowerheadTime = (long)(MainCharacter.LOWERHEAD_TIME / this.currentScene.getSceneSpeed());
 	}
 
 	/**
 	 * Draw the main character
 	 * 
-	 * @param batch
-	 *            The SpriteBatch of the current Scene
+	 * @param batch The SpriteBatch of the current Scene
+	 * @param currentTime The current time measure in nanosecond
 	 */
-	public void drawMainCharacter(SpriteBatch batch) {
+	public void drawMainCharacter(SpriteBatch batch, long currentTime) {
 		switch (this.currentStatus) {
 		case MainCharacter.CURRENT_STATUS_NORMAL:
 			this.currentStatusNormalHandler();
 			break;
 			
 		case MainCharacter.CURRENT_STATUS_LOWERHEAD:
-			this.currentStatusLowerheadHandler();
+			this.currentStatusLowerheadHandler(currentTime);
 			break;
 			
 		default:
@@ -92,19 +106,37 @@ public class MainCharacter {
 	/**
 	 * Handler for lower head status
 	 */
-	private void currentStatusLowerheadHandler(){
-		this.currentTexture = this.lowerheadTexture;
+	private void currentStatusLowerheadHandler(long currentTime){
+		if(currentTime - this.startLowerheadTime >= this.actualLowerheadTime){
+			// back to normal status
+			this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
+			this.currentTexture = this.normalTexture;
+		} else {
+			// set the texture to lowerhead
+			this.currentTexture = this.lowerheadTexture;
+		}
 	}
 
 	public int getCurrentStatus() {
 		return currentStatus;
 	}
 
-	public void setCurrentStatus(int currentStatus) {
+	/**
+	 * Set the current status of the main character
+	 * 
+	 * @param currentStatus The status to set
+	 * @param currentTime The current time measures in nanosecond (TimeUtils.nanoTime())
+	 */
+	public void setCurrentStatus(int currentStatus, long currentTime) {
 		// Only allow to change status when the current status is normal status
 		// If the current status is not normal status (jumping or lowerhead), continue to draw
 		// the texture until it come back to normal status
 		if(this.currentStatus == MainCharacter.CURRENT_STATUS_NORMAL){
+			if(currentStatus == MainCharacter.CURRENT_STATUS_LOWERHEAD){
+				// Set the last time lowerhead
+				this.startLowerheadTime = currentTime;
+			}
+			// Set the current status
 			this.currentStatus = currentStatus;
 		}
 	}

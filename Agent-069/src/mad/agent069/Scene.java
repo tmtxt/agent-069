@@ -6,6 +6,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene implements ApplicationListener {
 
@@ -49,14 +50,14 @@ public class Scene implements ApplicationListener {
 	 * Handler for swipe up gesture
 	 */
 	protected void swipeUpHandler(){
-		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_JUMPING);
+		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_JUMPING, TimeUtils.nanoTime());
 	}
 	
 	/**
 	 * Handler for swipe down gesture
 	 */
 	protected void swipeDownHandler(){
-		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_LOWERHEAD);
+		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_LOWERHEAD, TimeUtils.nanoTime());
 	}
 
 	/**
