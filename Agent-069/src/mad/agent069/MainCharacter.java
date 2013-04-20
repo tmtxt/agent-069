@@ -21,21 +21,35 @@ public class MainCharacter {
 	
 	// The lowerhead time
 	// This is not the actual lower head time, just a number for used with current scene speed
-	// to calcualte the real lower head time in nanosecond
-	public static final long LOWERHEAD_TIME = 1000000000;
-	
+	// to calculate the real lower head time in nanosecond
+	private final long lowerheadTime = 1000000000;
 	// The actual lowerhead time
 	private long actualLowerheadTime;
-	
-	// Last time draw lowerhead
+	// Start time draw lowerhead
 	private long startLowerheadTime;
+	
+	// The jumping status properties
+	// This is not the actual jumping time, just a number for used with current scene speed
+	// to calculate the real jumping time in nanosecond
+	private final long jumpingTime = 70000000;
+	// The actual jumping time
+	private long actualJumpingTime;
+	// Last time draw jumping time
+	private long lastTimeJumping;
+	// The peak position of the texture when jump in Y axis
+	private final float jumpingPeakPositionY = 90;
+	// The jumping distance for each jump, measured in pixel
+	private final float jumpingDistance = 30;
+	// The current orientation of jump status (go up/down)
+	private boolean jumpingCurrentOrientation;
+	// The constants to determine jumping orientation
+	private final boolean jumpingOrientationUp = true;
+	private final boolean jumpingOrientaionDown = false;
 
 	// The current texture of the main character
 	private Texture currentTexture;
-
 	// The texture to draw for normal status
 	private Texture normalTexture;
-
 	// The texture to draw for lower head status
 	private Texture lowerheadTexture;
 
@@ -63,7 +77,10 @@ public class MainCharacter {
 		this.currentY = MainCharacter.ORIGINAL_Y;
 		
 		// Calculate the actual lowerhead time
-		this.actualLowerheadTime = (long)(MainCharacter.LOWERHEAD_TIME / this.currentScene.getSceneSpeed());
+		this.actualLowerheadTime = (long)(this.lowerheadTime / this.currentScene.getSceneSpeed());
+		
+		// Calculate the actual jumping time
+		this.actualJumpingTime = (long)(this.jumpingTime / this.currentScene.getSceneSpeed());
 	}
 
 	/**
@@ -83,7 +100,8 @@ public class MainCharacter {
 			break;
 			
 		default:
-			this.currentStatusJumpingHandler();
+			
+			this.currentStatusJumpingHandler(currentTime);
 			break;
 		}
 		batch.draw(this.currentTexture, this.currentX, this.currentY);
@@ -99,8 +117,55 @@ public class MainCharacter {
 	/**
 	 * Handler for jumping status
 	 */
-	private void currentStatusJumpingHandler(){
-		this.currentTexture = this.normalTexture;
+	private void currentStatusJumpingHandler(long currentTime){
+//		if(this.currentY < MainCharacter.ORIGINAL_Y){
+//			// back to normal status
+//			this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
+//			this.currentY = MainCharacter.ORIGINAL_Y;
+//			this.currentTexture = this.normalTexture;
+//		} else if(this.currentY < this.jumpingPeakPositionY) {
+//			// go up
+//			this.currentY += this.jumpingDistance;
+//			this.currentTexture = this.normalTexture;
+//		} else {
+//			// go down
+//			this.currentY -= this.jumpingDistance;
+//			this.currentTexture = this.normalTexture;
+//		}
+		
+		if(currentTime - this.lastTimeJumping > this.actualJumpingTime){
+			
+			// For up orientation
+			if(this.jumpingCurrentOrientation == this.jumpingOrientationUp){
+				// Increase the current position in Y axis of the texture
+				this.currentY += this.jumpingDistance;
+				
+				if(this.currentY >= this.jumpingPeakPositionY){
+					// reach the peak, change orientation to down
+					this.jumpingCurrentOrientation = this.jumpingOrientaionDown;
+				}
+				
+			} // For down orientation
+			else {
+				// Decrease the current position in Y axis of the texture
+				this.currentY -= this.jumpingDistance;
+				
+				if(this.currentY <= MainCharacter.ORIGINAL_Y){
+					// reach the bottom, back to normal status
+					this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
+				}
+				
+			}
+			
+			// Set the last time jumping to current time
+			this.lastTimeJumping = currentTime;
+			
+			// Used the normal texture for jumping, can change later
+			this.currentTexture = this.normalTexture;
+		}
+		
+		
+		
 	}
 	
 	/**
@@ -133,8 +198,13 @@ public class MainCharacter {
 		// the texture until it come back to normal status
 		if(this.currentStatus == MainCharacter.CURRENT_STATUS_NORMAL){
 			if(currentStatus == MainCharacter.CURRENT_STATUS_LOWERHEAD){
-				// Set the last time lowerhead
+				// Set the start time lowerhead
 				this.startLowerheadTime = currentTime;
+			} else if(currentStatus == MainCharacter.CURRENT_STATUS_JUMPING){
+				// Set the last time jumping
+				this.lastTimeJumping = currentTime;
+				// Set the jumping orientation
+				this.jumpingCurrentOrientation = this.jumpingOrientationUp;
 			}
 			// Set the current status
 			this.currentStatus = currentStatus;
