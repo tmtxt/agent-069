@@ -8,51 +8,68 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene1 extends Scene {
-	
+
 	// The track texture
 	private Texture trackTexture;
-	
-	// Current track position
+	// The track texture width
+	private int trackTextureWidth;
+	// Current track position in X axis
 	private float currentTrackX;
-	
+	// Constant track position in Y axis
+	private final float trackY = 0;
 	// Last time draw track
 	private long lastTimeTrack;
-	
+	// Track moving time
+	private long trackMovingTime;
+	// Track moving distance (pixel)
+	private float trackMovingDistance = 20;
+
 	// The sky texture
 	private Texture skyTexture;
-	
-	// Current sky position
+	// The sky texture width
+	private int skyTextureWidth;
+	// Current sky position in Y axis
 	private float currentSkyX;
-	
+	// Constant sky position in Y axis
+	private final float skyY = 150;
 	// Last time draw sky
 	private long lastTimeSky;
+	// Sky moving time
+	private long skyMovingTime;
+	// Sky moving distance (pixel)
+	private final float skyMovingDistance = 10;
 
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
 		super.create();
-		
-		// The speed of this scene, used for calculating the moving time of the background, main character and obstacles
+
+		// The speed of this scene, used for calculating the moving time of the
+		// background, main character and obstacles
 		this.sceneSpeed = 1;
-		
+
 		// The main character
 		this.mainCharacter = new MainCharacter(this);
-		
+
 		// Init the camera
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, Scene.SCENE_WIDTH, Scene.SCENE_HEIGHT);
-		
+
 		// Init the sprite batch
 		this.batch = new SpriteBatch();
-		
+
 		// Init the texture to draw the track
 		this.trackTexture = new Texture(Gdx.files.internal("scene1track.png"));
 		this.currentTrackX = Scene.SCENE_WIDTH;
-		
+		this.trackTextureWidth = this.trackTexture.getWidth();
+		this.trackMovingTime = (long)(Scene.SCENE_MOVING_TIME / this.sceneSpeed);
+
 		// Init the texture to draw the sky
 		this.skyTexture = new Texture(Gdx.files.internal("scene1sky.png"));
-		this.currentSkyX = Scene.SCENE_HEIGHT;
-		
+		this.currentSkyX = Scene.SCENE_WIDTH;
+		this.skyTextureWidth = this.skyTexture.getWidth();
+		this.skyMovingTime = (long)(Scene.SCENE_MOVING_TIME / this.sceneSpeed);
+
 		// Last time draw
 		long currentTime = TimeUtils.nanoTime();
 		this.lastTimeSky = currentTime;
@@ -69,49 +86,51 @@ public class Scene1 extends Scene {
 	public void render() {
 		// TODO Auto-generated method stub
 		super.render();
-		
+
 		// Clear color
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-		
+
 		// Set the camera
 		batch.setProjectionMatrix(this.camera.combined);
-		
+
 		// Begin drawing
 		batch.begin();
-		
+
 		// Draw the sky
-		batch.draw(skyTexture, currentSkyX - 2048, 150);
-		batch.draw(skyTexture, currentSkyX, 150);
-		
+		batch.draw(skyTexture, currentSkyX - this.skyTextureWidth, this.skyY);
+		batch.draw(skyTexture, currentSkyX, this.skyY);
+
 		// Draw the track
-		batch.draw(trackTexture, currentTrackX - 2048, 0);
-		batch.draw(trackTexture, currentTrackX, 0);
-		
+		batch.draw(trackTexture, currentTrackX - this.trackTextureWidth, this.trackY);
+		batch.draw(trackTexture, currentTrackX, this.trackY);
+
 		batch.end();
 		// End drawing
-		
+
 		// Current time
 		long currentTime = TimeUtils.nanoTime();
-		
+
 		// Move the sky backward
-		if(currentTime - this.lastTimeSky > 30000000){
-			this.currentSkyX -= 10;
+		if (currentTime - this.lastTimeSky > this.skyMovingTime) {
+			this.currentSkyX -= this.skyMovingDistance;
 			this.lastTimeSky = currentTime;
 		}
-		
+
 		// Move the track backward
-		if(currentTime - this.lastTimeTrack > 30000000){
-			this.currentTrackX -= 20;
+		if (currentTime - this.lastTimeTrack > this.trackMovingTime) {
+			this.currentTrackX -= this.trackMovingDistance;
 			this.lastTimeTrack = currentTime;
 		}
-		
+
 		// Move the sky back to starting position if it reach the end
-		if(this.currentSkyX <= 800 - 2048){
-			currentSkyX = 800;
+		if (this.currentSkyX <= Scene.SCENE_WIDTH - this.skyTextureWidth) {
+			currentSkyX = Scene.SCENE_WIDTH;
 		}
-		if(this.currentTrackX <= 800 - 2048){
-			currentTrackX = 800;
+
+		// Move the track back to starting position if it reach the end
+		if (this.currentTrackX <= Scene.SCENE_WIDTH - this.trackTextureWidth) {
+			currentTrackX = Scene.SCENE_WIDTH;
 		}
 	}
 
@@ -132,5 +151,5 @@ public class Scene1 extends Scene {
 		// TODO Auto-generated method stub
 		super.dispose();
 	}
-	
+
 }

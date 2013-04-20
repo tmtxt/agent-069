@@ -2,9 +2,7 @@ package mad.agent069;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene implements ApplicationListener{
 	
@@ -25,8 +23,9 @@ public class Scene implements ApplicationListener{
 	// This speed is used for calculating background speed, obstacle speed,...
 	protected float sceneSpeed;
 	
-	// Time for the background to move backward
-	protected long backgroundMovingTime;
+	// This is not the real scene moving time, it's just a number for used with sceneSpeed
+	// to calculate the real moving time
+	public static final long SCENE_MOVING_TIME = 30000000;
 	
 	// The length of the scene
 	protected long length;
