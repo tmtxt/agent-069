@@ -21,6 +21,9 @@ public class RockObstacle extends Obstacle {
 		
 		// Init the texture
 		this.rockTexture = new Texture(Gdx.files.internal("obstacles/stone.png"));
+		
+		// Set the obstacle width
+		this.obstacleWidth = rockTexture.getWidth();
 	}
 
 	@Override

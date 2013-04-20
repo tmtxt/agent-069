@@ -18,6 +18,17 @@ public abstract class Obstacle {
 	// The current scene displaying this obstacle
 	protected Scene currentScene;
 	
+	// The obstacle texture width
+	protected int obstacleWidth;
+	
+	public int getObstacleWidth() {
+		return obstacleWidth;
+	}
+
+	public void setObstacleWidth(int obstacleWidth) {
+		this.obstacleWidth = obstacleWidth;
+	}
+
 	// Last time draw obstacle
 	protected long lastTimeObstacle;
 

@@ -119,6 +119,7 @@ public class Scene1 extends Scene {
 		// Draw the main character
 		this.mainCharacter.drawMainCharacter(batch, currentTime);
 
+		// Draw the obstacle
 		obstacle.drawObstacle(batch, currentTime);
 
 		batch.end();
@@ -144,6 +145,11 @@ public class Scene1 extends Scene {
 		// Move the track back to starting position if it reach the end
 		if (this.currentTrackX <= Scene.SCENE_WIDTH - this.trackTextureWidth) {
 			currentTrackX = Scene.SCENE_WIDTH;
+		}
+		
+		// Create new obstacle if the last obstacle disappear
+		if(this.obstacle.getCurrentX() <= 0 - this.obstacle.getObstacleWidth()){
+			this.obstacle = this.createNewObstacle(currentTime);
 		}
 	}
 

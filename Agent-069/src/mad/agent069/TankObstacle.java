@@ -21,6 +21,9 @@ public class TankObstacle extends Obstacle {
 
 		// Init the texture
 		this.tankTexture = new Texture(Gdx.files.internal("obstacles/tank.png"));
+		
+		// Set the obstacle width
+		this.obstacleWidth = tankTexture.getWidth();
 	}
 
 	
