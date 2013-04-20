@@ -104,6 +104,9 @@ public class Scene1 extends Scene {
 		// Draw the track
 		batch.draw(trackTexture, currentTrackX - this.trackTextureWidth, this.trackY);
 		batch.draw(trackTexture, currentTrackX, this.trackY);
+		
+		// Draw the main character
+		this.mainCharacter.drawMainCharacter(batch);
 
 		batch.end();
 		// End drawing

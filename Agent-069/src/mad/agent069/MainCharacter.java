@@ -1,11 +1,13 @@
 package mad.agent069;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MainCharacter {
 	// The initial position of the main character
-	private final float originalX = 20;
-	private final float originalY = 20;
+	public static final float ORIGINAL_X = 20;
+	public static final float ORIGINAL_Y = 20;
 	
 	// The current position of the main character
 	private float currentX;
@@ -33,11 +35,28 @@ public class MainCharacter {
 		// The current scene
 		this.currentScene = currentScene;
 		
-		// Init the texture here
+		// Init the normal texture
+		this.normalTexture = new Texture(Gdx.files.internal("maincharacter/player-normal.png"));
+		
+		// Init the lowerhead texture
+		this.lowerheadTexture = new Texture(Gdx.files.internal("maincharacter/player-low.png"));
 		
 		// Set the current status and the current texture
 		this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
 		this.currentTexture = this.normalTexture;
+		
+		// Set the current position of the main character
+		this.currentX = MainCharacter.ORIGINAL_X;
+		this.currentY = MainCharacter.ORIGINAL_Y;
+	}
+	
+	/**
+	 * Draw the main character
+	 * 
+	 * @param batch The SpriteBatch of the current Scene
+	 */
+	public void drawMainCharacter(SpriteBatch batch){
+		batch.draw(this.currentTexture, this.currentX, this.currentY);
 	}
 	
 	public int getCurrentStatus() {
@@ -83,11 +102,5 @@ public class MainCharacter {
 	}
 	public void setCurrentY(float currentY) {
 		this.currentY = currentY;
-	}
-	public float getOriginalX() {
-		return originalX;
-	}
-	public float getOriginalY() {
-		return originalY;
 	}
 }
