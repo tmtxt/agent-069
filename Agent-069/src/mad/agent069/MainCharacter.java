@@ -26,7 +26,13 @@ public class MainCharacter {
 	// The texture to draw for lower head status
 	private Texture lowerheadTexture;
 	
-	public MainCharacter(){
+	// The current scene this main character belongs to
+	private Scene currentScene;
+	
+	public MainCharacter(Scene currentScene){
+		// The current scene
+		this.currentScene = currentScene;
+		
 		// Init the texture here
 		
 		// Set the current status and the current texture
