@@ -6,59 +6,70 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public abstract class Obstacle {
 	// The speed of the obstacle, just a number for calculating the obstacle
 	// moving time
-	protected float obstacleSpeed;
+	protected float speed;
 
 	// The current position of the obstacle
 	protected float currentX;
 	protected float currentY;
 
 	// The time for the obstacle to move backward
-	protected long obstacleMovingSpeed;
+	protected long movingSpeed;
 
 	// The current scene displaying this obstacle
 	protected Scene currentScene;
 	
-	// The obstacle texture width
-	protected int obstacleWidth;
-	
-	public int getObstacleWidth() {
-		return obstacleWidth;
-	}
-
-	public void setObstacleWidth(int obstacleWidth) {
-		this.obstacleWidth = obstacleWidth;
-	}
-
 	// Last time draw obstacle
-	protected long lastTimeObstacle;
-
-	public long getLastTimeObstacle() {
-		return lastTimeObstacle;
+		protected long lastTimeObstacle;
+	
+	// The obstacle texture width
+	protected int width;
+	
+	/**
+	 * Get the width of the this obstacle texture
+	 * 
+	 * @return int Obstacle width
+	 */
+	public int getWidth() {
+		return width;
 	}
 
-	public void setLastTimeObstacle(long lastTimeObstacle) {
-		this.lastTimeObstacle = lastTimeObstacle;
-	}
-
-	// Draw this obstacle
+	/**
+	 * Draw this obstacle
+	 * 
+	 * @param batch The SpriteBatch to draw this obstacle
+	 * @param currentTime Current time in nanosecond
+	 */
 	public void drawObstacle(SpriteBatch batch, long currentTime) {
 		this.drawSpecificObstacle(batch, currentTime);
 
 		// move it backward
-		if(currentTime - lastTimeObstacle >= obstacleMovingSpeed){
+		if(currentTime - lastTimeObstacle >= movingSpeed){
 			this.moveObstacleBackward();
 			this.lastTimeObstacle = currentTime;
 		}
 		
 	}
 
-	// Draw specific obstacle image
+	/**
+	 * Draw the specific obstacle texture
+	 * 
+	 * @param batch The SpriteBatch to draw this obstacle
+	 * @param currentTime Current time in nanosecond
+	 */
 	protected abstract void drawSpecificObstacle(SpriteBatch batch,
 			long currentTime);
 
-	// What to do when this obstacle collapse with the main character
+	/**
+	 * Call when this obstacle hit the main character
+	 */
 	public abstract void collapse();
 
+	/**
+	 * 
+	 * 
+	 * @param currentScene The scene this obstacle belongs to
+	 * @param lastTimeObstacle The current time in nanosecond
+	 */
 	public Obstacle(Scene currentScene, long lastTimeObstacle) {
 		this.currentScene = currentScene;
 		
@@ -73,53 +84,23 @@ public abstract class Obstacle {
 	 * Calculate the moving speed of the obstacle
 	 */
 	protected void calculateMovingSpeed() {
-		this.obstacleMovingSpeed = (long) (Scene.SCENE_MOVING_TIME / this.obstacleSpeed );
+		this.movingSpeed = (long) (Scene.SCENE_MOVING_TIME / this.speed );
 	}
 
 	/**
 	 * Move the obstacle backward
 	 */
 	protected void moveObstacleBackward() {
-		this.currentX -= this.currentScene.getBackgroundMovingDistance();
+		this.currentX -= Scene.BACKGROUND_MOVING_DISTANCE;
 	}
 
-	public float getObstacleSpeed() {
-		return obstacleSpeed;
-	}
-
-	public void setObstacleSpeed(float obstacleSpeed) {
-		this.obstacleSpeed = obstacleSpeed;
-	}
-
+	/**
+	 * Get the current position in X axis of this obstacle
+	 * 
+	 * @return float Current obstacle X position
+	 */
 	public float getCurrentX() {
 		return currentX;
 	}
-
-	public void setCurrentX(float currentX) {
-		this.currentX = currentX;
-	}
-
-	public float getCurrentY() {
-		return currentY;
-	}
-
-	public void setCurrentY(float currentY) {
-		this.currentY = currentY;
-	}
-
-	public long getObstacleMovingSpeed() {
-		return obstacleMovingSpeed;
-	}
-
-	public void setObstacleMovingSpeed(long obstacleMovingSpeed) {
-		this.obstacleMovingSpeed = obstacleMovingSpeed;
-	}
-
-	public Scene getCurrentScene() {
-		return currentScene;
-	}
-
-	public void setCurrentScene(Scene currentScene) {
-		this.currentScene = currentScene;
-	}
+	
 }

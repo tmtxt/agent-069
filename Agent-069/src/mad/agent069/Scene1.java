@@ -17,31 +17,32 @@ public class Scene1 extends Scene {
 	// The track texture width
 	private int trackTextureWidth;
 	// Current track position in X axis
-	private float currentTrackX;
+	private float trackCurrentX;
 	// Constant track position in Y axis
 	private final float trackY = 0;
 	// Last time draw track
-	private long lastTimeTrack;
+	private long trackLastTimeDraw;
 	// Track moving time
 	private long trackMovingTime;
 	// Track moving distance (pixel)
-	private float trackMovingDistance = this.backgroundMovingDistance;
+	private float trackMovingDistance = Scene.BACKGROUND_MOVING_DISTANCE;
 
 	// The sky texture
 	private Texture skyTexture;
 	// The sky texture width
 	private int skyTextureWidth;
 	// Current sky position in Y axis
-	private float currentSkyX;
+	private float skyCurrentX;
 	// Constant sky position in Y axis
 	private final float skyY = 150;
 	// Last time draw sky
-	private long lastTimeSky;
+	private long skyLastTimeDraw;
 	// Sky moving time
 	private long skyMovingTime;
 	// Sky moving distance (pixel)
 	private final float skyMovingDistance = 10;
 
+	// The obstacle
 	private Obstacle obstacle;
 
 	@Override
@@ -51,7 +52,7 @@ public class Scene1 extends Scene {
 
 		// The speed of this scene, used for calculating the moving time of the
 		// background, main character and obstacles
-		this.sceneSpeed = 1;
+		this.speed = 1;
 
 		// The main character
 		this.mainCharacter = new MainCharacter(this);
@@ -65,20 +66,20 @@ public class Scene1 extends Scene {
 
 		// Init the texture to draw the track
 		this.trackTexture = new Texture(Gdx.files.internal("scene1/track.png"));
-		this.currentTrackX = Scene.SCENE_WIDTH;
+		this.trackCurrentX = Scene.SCENE_WIDTH;
 		this.trackTextureWidth = this.trackTexture.getWidth();
-		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.sceneSpeed);
+		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
 
 		// Init the texture to draw the sky
 		this.skyTexture = new Texture(Gdx.files.internal("scene1/sky.png"));
-		this.currentSkyX = Scene.SCENE_WIDTH;
+		this.skyCurrentX = Scene.SCENE_WIDTH;
 		this.skyTextureWidth = this.skyTexture.getWidth();
-		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.sceneSpeed);
+		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
 
 		// Last time draw
 		long currentTime = TimeUtils.nanoTime();
-		this.lastTimeSky = currentTime;
-		this.lastTimeTrack = currentTime;
+		this.skyLastTimeDraw = currentTime;
+		this.trackLastTimeDraw = currentTime;
 
 		this.obstacle = this.createNewObstacle(currentTime);
 	}
@@ -108,13 +109,13 @@ public class Scene1 extends Scene {
 		batch.begin();
 
 		// Draw the sky
-		batch.draw(skyTexture, currentSkyX - this.skyTextureWidth, this.skyY);
-		batch.draw(skyTexture, currentSkyX, this.skyY);
+		batch.draw(skyTexture, skyCurrentX - this.skyTextureWidth, this.skyY);
+		batch.draw(skyTexture, skyCurrentX, this.skyY);
 
 		// Draw the track
-		batch.draw(trackTexture, currentTrackX - this.trackTextureWidth,
+		batch.draw(trackTexture, trackCurrentX - this.trackTextureWidth,
 				this.trackY);
-		batch.draw(trackTexture, currentTrackX, this.trackY);
+		batch.draw(trackTexture, trackCurrentX, this.trackY);
 
 		// Draw the main character
 		this.mainCharacter.drawMainCharacter(batch, currentTime);
@@ -126,29 +127,29 @@ public class Scene1 extends Scene {
 		// End drawing
 
 		// Move the sky backward
-		if (currentTime - this.lastTimeSky > this.skyMovingTime) {
-			this.currentSkyX -= this.skyMovingDistance;
-			this.lastTimeSky = currentTime;
+		if (currentTime - this.skyLastTimeDraw > this.skyMovingTime) {
+			this.skyCurrentX -= this.skyMovingDistance;
+			this.skyLastTimeDraw = currentTime;
 		}
 
 		// Move the track backward
-		if (currentTime - this.lastTimeTrack > this.trackMovingTime) {
-			this.currentTrackX -= this.trackMovingDistance;
-			this.lastTimeTrack = currentTime;
+		if (currentTime - this.trackLastTimeDraw > this.trackMovingTime) {
+			this.trackCurrentX -= this.trackMovingDistance;
+			this.trackLastTimeDraw = currentTime;
 		}
 
 		// Move the sky back to starting position if it reach the end
-		if (this.currentSkyX <= Scene.SCENE_WIDTH - this.skyTextureWidth) {
-			currentSkyX = Scene.SCENE_WIDTH;
+		if (this.skyCurrentX <= Scene.SCENE_WIDTH - this.skyTextureWidth) {
+			skyCurrentX = Scene.SCENE_WIDTH;
 		}
 
 		// Move the track back to starting position if it reach the end
-		if (this.currentTrackX <= Scene.SCENE_WIDTH - this.trackTextureWidth) {
-			currentTrackX = Scene.SCENE_WIDTH;
+		if (this.trackCurrentX <= Scene.SCENE_WIDTH - this.trackTextureWidth) {
+			trackCurrentX = Scene.SCENE_WIDTH;
 		}
 		
 		// Create new obstacle if the last obstacle disappear
-		if(this.obstacle.getCurrentX() <= 0 - this.obstacle.getObstacleWidth()){
+		if(this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()){
 			this.obstacle = this.createNewObstacle(currentTime);
 		}
 	}

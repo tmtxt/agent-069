@@ -24,18 +24,18 @@ public class MainCharacter {
 	// to calculate the real lower head time in nanosecond
 	private final long lowerheadTime = 1000000000;
 	// The actual lowerhead time
-	private long actualLowerheadTime;
+	private long lowerheadActualTime;
 	// Start time draw lowerhead
-	private long startLowerheadTime;
+	private long lowerheadStartTime;
 	
 	// The jumping status properties
 	// This is not the actual jumping time, just a number for used with current scene speed
 	// to calculate the real jumping time in nanosecond
 	private final long jumpingTime = 50000000;
 	// The actual jumping time
-	private long actualJumpingTime;
+	private long jumpingActualTime;
 	// Last time draw jumping time
-	private long lastTimeJumping;
+	private long jumpingLastTime;
 	// The peak position of the texture when jump in Y axis
 	private final float jumpingPeakPositionY = 120;
 	// The jumping distance for each jump, measured in pixel
@@ -56,6 +56,11 @@ public class MainCharacter {
 	// The current scene this main character belongs to
 	private Scene currentScene;
 
+	/**
+	 * 
+	 * 
+	 * @param currentScene The scene this main character belongs to
+	 */
 	public MainCharacter(Scene currentScene) {
 		// The current scene
 		this.currentScene = currentScene;
@@ -77,10 +82,10 @@ public class MainCharacter {
 		this.currentY = MainCharacter.ORIGINAL_Y;
 		
 		// Calculate the actual lowerhead time
-		this.actualLowerheadTime = (long)(this.lowerheadTime / this.currentScene.getSceneSpeed());
+		this.lowerheadActualTime = (long)(this.lowerheadTime / this.currentScene.getSpeed());
 		
 		// Calculate the actual jumping time
-		this.actualJumpingTime = (long)(this.jumpingTime / this.currentScene.getSceneSpeed());
+		this.jumpingActualTime = (long)(this.jumpingTime / this.currentScene.getSpeed());
 	}
 
 	/**
@@ -119,7 +124,7 @@ public class MainCharacter {
 	 */
 	private void currentStatusJumpingHandler(long currentTime){
 		
-		if(currentTime - this.lastTimeJumping > this.actualJumpingTime){
+		if(currentTime - this.jumpingLastTime > this.jumpingActualTime){
 			
 			// For up orientation
 			if(this.jumpingCurrentOrientation == this.jumpingOrientationUp){
@@ -144,7 +149,7 @@ public class MainCharacter {
 			}
 			
 			// Set the last time jumping to current time
-			this.lastTimeJumping = currentTime;
+			this.jumpingLastTime = currentTime;
 			
 			// Used the normal texture for jumping, can change later
 			this.currentTexture = this.normalTexture;
@@ -158,7 +163,7 @@ public class MainCharacter {
 	 * Handler for lower head status
 	 */
 	private void currentStatusLowerheadHandler(long currentTime){
-		if(currentTime - this.startLowerheadTime >= this.actualLowerheadTime){
+		if(currentTime - this.lowerheadStartTime >= this.lowerheadActualTime){
 			// back to normal status
 			this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
 			this.currentTexture = this.normalTexture;
@@ -168,6 +173,11 @@ public class MainCharacter {
 		}
 	}
 
+	/**
+	 * Get the current status of main character
+	 * 
+	 * @return int The current status of main character
+	 */
 	public int getCurrentStatus() {
 		return currentStatus;
 	}
@@ -185,10 +195,10 @@ public class MainCharacter {
 		if(this.currentStatus == MainCharacter.CURRENT_STATUS_NORMAL){
 			if(currentStatus == MainCharacter.CURRENT_STATUS_LOWERHEAD){
 				// Set the start time lowerhead
-				this.startLowerheadTime = currentTime;
+				this.lowerheadStartTime = currentTime;
 			} else if(currentStatus == MainCharacter.CURRENT_STATUS_JUMPING){
 				// Set the last time jumping
-				this.lastTimeJumping = currentTime;
+				this.jumpingLastTime = currentTime;
 				// Set the jumping orientation
 				this.jumpingCurrentOrientation = this.jumpingOrientationUp;
 			}
@@ -196,44 +206,5 @@ public class MainCharacter {
 			this.currentStatus = currentStatus;
 		}
 	}
-
-	public Texture getCurrentTexture() {
-		return currentTexture;
-	}
-
-	public void setCurrentTexture(Texture currentTexture) {
-		this.currentTexture = currentTexture;
-	}
-
-	public Texture getNormalTexture() {
-		return normalTexture;
-	}
-
-	public void setNormalTexture(Texture normalTexture) {
-		this.normalTexture = normalTexture;
-	}
-
-	public Texture getLowerheadTexture() {
-		return lowerheadTexture;
-	}
-
-	public void setLowerheadTexture(Texture lowerheadTexture) {
-		this.lowerheadTexture = lowerheadTexture;
-	}
-
-	public float getCurrentX() {
-		return currentX;
-	}
-
-	public void setCurrentX(float currentX) {
-		this.currentX = currentX;
-	}
-
-	public float getCurrentY() {
-		return currentY;
-	}
-
-	public void setCurrentY(float currentY) {
-		this.currentY = currentY;
-	}
+	
 }

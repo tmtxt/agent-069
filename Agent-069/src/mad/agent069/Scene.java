@@ -32,7 +32,7 @@ public class Scene implements ApplicationListener {
 
 	// Determine the speed of the current scene
 	// This speed is used for calculating background speed, obstacle speed,...
-	protected float sceneSpeed;
+	protected float speed;
 
 	// This is not the real scene moving time, it's just a number for used with
 	// sceneSpeed
@@ -43,101 +43,24 @@ public class Scene implements ApplicationListener {
 	protected long length;
 	
 	// The distance each time the background move
-	protected final float backgroundMovingDistance = 20;
-	
-	public OrthographicCamera getCamera() {
-		return camera;
-	}
-
-	public void setCamera(OrthographicCamera camera) {
-		this.camera = camera;
-	}
-
-	public SpriteBatch getBatch() {
-		return batch;
-	}
-
-	public void setBatch(SpriteBatch batch) {
-		this.batch = batch;
-	}
-
-	public MainCharacter getMainCharacter() {
-		return mainCharacter;
-	}
-
-	public void setMainCharacter(MainCharacter mainCharacter) {
-		this.mainCharacter = mainCharacter;
-	}
-
-	public long getLength() {
-		return length;
-	}
-
-	public void setLength(long length) {
-		this.length = length;
-	}
-
-	public long getActualNextObstacleMinTime() {
-		return actualNextObstacleMinTime;
-	}
-
-	public void setActualNextObstacleMinTime(long actualNextObstacleMinTime) {
-		this.actualNextObstacleMinTime = actualNextObstacleMinTime;
-	}
-
-	public long getActualNextObstacleMaxTime() {
-		return actualNextObstacleMaxTime;
-	}
-
-	public void setActualNextObstacleMaxTime(long actualNextObstacleMaxTime) {
-		this.actualNextObstacleMaxTime = actualNextObstacleMaxTime;
-	}
-
-	public String[] getObstacleClassNames() {
-		return obstacleClassNames;
-	}
-
-	public void setObstacleClassNames(String[] obstacleClassNames) {
-		this.obstacleClassNames = obstacleClassNames;
-	}
-
-	public float getBackgroundMovingDistance() {
-		return backgroundMovingDistance;
-	}
-
-	public long getNextObstacleMinTime() {
-		return nextObstacleMinTime;
-	}
-
-	public long getNextObstacleMaxTime() {
-		return nextObstacleMaxTime;
-	}
-
-	public void setSceneSpeed(float sceneSpeed) {
-		this.sceneSpeed = sceneSpeed;
-	}
-
-	// The time for the next obstacle to appear
-	// This is not the actual time, just a number to used with scene speed
-	// to calculate the time for next obstacle
-	protected final long nextObstacleMinTime = 1000000000;
-	protected final long nextObstacleMaxTime = 2000000000;
-	
-	// The actual time for next obstacle to appear
-	protected long actualNextObstacleMinTime;
-	protected long actualNextObstacleMaxTime;
+	public static final float BACKGROUND_MOVING_DISTANCE = 20;
 
 	// The list of obstacle class names
-	String[] obstacleClassNames = { "RockObstacle", "TankObstacle" };
+	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "TankObstacle" };
 
-	// Create a new obstacle
+	/**
+	 * Generate a random obstacle
+	 * 
+	 * @param currentTime The current time in nanosecond
+	 * @return Obstacle The newly created obstacle object
+	 */
 	protected Obstacle createNewObstacle(long currentTime) {
 		Random random = new Random();
 		Obstacle obstacle = null;
 		
 		// Get the random obstacle class name
 		String obstacleClassName = "mad.agent069."
-				+ this.obstacleClassNames[random.nextInt(this.obstacleClassNames.length)];
+				+ Scene.OBSTACLE_CLASS_NAMES[random.nextInt(Scene.OBSTACLE_CLASS_NAMES.length)];
 
 		try {
 			Constructor c = Class.forName(obstacleClassName)
@@ -169,13 +92,8 @@ public class Scene implements ApplicationListener {
 		return obstacle;
 	}
 
-	public float getSceneSpeed() {
-		return sceneSpeed;
-	}
 	
-	protected void initObstacleSpeed(){
-		
-	}
+	
 
 	@Override
 	public void create() {
@@ -262,6 +180,16 @@ public class Scene implements ApplicationListener {
 	public void dispose() {
 		// TODO Auto-generated method stub
 
+	}
+	
+	// GENERATED METHODS
+
+	public long getLength() {
+		return length;
+	}
+	
+	public float getSpeed() {
+		return speed;
 	}
 
 }

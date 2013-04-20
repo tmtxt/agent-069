@@ -14,7 +14,7 @@ public class RockObstacle extends Obstacle {
 		// TODO Auto-generated constructor stub
 		
 		// The speed of this obstacle
-		this.obstacleSpeed = 1;
+		this.speed = 1;
 		
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
@@ -23,7 +23,7 @@ public class RockObstacle extends Obstacle {
 		this.rockTexture = new Texture(Gdx.files.internal("obstacles/stone.png"));
 		
 		// Set the obstacle width
-		this.obstacleWidth = rockTexture.getWidth();
+		this.width = rockTexture.getWidth();
 	}
 
 	@Override
