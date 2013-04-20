@@ -31,15 +31,15 @@ public class MainCharacter {
 	// The jumping status properties
 	// This is not the actual jumping time, just a number for used with current scene speed
 	// to calculate the real jumping time in nanosecond
-	private final long jumpingTime = 70000000;
+	private final long jumpingTime = 50000000;
 	// The actual jumping time
 	private long actualJumpingTime;
 	// Last time draw jumping time
 	private long lastTimeJumping;
 	// The peak position of the texture when jump in Y axis
-	private final float jumpingPeakPositionY = 90;
+	private final float jumpingPeakPositionY = 120;
 	// The jumping distance for each jump, measured in pixel
-	private final float jumpingDistance = 30;
+	private final float jumpingDistance = 20;
 	// The current orientation of jump status (go up/down)
 	private boolean jumpingCurrentOrientation;
 	// The constants to determine jumping orientation
@@ -118,20 +118,6 @@ public class MainCharacter {
 	 * Handler for jumping status
 	 */
 	private void currentStatusJumpingHandler(long currentTime){
-//		if(this.currentY < MainCharacter.ORIGINAL_Y){
-//			// back to normal status
-//			this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
-//			this.currentY = MainCharacter.ORIGINAL_Y;
-//			this.currentTexture = this.normalTexture;
-//		} else if(this.currentY < this.jumpingPeakPositionY) {
-//			// go up
-//			this.currentY += this.jumpingDistance;
-//			this.currentTexture = this.normalTexture;
-//		} else {
-//			// go down
-//			this.currentY -= this.jumpingDistance;
-//			this.currentTexture = this.normalTexture;
-//		}
 		
 		if(currentTime - this.lastTimeJumping > this.actualJumpingTime){
 			
