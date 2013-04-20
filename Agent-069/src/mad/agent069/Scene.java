@@ -1,10 +1,22 @@
 package mad.agent069;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene implements ApplicationListener{
+	
+	// The screen size of the game, measured in pixel
+	public static final int SCENE_WIDTH = 800;
+	public static final int SCENE_HEIGHT = 400;
+	
+	// The camera of the game
+	protected OrthographicCamera camera;
+	
+	// Sprite batch
+	protected SpriteBatch batch;
 
 	// Determine the speed of the current scene
 	// This speed is used for calculating background speed, obstacle speed,...
