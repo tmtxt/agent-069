@@ -44,6 +44,20 @@ public class Scene implements ApplicationListener {
 		// Gesture Detector for the game
 		this.setGestureDetector();
 	}
+	
+	/**
+	 * Handler for swipe up gesture
+	 */
+	protected void swipeUpHandler(){
+		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_JUMPING);
+	}
+	
+	/**
+	 * Handler for swipe down gesture
+	 */
+	protected void swipeDownHandler(){
+		this.mainCharacter.setCurrentStatus(MainCharacter.CURRENT_STATUS_LOWERHEAD);
+	}
 
 	/**
 	 * Set the gesture detector for the game
@@ -56,7 +70,7 @@ public class Scene implements ApplicationListener {
 					@Override
 					public void onUp() {
 						// TODO Auto-generated method stub
-						
+						swipeUpHandler();
 					}
 
 					@Override
@@ -74,7 +88,7 @@ public class Scene implements ApplicationListener {
 					@Override
 					public void onDown() {
 						// TODO Auto-generated method stub
-
+						swipeDownHandler();
 					}
 				}));
 	}
