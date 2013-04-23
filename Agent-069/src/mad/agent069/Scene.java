@@ -38,6 +38,13 @@ public class Scene implements ApplicationListener {
 	// sceneSpeed
 	// to calculate the real moving time
 	public static final long SCENE_MOVING_TIME = 30000000;
+	
+	// The actual scene moving time
+	protected long actualMovingTime;
+
+	public long getActualMovingTime() {
+		return actualMovingTime;
+	}
 
 	// The length of the scene
 	protected long length;

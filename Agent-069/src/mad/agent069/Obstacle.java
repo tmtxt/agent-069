@@ -87,7 +87,7 @@ public abstract class Obstacle {
 	 * Calculate the moving speed of the obstacle
 	 */
 	protected void calculateMovingSpeed() {
-		this.movingSpeed = (long) (Scene.SCENE_MOVING_TIME / this.speed );
+		this.movingSpeed = (long) (this.currentScene.getActualMovingTime() / this.speed );
 	}
 
 	/**

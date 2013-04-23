@@ -53,6 +53,9 @@ public class Scene2 extends Scene {
 		this.trackCurrentX = Scene.SCENE_WIDTH;
 		this.trackTextureWidth = this.trackTexture.getWidth();
 		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
+		
+		// Init the actual scene moving time
+		this.actualMovingTime = this.trackMovingTime;
 
 		// Init the texture to draw the sky
 		this.skyTexture = new Texture(Gdx.files.internal("scene2/sky.png"));
@@ -64,7 +67,7 @@ public class Scene2 extends Scene {
 		long currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
-		
+
 		// Init some other properties
 		this.initAfterCreate(currentTime);
 	}
