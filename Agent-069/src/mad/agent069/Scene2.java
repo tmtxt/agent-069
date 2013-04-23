@@ -61,13 +61,13 @@ public class Scene2 extends Scene {
 		this.batch = new SpriteBatch();
 
 		// Init the texture to draw the track
-		this.trackTexture = new Texture(Gdx.files.internal("scene1/track.png"));
+		this.trackTexture = new Texture(Gdx.files.internal("scene2/track.png"));
 		this.trackCurrentX = Scene.SCENE_WIDTH;
 		this.trackTextureWidth = this.trackTexture.getWidth();
 		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
 
 		// Init the texture to draw the sky
-		this.skyTexture = new Texture(Gdx.files.internal("scene1/sky.png"));
+		this.skyTexture = new Texture(Gdx.files.internal("scene2/sky.png"));
 		this.skyCurrentX = Scene.SCENE_WIDTH;
 		this.skyTextureWidth = this.skyTexture.getWidth();
 		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
