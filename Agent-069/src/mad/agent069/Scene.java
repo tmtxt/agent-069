@@ -41,33 +41,36 @@ public class Scene implements ApplicationListener {
 
 	// The length of the scene
 	protected long length;
-	
+
 	// The distance each time the background move
 	public static final float BACKGROUND_MOVING_DISTANCE = 20;
 
 	// The list of obstacle class names
-	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "TankObstacle" };
-	
+	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle",
+			"TankObstacle" };
+
 	// The obstacle
 	protected Obstacle obstacle;
 
 	/**
 	 * Generate a random obstacle
 	 * 
-	 * @param currentTime The current time in nanosecond
+	 * @param currentTime
+	 *            The current time in nanosecond
 	 * @return Obstacle The newly created obstacle object
 	 */
 	protected Obstacle createNewObstacle(long currentTime) {
 		Random random = new Random();
 		Obstacle obstacle = null;
-		
+
 		// Get the random obstacle class name
 		String obstacleClassName = "mad.agent069."
-				+ Scene.OBSTACLE_CLASS_NAMES[random.nextInt(Scene.OBSTACLE_CLASS_NAMES.length)];
+				+ Scene.OBSTACLE_CLASS_NAMES[random
+						.nextInt(Scene.OBSTACLE_CLASS_NAMES.length)];
 
 		try {
-			Constructor c = Class.forName(obstacleClassName)
-					.getConstructor(Scene.class, long.class);
+			Constructor c = Class.forName(obstacleClassName).getConstructor(
+					Scene.class, long.class);
 			obstacle = (Obstacle) c.newInstance(this, currentTime);
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -98,19 +101,41 @@ public class Scene implements ApplicationListener {
 	/**
 	 * Check if the main character and the obstacle overlap
 	 */
-	protected void obstacleOverlap(){
-		if(this.mainCharacter.getCurrentPositionCrop().overlaps(this.obstacle.getCurrentPosition())){
+	protected void obstacleOverlap() {
+		if (this.mainCharacter.getCurrentPositionCrop().overlaps(
+				this.obstacle.getCurrentPosition())) {
 			// Code goes here
 			Gdx.input.vibrate(100);
 		}
 	}
-	
 
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
 		// Gesture Detector for the game
 		this.setGestureDetector();
+
+		// Init the camera
+		this.camera = new OrthographicCamera();
+		this.camera.setToOrtho(false, Scene.SCENE_WIDTH, Scene.SCENE_HEIGHT);
+
+		// Init the sprite batch
+		this.batch = new SpriteBatch();
+	}
+
+	/**
+	 * Init some properties after the create() function is called but before the
+	 * render(). This means this function will be called at the end of the
+	 * create() method in the derived class
+	 * 
+	 * @param long The current time in nanosecond
+	 */
+	protected void initAfterCreate(long currentTime) {
+		// The main character
+		this.mainCharacter = new MainCharacter(this);
+
+		// Init the obstacle
+		this.obstacle = this.createNewObstacle(currentTime);
 	}
 
 	/**
@@ -192,13 +217,13 @@ public class Scene implements ApplicationListener {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	// GENERATED METHODS
 
 	public long getLength() {
 		return length;
 	}
-	
+
 	public float getSpeed() {
 		return speed;
 	}

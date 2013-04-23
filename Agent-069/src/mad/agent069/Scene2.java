@@ -39,8 +39,6 @@ public class Scene2 extends Scene {
 	// Sky moving distance (pixel)
 	private final float skyMovingDistance = 10;
 
-	
-
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
@@ -49,16 +47,6 @@ public class Scene2 extends Scene {
 		// The speed of this scene, used for calculating the moving time of the
 		// background, main character and obstacles
 		this.speed = 1;
-
-		// The main character
-		this.mainCharacter = new MainCharacter(this);
-
-		// Init the camera
-		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, Scene.SCENE_WIDTH, Scene.SCENE_HEIGHT);
-
-		// Init the sprite batch
-		this.batch = new SpriteBatch();
 
 		// Init the texture to draw the track
 		this.trackTexture = new Texture(Gdx.files.internal("scene2/track.png"));
@@ -76,8 +64,9 @@ public class Scene2 extends Scene {
 		long currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
-
-		this.obstacle = this.createNewObstacle(currentTime);
+		
+		// Init some other properties
+		this.initAfterCreate(currentTime);
 	}
 
 	@Override
@@ -143,12 +132,12 @@ public class Scene2 extends Scene {
 		if (this.trackCurrentX <= Scene.SCENE_WIDTH - this.trackTextureWidth) {
 			trackCurrentX = Scene.SCENE_WIDTH;
 		}
-		
+
 		// Create new obstacle if the last obstacle disappear
-		if(this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()){
+		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
 			this.obstacle = this.createNewObstacle(currentTime);
 		}
-		
+
 		// Check if the main character overlap the obstacle
 		this.obstacleOverlap();
 	}
