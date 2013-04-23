@@ -14,6 +14,17 @@ public class MainCharacter {
 	private float currentX;
 	private float currentY;
 	private Rectangle currentPosition;
+	
+	// The actual position of the main character
+	private Rectangle currentPositionCrop;
+	
+	// The gap from the texture edge to the real image
+	public static final float TEXTURE_GAP_X = 33;
+	public static final float TEXTURE_GAP_Y = 42;
+
+	public Rectangle getCurrentPositionCrop() {
+		return currentPositionCrop;
+	}
 
 	public Rectangle getCurrentPosition() {
 		return currentPosition;
@@ -88,6 +99,10 @@ public class MainCharacter {
 		this.currentY = MainCharacter.ORIGINAL_Y;
 		this.currentPosition = new Rectangle(MainCharacter.ORIGINAL_X, MainCharacter.ORIGINAL_Y,
 				this.currentTexture.getWidth(), this.currentTexture.getHeight());
+		this.currentPositionCrop = new Rectangle(this.currentPosition.getX() + MainCharacter.TEXTURE_GAP_X,
+				this.currentPosition.getY(),
+				this.currentPosition.getWidth() - MainCharacter.TEXTURE_GAP_X,
+				this.currentPosition.getHeight() - MainCharacter.TEXTURE_GAP_Y);
 		
 		// Calculate the actual lowerhead time
 		this.lowerheadActualTime = (long)(this.lowerheadTime / this.currentScene.getSpeed());
@@ -139,6 +154,7 @@ public class MainCharacter {
 				// Increase the current position in Y axis of the texture
 				// this.currentY += this.jumpingDistance;
 				this.currentPosition.setY(this.currentPosition.getY() + this.jumpingDistance);
+				this.currentPositionCrop.setY(this.currentPosition.getY() + this.jumpingDistance);
 				
 				if(this.currentPosition.getY() >= this.jumpingPeakPositionY){
 					// reach the peak, change orientation to down
@@ -150,6 +166,7 @@ public class MainCharacter {
 				// Decrease the current position in Y axis of the texture
 				// this.currentY -= this.jumpingDistance;
 				this.currentPosition.setY(this.currentPosition.getY() - this.jumpingDistance);
+				this.currentPositionCrop.setY(this.currentPosition.getY() - this.jumpingDistance);
 				
 				if(this.currentPosition.getY() <= MainCharacter.ORIGINAL_Y){
 					// reach the bottom, back to normal status

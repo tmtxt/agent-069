@@ -95,8 +95,12 @@ public class Scene implements ApplicationListener {
 		return obstacle;
 	}
 
+	/**
+	 * Check if the main character and the obstacle overlap
+	 */
 	protected void obstacleOverlap(){
-		if(this.mainCharacter.getCurrentPosition().overlaps(this.obstacle.getCurrentPosition())){
+		if(this.mainCharacter.getCurrentPositionCrop().overlaps(this.obstacle.getCurrentPosition())){
+			// Code goes here
 			Gdx.input.vibrate(100);
 		}
 	}
