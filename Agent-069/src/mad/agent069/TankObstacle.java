@@ -3,6 +3,7 @@ package mad.agent069;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class TankObstacle extends Obstacle {
 
@@ -21,17 +22,21 @@ public class TankObstacle extends Obstacle {
 
 		// Init the texture
 		this.tankTexture = new Texture(Gdx.files.internal("obstacles/tank.png"));
-		
+
+		// Set the current position
+		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
+				Scene.SCENE_FLOOR_POSITION_Y, this.tankTexture.getWidth(),
+				this.tankTexture.getHeight());
+
 		// Set the obstacle width
 		this.width = tankTexture.getWidth();
 	}
 
-	
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
 		// draw the obstacle
-		batch.draw(this.tankTexture, this.currentX, this.currentY);
+		batch.draw(this.tankTexture, this.currentPosition.getX(), this.currentPosition.getY());
 
 	}
 

@@ -1,6 +1,7 @@
 package mad.agent069;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 // The Obstacles used in the game
 public abstract class Obstacle {
@@ -11,6 +12,7 @@ public abstract class Obstacle {
 	// The current position of the obstacle
 	protected float currentX;
 	protected float currentY;
+	protected Rectangle currentPosition;
 
 	// The time for the obstacle to move backward
 	protected long movingSpeed;
@@ -78,6 +80,7 @@ public abstract class Obstacle {
 		// Init the current position of the obstacle
 		this.currentX = Scene.SCENE_WIDTH;
 		this.currentY = Scene.SCENE_FLOOR_POSITION_Y;
+		
 	}
 
 	/**
@@ -91,7 +94,8 @@ public abstract class Obstacle {
 	 * Move the obstacle backward
 	 */
 	protected void moveObstacleBackward() {
-		this.currentX -= Scene.BACKGROUND_MOVING_DISTANCE;
+		// this.currentX -= Scene.BACKGROUND_MOVING_DISTANCE;
+		this.currentPosition.setX(this.currentPosition.getX() - Scene.BACKGROUND_MOVING_DISTANCE);
 	}
 
 	/**
@@ -100,7 +104,11 @@ public abstract class Obstacle {
 	 * @return float Current obstacle X position
 	 */
 	public float getCurrentX() {
-		return currentX;
+		return this.currentPosition.getX();
+	}
+
+	public Rectangle getCurrentPosition() {
+		return currentPosition;
 	}
 	
 }

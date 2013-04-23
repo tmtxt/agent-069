@@ -1,8 +1,5 @@
 package mad.agent069;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,8 +39,7 @@ public class Scene1 extends Scene {
 	// Sky moving distance (pixel)
 	private final float skyMovingDistance = 10;
 
-	// The obstacle
-	private Obstacle obstacle;
+	
 
 	@Override
 	public void create() {
@@ -152,6 +148,9 @@ public class Scene1 extends Scene {
 		if(this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()){
 			this.obstacle = this.createNewObstacle(currentTime);
 		}
+		
+		// Check if the main character overlap the obstacle
+		this.obstacleOverlap();
 	}
 
 	@Override

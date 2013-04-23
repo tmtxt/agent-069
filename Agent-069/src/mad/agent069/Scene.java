@@ -47,6 +47,9 @@ public class Scene implements ApplicationListener {
 
 	// The list of obstacle class names
 	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "TankObstacle" };
+	
+	// The obstacle
+	protected Obstacle obstacle;
 
 	/**
 	 * Generate a random obstacle
@@ -92,7 +95,11 @@ public class Scene implements ApplicationListener {
 		return obstacle;
 	}
 
-	
+	protected void obstacleOverlap(){
+		if(this.mainCharacter.getCurrentPosition().overlaps(this.obstacle.getCurrentPosition())){
+			Gdx.input.vibrate(100);
+		}
+	}
 	
 
 	@Override

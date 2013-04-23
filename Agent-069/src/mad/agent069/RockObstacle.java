@@ -3,6 +3,7 @@ package mad.agent069;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class RockObstacle extends Obstacle {
 	
@@ -22,6 +23,10 @@ public class RockObstacle extends Obstacle {
 		// Init the texture
 		this.rockTexture = new Texture(Gdx.files.internal("obstacles/stone.png"));
 		
+		// Set the current position
+		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH, Scene.SCENE_FLOOR_POSITION_Y,
+				this.rockTexture.getWidth(), this.rockTexture.getHeight());
+		
 		// Set the obstacle width
 		this.width = rockTexture.getWidth();
 	}
@@ -38,7 +43,7 @@ public class RockObstacle extends Obstacle {
 		
 		
 		// draw the obstacle
-		batch.draw(this.rockTexture, this.currentX, this.currentY);
+		batch.draw(this.rockTexture, this.currentPosition.getX(), this.currentPosition.getY());
 		
 		
 		

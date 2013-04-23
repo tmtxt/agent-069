@@ -3,6 +3,7 @@ package mad.agent069;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 public class MainCharacter {
 	// The initial position of the main character
@@ -12,6 +13,11 @@ public class MainCharacter {
 	// The current position of the main character
 	private float currentX;
 	private float currentY;
+	private Rectangle currentPosition;
+
+	public Rectangle getCurrentPosition() {
+		return currentPosition;
+	}
 
 	// The current status: Normal, Jumping, Lowering head
 	private int currentStatus;
@@ -80,6 +86,8 @@ public class MainCharacter {
 		// Set the current position of the main character
 		this.currentX = MainCharacter.ORIGINAL_X;
 		this.currentY = MainCharacter.ORIGINAL_Y;
+		this.currentPosition = new Rectangle(MainCharacter.ORIGINAL_X, MainCharacter.ORIGINAL_Y,
+				this.currentTexture.getWidth(), this.currentTexture.getHeight());
 		
 		// Calculate the actual lowerhead time
 		this.lowerheadActualTime = (long)(this.lowerheadTime / this.currentScene.getSpeed());
@@ -109,7 +117,7 @@ public class MainCharacter {
 			this.currentStatusJumpingHandler(currentTime);
 			break;
 		}
-		batch.draw(this.currentTexture, this.currentX, this.currentY);
+		batch.draw(this.currentTexture, this.currentPosition.getX(), this.currentPosition.getY());
 	}
 	
 	/**
@@ -129,9 +137,10 @@ public class MainCharacter {
 			// For up orientation
 			if(this.jumpingCurrentOrientation == this.jumpingOrientationUp){
 				// Increase the current position in Y axis of the texture
-				this.currentY += this.jumpingDistance;
+				// this.currentY += this.jumpingDistance;
+				this.currentPosition.setY(this.currentPosition.getY() + this.jumpingDistance);
 				
-				if(this.currentY >= this.jumpingPeakPositionY){
+				if(this.currentPosition.getY() >= this.jumpingPeakPositionY){
 					// reach the peak, change orientation to down
 					this.jumpingCurrentOrientation = this.jumpingOrientaionDown;
 				}
@@ -139,9 +148,10 @@ public class MainCharacter {
 			} // For down orientation
 			else {
 				// Decrease the current position in Y axis of the texture
-				this.currentY -= this.jumpingDistance;
+				// this.currentY -= this.jumpingDistance;
+				this.currentPosition.setY(this.currentPosition.getY() - this.jumpingDistance);
 				
-				if(this.currentY <= MainCharacter.ORIGINAL_Y){
+				if(this.currentPosition.getY() <= MainCharacter.ORIGINAL_Y){
 					// reach the bottom, back to normal status
 					this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;
 				}
