@@ -67,6 +67,9 @@ public class Scene2 extends Scene {
 		long currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
+		
+		// Init the scene floor position
+		Scene.SCENE_FLOOR_POSITION_Y = 20;
 
 		// Init some other properties
 		this.initAfterCreate(currentTime);
@@ -82,13 +85,6 @@ public class Scene2 extends Scene {
 	public void render() {
 		// TODO Auto-generated method stub
 		super.render();
-
-		// Clear color
-		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-
-		// Set the camera
-		batch.setProjectionMatrix(this.camera.combined);
 
 		// Current time
 		long currentTime = TimeUtils.nanoTime();

@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class MainCharacter {
 	// The initial position of the main character
 	public static final float ORIGINAL_X = 20;
-	public static final float ORIGINAL_Y = Scene.SCENE_FLOOR_POSITION_Y;
+	public static float ORIGINAL_Y = Scene.SCENE_FLOOR_POSITION_Y;
 
 	// The current position of the main character
 	private float currentX;
@@ -54,7 +54,7 @@ public class MainCharacter {
 	// Last time draw jumping time
 	private long jumpingLastTime;
 	// The peak position of the texture when jump in Y axis
-	private final float jumpingPeakPositionY = 120;
+	private final float jumpingPeakPositionY = Scene.SCENE_FLOOR_POSITION_Y + 100;
 	// The jumping distance for each jump, measured in pixel
 	private final float jumpingDistance = 20;
 	// The current orientation of jump status (go up/down)

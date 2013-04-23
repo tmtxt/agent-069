@@ -8,6 +8,7 @@ import mad.agent069.DirectionGestureDetector.DirectionListener;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -19,7 +20,7 @@ public class Scene implements ApplicationListener {
 	public static final int SCENE_HEIGHT = 400;
 
 	// The position of the floor
-	public static final float SCENE_FLOOR_POSITION_Y = 20;
+	public static float SCENE_FLOOR_POSITION_Y = 20;
 
 	// The camera of the game
 	protected OrthographicCamera camera;
@@ -38,7 +39,7 @@ public class Scene implements ApplicationListener {
 	// sceneSpeed
 	// to calculate the real moving time
 	public static final long SCENE_MOVING_TIME = 30000000;
-	
+
 	// The actual scene moving time
 	protected long actualMovingTime;
 
@@ -204,7 +205,12 @@ public class Scene implements ApplicationListener {
 	@Override
 	public void render() {
 		// TODO Auto-generated method stub
+		// Clear color
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		// Set the camera
+		batch.setProjectionMatrix(this.camera.combined);
 	}
 
 	@Override
