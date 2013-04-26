@@ -53,7 +53,7 @@ public class Scene2 extends Scene {
 		this.trackCurrentX = Scene.SCENE_WIDTH;
 		this.trackTextureWidth = this.trackTexture.getWidth();
 		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
-		
+
 		// Init the actual scene moving time
 		this.actualMovingTime = this.trackMovingTime;
 
@@ -67,7 +67,7 @@ public class Scene2 extends Scene {
 		long currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
-		
+
 		// Init the scene floor position
 		Scene.SCENE_FLOOR_POSITION_Y = 20;
 
@@ -107,6 +107,9 @@ public class Scene2 extends Scene {
 		// Draw the obstacle
 		obstacle.drawObstacle(batch, currentTime);
 
+		// Check if the main character overlap the obstacle
+		this.obstacleOverlap(batch);
+
 		batch.end();
 		// End drawing
 
@@ -137,8 +140,6 @@ public class Scene2 extends Scene {
 			this.obstacle = this.createNewObstacle(currentTime);
 		}
 
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap();
 	}
 
 	@Override

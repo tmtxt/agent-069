@@ -54,7 +54,7 @@ public class MainCharacter {
 	// Last time draw jumping time
 	private long jumpingLastTime;
 	// The peak position of the texture when jump in Y axis
-	private final float jumpingPeakPositionY = Scene.SCENE_FLOOR_POSITION_Y + 100;
+	private final float jumpingPeakPositionY = Scene.SCENE_FLOOR_POSITION_Y + 130;
 	// The jumping distance for each jump, measured in pixel
 	private final float jumpingDistance = 20;
 	// The current orientation of jump status (go up/down)

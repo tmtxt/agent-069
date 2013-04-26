@@ -8,8 +8,10 @@ import mad.agent069.DirectionGestureDetector.DirectionListener;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
@@ -58,6 +60,12 @@ public class Scene implements ApplicationListener {
 
 	// The obstacle
 	protected Obstacle obstacle;
+	
+	// The texture to draw when main character overlap obstacle
+	protected Texture explosionTexture;
+	
+	// The explosion sound
+	protected Sound explosionSound;
 
 	/**
 	 * Generate a random obstacle
@@ -108,11 +116,17 @@ public class Scene implements ApplicationListener {
 	/**
 	 * Check if the main character and the obstacle overlap
 	 */
-	protected void obstacleOverlap() {
+	protected void obstacleOverlap(SpriteBatch batch) {
 		if (this.mainCharacter.getCurrentPositionCrop().overlaps(
 				this.obstacle.getCurrentPosition())) {
 			// Code goes here
-			Gdx.input.vibrate(100);
+			// Gdx.input.vibrate(100);
+			// Draw the explosion image
+			batch.draw(this.explosionTexture, this.mainCharacter.getCurrentPosition().getX(), this.mainCharacter.getCurrentPosition().getY());
+			// Play the explosion sound
+			this.explosionSound.play();
+			
+			Gdx.graphics.setContinuousRendering(false);
 		}
 	}
 
@@ -128,6 +142,12 @@ public class Scene implements ApplicationListener {
 
 		// Init the sprite batch
 		this.batch = new SpriteBatch();
+		
+		// Init the explosion texture
+		this.explosionTexture = new Texture(Gdx.files.internal("explosion.png"));
+		
+		// Init the explosion sound
+		this.explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
 	}
 
 	/**

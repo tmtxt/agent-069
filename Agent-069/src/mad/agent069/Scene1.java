@@ -77,6 +77,9 @@ public class Scene1 extends Scene {
 		// Draw the obstacle
 		this.obstacle.drawObstacle(batch, currentTime);
 
+		// Check if the main character overlap the obstacle
+		this.obstacleOverlap(batch);
+
 		batch.end();
 		// End drawing
 
@@ -97,8 +100,6 @@ public class Scene1 extends Scene {
 			this.obstacle = this.createNewObstacle(currentTime);
 		}
 
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap();
 	}
 
 	@Override
