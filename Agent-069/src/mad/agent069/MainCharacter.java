@@ -182,8 +182,6 @@ public class MainCharacter {
 			this.currentTexture = this.normalTexture;
 		}
 		
-		
-		
 	}
 	
 	/**
@@ -198,6 +196,10 @@ public class MainCharacter {
 			// set the texture to lowerhead
 			this.currentTexture = this.lowerheadTexture;
 		}
+		
+		// set the current position
+		this.currentPosition.setHeight(this.currentTexture.getHeight());
+		this.currentPositionCrop.setHeight(this.currentTexture.getHeight());
 	}
 
 	/**

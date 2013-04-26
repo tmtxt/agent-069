@@ -3,7 +3,7 @@ package mad.agent069;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
-
+import mad.agent069.*;
 import mad.agent069.DirectionGestureDetector.DirectionListener;
 
 import com.badlogic.gdx.ApplicationListener;
@@ -54,8 +54,7 @@ public class Scene implements ApplicationListener {
 	public static final float BACKGROUND_MOVING_DISTANCE = 20;
 
 	// The list of obstacle class names
-	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle",
-			"TankObstacle" };
+	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "TankObstacle", "HeliObstacle" };
 
 	// The obstacle
 	protected Obstacle obstacle;
