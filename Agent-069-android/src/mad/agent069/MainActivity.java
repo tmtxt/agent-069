@@ -1,6 +1,6 @@
 package mad.agent069;
 
-import mad.agent069.mainscene.MainScene;
+import mad.agent069.mainscene.AgentMain;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -14,6 +14,6 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new MainScene(), cfg);
+        initialize(new AgentMain(), cfg);
     }
 }

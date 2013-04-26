@@ -1,6 +1,6 @@
 package mad.agent069;
 
-import mad.agent069.mainscene.MainScene;
+import mad.agent069.mainscene.AgentMain;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
@@ -10,9 +10,9 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Agent-069";
 		cfg.useGL20 = false;
-		cfg.width = Scene.SCENE_WIDTH;
+		cfg.width = 700;
 		cfg.height = Scene.SCENE_HEIGHT;
 		
-		new LwjglApplication(new MainScene(), cfg);
+		new LwjglApplication(new AgentMain(), cfg);
 	}
 }
