@@ -24,7 +24,7 @@ public class HeliObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 		
 		// Init the texture
-		this.heliTexture = new Texture(Gdx.files.internal("obstacles/heli.png"));
+		this.heliTexture = new Texture(Gdx.files.internal("heli.png"));
 		
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH, Scene.SCENE_FLOOR_POSITION_Y + this.distanceFromFloor,

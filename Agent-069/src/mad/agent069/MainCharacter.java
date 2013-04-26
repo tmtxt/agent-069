@@ -84,11 +84,11 @@ public class MainCharacter {
 
 		// Init the normal texture
 		this.normalTexture = new Texture(
-				Gdx.files.internal("maincharacter/player-normal.png"));
+				Gdx.files.internal("player-normal.png"));
 
 		// Init the lowerhead texture
 		this.lowerheadTexture = new Texture(
-				Gdx.files.internal("maincharacter/player-low.png"));
+				Gdx.files.internal("player-low.png"));
 
 		// Set the current status and the current texture
 		this.currentStatus = MainCharacter.CURRENT_STATUS_NORMAL;

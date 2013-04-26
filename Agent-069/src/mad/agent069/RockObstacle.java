@@ -21,7 +21,7 @@ public class RockObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 		
 		// Init the texture
-		this.rockTexture = new Texture(Gdx.files.internal("obstacles/stone.png"));
+		this.rockTexture = new Texture(Gdx.files.internal("stone.png"));
 		
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH, Scene.SCENE_FLOOR_POSITION_Y,
