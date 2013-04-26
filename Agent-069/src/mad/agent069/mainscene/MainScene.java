@@ -18,10 +18,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainScene implements Screen{
 	
@@ -41,10 +43,10 @@ public class MainScene implements Screen{
 	private TextButton scoreButton;
 	
 	TweenManager manager;
-	AgentMain mainscene;
+	AgentMain agentMain;
 	
 	public MainScene(AgentMain mainscene){
-		this.mainscene = mainscene;
+		this.agentMain = mainscene;
 	}
 	
 	@Override
@@ -55,8 +57,6 @@ public class MainScene implements Screen{
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		manager.update(delta);
 		
-		
-		Gdx.app.log("Test render", sprite.getColor() + "");
 		batch.setProjectionMatrix(camera.combined);
 		stage.act(delta);
 		
@@ -76,12 +76,15 @@ public class MainScene implements Screen{
 		/*
 		 * END DRAWING BATCHS
 		 */
+		
+		//If main scene background full appears. All buttons are displayed.
 		if(sprite.getColor().toString().equals("fffffffe")){
 			playButton.setColor(1, 1, 1, 1);
 			settingButton.setColor(1, 1, 1, 1);
 			loadButton.setColor(1, 1, 1, 1);
 			scoreButton.setColor(1, 1, 1, 1);
 		}
+		
 	}
 
 	@Override
@@ -99,21 +102,25 @@ public class MainScene implements Screen{
 		playButton.setX(Gdx.graphics.getWidth()/10);
 		playButton.setY(Gdx.graphics.getHeight()*6/16);
 		
+		//Editing Setting button
 		settingButton.setWidth(250);
 		settingButton.setHeight(55);
 		settingButton.setX(Gdx.graphics.getWidth()/10);
 		settingButton.setY(Gdx.graphics.getHeight()*5/16 - 20);
 		
+		//Editing Load button
 		loadButton.setWidth(250);
 		loadButton.setHeight(55);
 		loadButton.setX(Gdx.graphics.getWidth()/10);
 		loadButton.setY(Gdx.graphics.getHeight()*4/16 - 40);
 		
+		//Editing Score button
 		scoreButton.setWidth(250);
 		scoreButton.setHeight(55);
 		scoreButton.setX(Gdx.graphics.getWidth()/10);
 		scoreButton.setY(Gdx.graphics.getHeight()*3/16 - 60);
 		
+		//Add to Stage
 		stage.addActor(playButton);
 		stage.addActor(settingButton);
 		stage.addActor(loadButton);
@@ -157,8 +164,18 @@ public class MainScene implements Screen{
 		style.font = font;
 		playButton = new TextButton("Play", style);
 		playButton.setColor(1, 1, 1, 0);
+		
+		
 		settingButton = new TextButton("Setting", style);
 		settingButton.setColor(1, 1, 1, 0);
+		settingButton.addListener((new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				agentMain.setScreen(new SettingScene(agentMain));
+				background_music.stop();
+			}
+		}));
+		
 		loadButton = new TextButton("Load", style);
 		loadButton.setColor(1, 1, 1, 0);
 		scoreButton = new TextButton("Score", style);
@@ -172,6 +189,7 @@ public class MainScene implements Screen{
 		Tween.registerAccessor(Sprite.class, new MainSceneAccessor());
 		Tween.to(sprite, MainSceneAccessor.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInQuad).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
 
+		//Will add Tween to fade mainscene away
 //		Tween.to(sprite, MainSceneAccessor.ALPHA, 3f).target(1).ease(TweenEquations.easeInQuad).repeatYoyo(1, 2.5f).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
 		
 		//Get music from music/ and loop forever until it's told to stop
@@ -186,6 +204,7 @@ public class MainScene implements Screen{
 	private void tweenCompleted(){
 		//Will add message here
 		Gdx.app.log("Finished", "Finished scene");
+		
 	};
 	
 	@Override

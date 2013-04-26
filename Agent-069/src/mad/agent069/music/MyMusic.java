@@ -16,6 +16,14 @@ public class MyMusic {
 		Music temp = Gdx.audio.newMusic(Gdx.files.internal("music/mainscene_music.mp3"));
 		return temp;
 	}
+	
+	/*
+	 * MUSIC FOR SETTING SCENE
+	 */
+	public static Music musicSettingScene(){
+		Music temp = Gdx.audio.newMusic(Gdx.files.internal("music/setting_background_music.mp3"));
+		return temp;
+	}
 
 	/*
 	 * GETTERS - SETTERS

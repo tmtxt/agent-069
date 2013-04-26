@@ -16,6 +16,7 @@ public class AgentMain extends Game {
 	@Override
 	public void create() {		
 		setScreen(new MainScene(this));
+//		setScreen(new SettingScene(this));
 	}
 
 	@Override
