@@ -5,12 +5,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class TankObstacle extends Obstacle {
+public class ThornsObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
 	private Texture tankTexture;
 
-	public TankObstacle(Scene currentScene, long lastTimeObstacle) {
+	public ThornsObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
