@@ -101,14 +101,7 @@ public class Scene2 extends Scene {
 				this.trackY);
 		batch.draw(trackTexture, trackCurrentX, this.trackY);
 
-		// Draw the main character
-		this.mainCharacter.drawMainCharacter(batch, currentTime);
-
-		// Draw the obstacle
-		obstacle.drawObstacle(batch, currentTime);
-
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap(batch);
+		this.drawGeneral(batch, currentTime);
 
 		batch.end();
 		// End drawing

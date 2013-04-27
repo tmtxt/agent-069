@@ -71,14 +71,7 @@ public class Scene1 extends Scene {
 		batch.draw(this.backgroundTexture, this.backgroundCurrentX
 				- this.backgroundTextureWidth, this.backgroundY);
 
-		// Draw the main character
-		this.mainCharacter.drawMainCharacter(batch, currentTime);
-
-		// Draw the obstacle
-		this.obstacle.drawObstacle(batch, currentTime);
-
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap(batch);
+		this.drawGeneral(batch, currentTime);
 
 		batch.end();
 		// End drawing

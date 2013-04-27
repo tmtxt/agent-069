@@ -2,6 +2,8 @@ package mad.agent069;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import mad.agent069.*;
 import mad.agent069.DirectionGestureDetector.DirectionListener;
@@ -56,16 +58,20 @@ public class Scene implements ApplicationListener {
 	public static final float BACKGROUND_MOVING_DISTANCE = 20;
 
 	// The list of obstacle class names
-	public static String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "ThornsObstacle", "HeliObstacle", "FireObstacle", "TankObstacle" };
+	public static String[] OBSTACLE_CLASS_NAMES = { "RockObstacle",
+			"ThornsObstacle", "HeliObstacle", "FireObstacle", "TankObstacle" };
 
 	// The obstacle
 	protected Obstacle obstacle;
-	
+
 	// The texture to draw when main character overlap obstacle
 	protected Texture explosionTexture;
-	
+
 	// The explosion sound
 	protected Sound explosionSound;
+
+	// The list of bullets
+	List<Bullet> bulletList;
 
 	/**
 	 * Generate a random obstacle
@@ -122,10 +128,12 @@ public class Scene implements ApplicationListener {
 			// Code goes here
 			// Gdx.input.vibrate(100);
 			// Draw the explosion image
-			batch.draw(this.explosionTexture, this.mainCharacter.getCurrentPosition().getX(), this.mainCharacter.getCurrentPosition().getY());
+			batch.draw(this.explosionTexture, this.mainCharacter
+					.getCurrentPosition().getX(), this.mainCharacter
+					.getCurrentPosition().getY());
 			// Play the explosion sound
 			this.explosionSound.play();
-			
+
 			Gdx.graphics.setContinuousRendering(false);
 		}
 	}
@@ -142,12 +150,16 @@ public class Scene implements ApplicationListener {
 
 		// Init the sprite batch
 		this.batch = new SpriteBatch();
-		
+
 		// Init the explosion texture
 		this.explosionTexture = new Texture(Gdx.files.internal("explosion.png"));
-		
+
 		// Init the explosion sound
-		this.explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
+		this.explosionSound = Gdx.audio.newSound(Gdx.files
+				.internal("explosion.mp3"));
+
+		// Init the list of bullet
+		this.bulletList = new ArrayList<Bullet>();
 	}
 
 	/**
@@ -182,6 +194,36 @@ public class Scene implements ApplicationListener {
 	}
 
 	/**
+	 * Handler for swipe right (shoot)
+	 */
+	protected void swipeRightHandler() {
+		// Create a new bullet
+		this.bulletList.add(new Bullet(this, this.mainCharacter));
+	}
+
+	/**
+	 * A general draw function that all scene should call after drawing the background
+	 * 
+	 * @param batch The scene SpriteBatch
+	 * @param currentTime The current time in nanosecond
+	 */
+	protected void drawGeneral(SpriteBatch batch, long currentTime) {
+		// Draw the main character
+		this.mainCharacter.drawMainCharacter(batch, currentTime);
+
+		// Draw the obstacle
+		this.obstacle.drawObstacle(batch, currentTime);
+		
+		// Draw the bullet
+		for (Bullet bullet : this.bulletList){
+			bullet.drawBullet(batch, this.bulletList);
+		}
+
+		// Check if the main character overlap the obstacle
+		this.obstacleOverlap(batch);
+	}
+
+	/**
 	 * Set the gesture detector for the game
 	 */
 	protected void setGestureDetector() {
@@ -198,7 +240,7 @@ public class Scene implements ApplicationListener {
 					@Override
 					public void onRight() {
 						// TODO Auto-generated method stub
-
+						swipeRightHandler();
 					}
 
 					@Override
