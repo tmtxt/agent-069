@@ -181,6 +181,10 @@ public class Scene implements ApplicationListener {
 	 * Handler for swipe up gesture
 	 */
 	protected void swipeUpHandler() {
+		// Play the jumping sound
+		this.mainCharacter.playJumpSound();
+		
+		// Change the status
 		this.mainCharacter.setCurrentStatus(
 				MainCharacter.CURRENT_STATUS_JUMPING, TimeUtils.nanoTime());
 	}
@@ -189,6 +193,10 @@ public class Scene implements ApplicationListener {
 	 * Handler for swipe down gesture
 	 */
 	protected void swipeDownHandler() {
+		// Play the lowerhead sound
+		this.mainCharacter.playLowerheadSound();
+		
+		// Change the status
 		this.mainCharacter.setCurrentStatus(
 				MainCharacter.CURRENT_STATUS_LOWERHEAD, TimeUtils.nanoTime());
 	}
@@ -197,8 +205,14 @@ public class Scene implements ApplicationListener {
 	 * Handler for swipe right (shoot)
 	 */
 	protected void swipeRightHandler() {
+		Bullet bullet = new Bullet(this, this.mainCharacter);
+		
+		// Play the sound
+		bullet.playShootingSound();
+		
 		// Create a new bullet
-		this.bulletList.add(new Bullet(this, this.mainCharacter));
+		this.bulletList.add(bullet);
+		
 	}
 
 	/**

@@ -1,6 +1,7 @@
 package mad.agent069;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -44,6 +45,8 @@ public class MainCharacter {
 	private long lowerheadActualTime;
 	// Start time draw lowerhead
 	private long lowerheadStartTime;
+	// The lowerhead sound
+	private Sound lowerheadSound;
 	
 	// The jumping status properties
 	// This is not the actual jumping time, just a number for used with current scene speed
@@ -62,6 +65,8 @@ public class MainCharacter {
 	// The constants to determine jumping orientation
 	private final boolean jumpingOrientationUp = true;
 	private final boolean jumpingOrientaionDown = false;
+	// The jumping sound
+	private Sound jumpingSound;
 
 	// The current texture of the main character
 	private Texture currentTexture;
@@ -72,7 +77,7 @@ public class MainCharacter {
 
 	// The current scene this main character belongs to
 	private Scene currentScene;
-
+	
 	/**
 	 * 
 	 * 
@@ -109,6 +114,18 @@ public class MainCharacter {
 		
 		// Calculate the actual jumping time
 		this.jumpingActualTime = (long)(this.jumpingTime / this.currentScene.getSpeed());
+		
+		// Init the sound
+		this.jumpingSound = Gdx.audio.newSound(Gdx.files.internal("jump.mp3"));
+		this.lowerheadSound = Gdx.audio.newSound(Gdx.files.internal("lowerhead.mp3"));
+	}
+	
+	public void playJumpSound(){
+		this.jumpingSound.play();
+	}
+	
+	public void playLowerheadSound(){
+		this.lowerheadSound.play();
 	}
 
 	/**
