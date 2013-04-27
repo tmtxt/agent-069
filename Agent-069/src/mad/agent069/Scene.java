@@ -56,7 +56,7 @@ public class Scene implements ApplicationListener {
 	public static final float BACKGROUND_MOVING_DISTANCE = 20;
 
 	// The list of obstacle class names
-	public static final String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "TankObstacle", "HeliObstacle" };
+	public static String[] OBSTACLE_CLASS_NAMES = { "RockObstacle", "TankObstacle", "HeliObstacle", "FireObstacle" };
 
 	// The obstacle
 	protected Obstacle obstacle;
