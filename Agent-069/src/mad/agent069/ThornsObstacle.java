@@ -21,7 +21,7 @@ public class ThornsObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.tankTexture = new Texture(Gdx.files.internal("tank.png"));
+		this.tankTexture = new Texture(Gdx.files.internal("thorns.png"));
 
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
