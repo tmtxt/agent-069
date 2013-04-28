@@ -62,6 +62,9 @@ public class Scene3 extends Scene {
 		// The current time
 		long currentTime = TimeUtils.nanoTime();
 
+		// Prepare for main character drawing
+		this.mainCharacter.prepareForDrawing(currentTime);
+
 		// Begin drawing
 		batch.begin();
 

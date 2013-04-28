@@ -234,19 +234,26 @@ public class Scene implements ApplicationListener {
 		// Draw the obstacle
 		this.obstacle.drawObstacle(batch, currentTime);
 
+		// Draw the bullet
+		for (Bullet bullet : this.bulletList) {
+			bullet.drawBullet(batch, this.bulletList);
+		}
+
+		// Check if the main character overlap the obstacle
+		this.obstacleOverlap(batch);
+	}
+
+	/**
+	 * Remove the bullet from the list if it goes out of the screen. Should be
+	 * called in the render function before drawing
+	 */
+	protected void removeBullet() {
 		if (this.bulletList.size() > 0) {
-			// Draw the bullet
-			for (Bullet bullet : this.bulletList) {
-				bullet.drawBullet(batch, this.bulletList);
-			}
 			// If the first bullet in the list goes out of the screen, remove it
 			if (this.bulletList.get(0).getCurrentPosition().getX() >= Scene.SCENE_WIDTH) {
 				this.bulletList.remove(0);
 			}
 		}
-
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap(batch);
 	}
 
 	/**
@@ -258,7 +265,7 @@ public class Scene implements ApplicationListener {
 	protected void obstacleHandler(long currentTime) {
 		// Move the obstacle backward
 		this.obstacle.moveObstacleBackward(currentTime);
-		
+
 		// If the obstacle allows to be shot
 		if (this.obstacle.isAllowShot()) {
 			if (this.bulletList.size() > 0) {
@@ -275,17 +282,17 @@ public class Scene implements ApplicationListener {
 						// Not allow this obstacle to be overlap
 						this.obstacle.setAllowOverlap(false);
 						this.obstacle.changeToCollapseTexture();
-						
+
 						// Set the obstacle moving time to the scene moving time
 						this.obstacle.setMovingTimeToSceneMovingTime();
-						
+
 						// Play the explosion sound
 						this.obstacle.playExplosionSound();
 					}
 				}
 			}
 		}
-		
+
 		// Create new obstacle if the last obstacle disappear
 		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
 			this.obstacle = this.createNewObstacle(currentTime);
@@ -342,6 +349,9 @@ public class Scene implements ApplicationListener {
 
 		// Set the camera
 		batch.setProjectionMatrix(this.camera.combined);
+
+		// Remove the bullet if it goes out of the screen
+		this.removeBullet();
 	}
 
 	@Override
