@@ -41,6 +41,10 @@ public class Scene2 extends Scene {
 		// TODO Auto-generated method stub
 		super.create();
 
+		// Only allow these types of obstacle
+		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
+				"ThornsObstacle", "HeliObstacle", "FireObstacle"};
+
 		// The speed of this scene, used for calculating the moving time of the
 		// background, main character and obstacles
 		this.speed = 1;

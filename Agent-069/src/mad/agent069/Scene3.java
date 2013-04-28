@@ -25,6 +25,11 @@ public class Scene3 extends Scene {
 		// TODO Auto-generated method stub
 		super.create();
 
+		// Only allow these types of obstacle
+		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
+				"ThornsObstacle", "HeliObstacle", "FireObstacle",
+				"TankObstacle" };
+
 		// Init scene speed
 		this.speed = 1;
 

@@ -25,6 +25,10 @@ public class Scene1 extends Scene {
 		// TODO Auto-generated method stub
 		super.create();
 
+		// Only allow these types of obstacle
+		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
+				"ThornsObstacle", "FireObstacle" };
+
 		// Init the scene speed
 		this.speed = (float) 1;
 
@@ -61,7 +65,7 @@ public class Scene1 extends Scene {
 
 		// The current time
 		long currentTime = TimeUtils.nanoTime();
-		
+
 		// Prepare for main character drawing
 		this.mainCharacter.prepareForDrawing(currentTime);
 
