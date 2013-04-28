@@ -13,6 +13,6 @@ public class Main {
 		cfg.width = 800;
 		cfg.height = Scene.SCENE_HEIGHT;
 		
-		new LwjglApplication(new Scene1(), cfg);
+		new LwjglApplication(new Scene3(), cfg);
 	}
 }

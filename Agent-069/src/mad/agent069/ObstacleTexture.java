@@ -11,4 +11,6 @@ public class ObstacleTexture {
 	public static final Texture TANK_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("tank.png"));
 	public static final Texture TANK_COLLAPSE_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("tankcollapse.png"));
 	public static final Texture THORNS_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("thorns.png"));
+	public static final Texture ROCKET_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("rocket.png"));
+	public static final Texture BOMB_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("bomb.png"));
 }

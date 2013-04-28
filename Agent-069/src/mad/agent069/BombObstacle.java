@@ -1,38 +1,34 @@
 package mad.agent069;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class HeliObstacle extends Obstacle {
+public class BombObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
-	private Texture heliTexture;
+	private Texture bombTexture;
 
-	// The position of the texture from the scene floor
-	private final int distanceFromFloor = 65;
-
-	public HeliObstacle(Scene currentScene, long lastTimeObstacle) {
+	public BombObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
 		// The speed of this obstacle
-		this.speed = (float) 1.8;
+		this.speed = 1;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.heliTexture = ObstacleTexture.HELI_OBSTACLE_TEXTURE;
+		this.bombTexture = ObstacleTexture.BOMB_OBSTACLE_TEXTURE;
 
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
-				Scene.SCENE_FLOOR_POSITION_Y + this.distanceFromFloor,
-				this.heliTexture.getWidth(), this.heliTexture.getHeight());
+				Scene.SCENE_FLOOR_POSITION_Y, this.bombTexture.getWidth(),
+				this.bombTexture.getHeight());
 
 		// Set the obstacle width
-		this.width = heliTexture.getWidth();
+		this.width = this.bombTexture.getWidth();
 
 		// Not allow to be shot
 		this.allowShot = false;
@@ -43,16 +39,15 @@ public class HeliObstacle extends Obstacle {
 		// TODO Auto-generated method stub
 
 		// draw the obstacle
-		batch.draw(this.heliTexture, this.currentPosition.getX(),
+		batch.draw(this.bombTexture, this.currentPosition.getX(),
 				this.currentPosition.getY());
 
 	}
 
-
 	@Override
 	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
