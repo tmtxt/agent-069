@@ -33,6 +33,12 @@ public class Scene2 extends Scene {
 	private long skyLastTimeDraw;
 	// Sky moving time
 	private long skyMovingTime;
+	
+	@Override
+	protected void swipeRightHandler() {
+		// TODO Auto-generated method stub
+	}
+
 	// Sky moving distance (pixel)
 	private final float skyMovingDistance = 10;
 

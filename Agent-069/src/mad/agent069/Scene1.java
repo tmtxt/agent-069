@@ -53,6 +53,16 @@ public class Scene1 extends Scene {
 	}
 
 	@Override
+	protected void swipeRightHandler() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected void swipeDownHandler() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
 	public void resize(int width, int height) {
 		// TODO Auto-generated method stub
 		super.resize(width, height);
