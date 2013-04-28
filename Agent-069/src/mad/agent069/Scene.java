@@ -123,19 +123,23 @@ public class Scene implements ApplicationListener {
 	 * Check if the main character and the obstacle overlap
 	 */
 	protected void obstacleOverlap(SpriteBatch batch) {
-		if (this.mainCharacter.getCurrentPositionCrop().overlaps(
-				this.obstacle.getCurrentPosition())) {
-			// Code goes here
-			// Gdx.input.vibrate(100);
-			// Draw the explosion image
-			batch.draw(this.explosionTexture, this.mainCharacter
-					.getCurrentPosition().getX(), this.mainCharacter
-					.getCurrentPosition().getY());
-			// Play the explosion sound
-			this.explosionSound.play();
 
-			Gdx.graphics.setContinuousRendering(false);
+		if (this.obstacle.allowOverlap) {
+			if (this.mainCharacter.getCurrentPositionCrop().overlaps(
+					this.obstacle.getCurrentPosition())) {
+
+				// Draw the explosion image
+				batch.draw(this.explosionTexture, this.mainCharacter
+						.getCurrentPosition().getX(), this.mainCharacter
+						.getCurrentPosition().getY());
+				// Play the explosion sound
+				this.explosionSound.play();
+				Gdx.input.vibrate(100);
+
+				Gdx.graphics.setContinuousRendering(false);
+			}
 		}
+
 	}
 
 	@Override
@@ -183,7 +187,7 @@ public class Scene implements ApplicationListener {
 	protected void swipeUpHandler() {
 		// Play the jumping sound
 		this.mainCharacter.playJumpSound();
-		
+
 		// Change the status
 		this.mainCharacter.setCurrentStatus(
 				MainCharacter.CURRENT_STATUS_JUMPING, TimeUtils.nanoTime());
@@ -195,7 +199,7 @@ public class Scene implements ApplicationListener {
 	protected void swipeDownHandler() {
 		// Play the lowerhead sound
 		this.mainCharacter.playLowerheadSound();
-		
+
 		// Change the status
 		this.mainCharacter.setCurrentStatus(
 				MainCharacter.CURRENT_STATUS_LOWERHEAD, TimeUtils.nanoTime());
@@ -206,20 +210,23 @@ public class Scene implements ApplicationListener {
 	 */
 	protected void swipeRightHandler() {
 		Bullet bullet = new Bullet(this, this.mainCharacter);
-		
+
 		// Play the sound
 		bullet.playShootingSound();
-		
+
 		// Create a new bullet
 		this.bulletList.add(bullet);
-		
+
 	}
 
 	/**
-	 * A general draw function that all scene should call after drawing the background
+	 * A general draw function that all scene should call after drawing the
+	 * background
 	 * 
-	 * @param batch The scene SpriteBatch
-	 * @param currentTime The current time in nanosecond
+	 * @param batch
+	 *            The scene SpriteBatch
+	 * @param currentTime
+	 *            The current time in nanosecond
 	 */
 	protected void drawGeneral(SpriteBatch batch, long currentTime) {
 		// Draw the main character
@@ -227,14 +234,44 @@ public class Scene implements ApplicationListener {
 
 		// Draw the obstacle
 		this.obstacle.drawObstacle(batch, currentTime);
-		
-		// Draw the bullet
-		for (Bullet bullet : this.bulletList){
-			bullet.drawBullet(batch, this.bulletList);
+
+		if (this.bulletList.size() > 0) {
+			// Draw the bullet
+			for (Bullet bullet : this.bulletList) {
+				bullet.drawBullet(batch, this.bulletList);
+			}
+			// If the first bullet in the list goes out of the screen, remove it
+			if (this.bulletList.get(0).getCurrentPosition().getX() >= Scene.SCENE_WIDTH) {
+				this.bulletList.remove(0);
+			}
 		}
 
 		// Check if the main character overlap the obstacle
 		this.obstacleOverlap(batch);
+	}
+
+	/**
+	 * A handler function for obstacle Should be at the end of render function
+	 * in derived classes
+	 * 
+	 * @param long The current time in nanosecond
+	 */
+	protected void obstacleHandler(long currentTime) {
+		// If the obstacle allows to be shot
+		if (this.obstacle.isAllowShot()) {
+			if (this.bulletList.size() > 0) {
+				if (this.obstacle.getCurrentPosition().overlaps(
+						this.bulletList.get(0).getCurrentPosition())) {
+					// Not allow this obstacle to be overlap
+					this.obstacle.setAllowOverlap(false);
+				}
+			}
+		}
+		// Create new obstacle if the last obstacle disappear
+		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
+			this.obstacle = this.createNewObstacle(currentTime);
+		}
+
 	}
 
 	/**

@@ -22,19 +22,24 @@ public class TankObstacle extends Obstacle {
 
 		// Init the texture
 		this.tankTexture = new Texture(Gdx.files.internal("tank.png"));
-		
+
 		// Set the current position
-		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH, Scene.SCENE_FLOOR_POSITION_Y,
-				this.tankTexture.getWidth(), this.tankTexture.getHeight());
-		
+		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
+				Scene.SCENE_FLOOR_POSITION_Y, this.tankTexture.getWidth(),
+				this.tankTexture.getHeight());
+
 		// Set the obstacle width
 		this.width = this.tankTexture.getWidth();
+
+		// Allow to be shot
+		this.allowShot = true;
 	}
 
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
-		batch.draw(this.tankTexture, this.currentPosition.getX(), this.currentPosition.getY());
+		batch.draw(this.tankTexture, this.currentPosition.getX(),
+				this.currentPosition.getY());
 	}
 
 	@Override

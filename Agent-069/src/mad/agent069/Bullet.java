@@ -54,8 +54,12 @@ public class Bullet {
 	 * @param batch The scene SpriteBatch
 	 */
 	public void drawBullet(SpriteBatch batch, List<Bullet> bulletList){
+		// Draw this bullet
 		batch.draw(this.bulletTexture, this.currentPosition.getX(), this.currentPosition.getY());
+		
+		// Set the current position
 		this.currentPosition.setX(this.currentPosition.getX() + this.movingDistance);
+		
 	}
 
 	public Rectangle getCurrentPosition() {

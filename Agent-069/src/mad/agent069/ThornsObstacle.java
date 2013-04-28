@@ -30,13 +30,17 @@ public class ThornsObstacle extends Obstacle {
 
 		// Set the obstacle width
 		this.width = tankTexture.getWidth();
+
+		// Not allow to be shot
+		this.allowShot = false;
 	}
 
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
 		// draw the obstacle
-		batch.draw(this.tankTexture, this.currentPosition.getX(), this.currentPosition.getY());
+		batch.draw(this.tankTexture, this.currentPosition.getX(),
+				this.currentPosition.getY());
 
 	}
 

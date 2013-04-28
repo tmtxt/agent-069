@@ -29,6 +29,9 @@ public class FireObstacle extends Obstacle {
 		
 		// Set the obstacle width
 		this.width = this.fireTexture.getWidth();
+		
+		// Not allow to be shot
+		this.allowShot = false;
 	}
 
 	@Override

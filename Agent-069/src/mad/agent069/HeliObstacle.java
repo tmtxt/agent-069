@@ -6,41 +6,46 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 public class HeliObstacle extends Obstacle {
-	
+
 	// The texture to draw this obstacle
 	private Texture heliTexture;
-	
+
 	// The position of the texture from the scene floor
 	private final int distanceFromFloor = 65;
 
 	public HeliObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
-		
+
 		// The speed of this obstacle
-		this.speed = (float)1.5;
-		
+		this.speed = (float) 1.5;
+
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
-		
+
 		// Init the texture
 		this.heliTexture = new Texture(Gdx.files.internal("heli.png"));
-		
+
 		// Set the current position
-		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH, Scene.SCENE_FLOOR_POSITION_Y + this.distanceFromFloor,
+		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
+				Scene.SCENE_FLOOR_POSITION_Y + this.distanceFromFloor,
 				this.heliTexture.getWidth(), this.heliTexture.getHeight());
-		
+
 		// Set the obstacle width
 		this.width = heliTexture.getWidth();
+
+		// Not allow to be shot
+		this.allowShot = false;
 	}
 
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
-		
+
 		// draw the obstacle
-		batch.draw(this.heliTexture, this.currentPosition.getX(), this.currentPosition.getY());
-		
+		batch.draw(this.heliTexture, this.currentPosition.getX(),
+				this.currentPosition.getY());
+
 	}
 
 	@Override

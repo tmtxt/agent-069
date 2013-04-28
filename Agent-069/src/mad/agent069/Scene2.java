@@ -128,10 +128,8 @@ public class Scene2 extends Scene {
 			trackCurrentX = Scene.SCENE_WIDTH;
 		}
 
-		// Create new obstacle if the last obstacle disappear
-		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
-			this.obstacle = this.createNewObstacle(currentTime);
-		}
+		// Handler for obstacle
+		this.obstacleHandler(currentTime);
 
 	}
 

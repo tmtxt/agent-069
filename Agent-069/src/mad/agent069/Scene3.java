@@ -88,10 +88,8 @@ public class Scene3 extends Scene {
 			this.backgroundCurrentX = Scene.SCENE_WIDTH;
 		}
 
-		// Create new obstacle if the last obstacle disappear
-		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
-			this.obstacle = this.createNewObstacle(currentTime);
-		}
+		// Handler for obstacle
+		this.obstacleHandler(currentTime);
 
 	}
 
