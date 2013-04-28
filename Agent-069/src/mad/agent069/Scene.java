@@ -211,7 +211,7 @@ public class Scene implements ApplicationListener {
 		Bullet bullet = new Bullet(this, this.mainCharacter);
 
 		// Play the sound
-		bullet.playShootingSound();
+		// bullet.playShootingSound();
 
 		// Create a new bullet
 		this.bulletList.add(bullet);
@@ -272,6 +272,9 @@ public class Scene implements ApplicationListener {
 						// Not allow this obstacle to be overlap
 						this.obstacle.setAllowOverlap(false);
 						this.obstacle.changeToCollapseTexture();
+						
+						// Set the obstacle moving time to the scene moving time
+						this.obstacle.setMovingTimeToSceneMovingTime();
 						
 						// Play the explosion sound
 						this.obstacle.playExplosionSound();

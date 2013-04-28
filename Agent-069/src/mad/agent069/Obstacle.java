@@ -192,6 +192,13 @@ public abstract class Obstacle {
 		this.explosionSound = Gdx.audio.newSound(Gdx.files
 				.internal("explosion.mp3"));
 	}
+	
+	/**
+	 * Set this obstacle moving time to the scene moving time
+	 */
+	public void setMovingTimeToSceneMovingTime(){
+		this.movingSpeed = this.currentScene.getActualMovingTime();
+	}
 
 	public abstract void changeToCollapseTexture();
 
