@@ -115,7 +115,6 @@ public abstract class Obstacle {
 	 */
 	public Obstacle(Scene currentScene, long lastTimeObstacle) {
 		this.currentScene = currentScene;
-
 		this.lastTimeObstacle = lastTimeObstacle;
 
 		// Init the current position of the obstacle
