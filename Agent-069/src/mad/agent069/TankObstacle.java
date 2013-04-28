@@ -9,6 +9,9 @@ public class TankObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
 	private Texture tankTexture;
+	
+	// The collapse texture
+	private Texture collapseTexture;
 
 	public TankObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
@@ -22,6 +25,7 @@ public class TankObstacle extends Obstacle {
 
 		// Init the texture
 		this.tankTexture = new Texture(Gdx.files.internal("tank.png"));
+		this.collapseTexture = new Texture(Gdx.files.internal("tankcollapse.png"));
 
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
@@ -46,6 +50,12 @@ public class TankObstacle extends Obstacle {
 	public void collapse() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void changeToCollapseTexture() {
+		// TODO Auto-generated method stub
+		this.tankTexture = this.collapseTexture;
 	}
 
 }

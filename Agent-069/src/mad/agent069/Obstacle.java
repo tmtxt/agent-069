@@ -138,5 +138,7 @@ public abstract class Obstacle {
 	public Rectangle getCurrentPosition() {
 		return currentPosition;
 	}
+	
+	public abstract void changeToCollapseTexture();
 
 }

@@ -50,4 +50,10 @@ public class ThornsObstacle extends Obstacle {
 
 	}
 
+	@Override
+	public void changeToCollapseTexture() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

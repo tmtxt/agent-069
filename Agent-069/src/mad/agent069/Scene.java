@@ -264,6 +264,7 @@ public class Scene implements ApplicationListener {
 						this.bulletList.get(0).getCurrentPosition())) {
 					// Not allow this obstacle to be overlap
 					this.obstacle.setAllowOverlap(false);
+					this.obstacle.changeToCollapseTexture();
 				}
 			}
 		}
