@@ -1,6 +1,8 @@
 package mad.agent069;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -26,24 +28,24 @@ public abstract class Obstacle {
 
 	// The obstacle texture width
 	protected int width;
-	
+
 	// Allow being shot
 	protected boolean allowShot;
-	
+
 	// Allow overlap
 	protected boolean allowOverlap;
-	
+
 	// Obstacle's blood
 	protected int blood;
-	
+
 	// The explosion sound
 	protected Sound explosionSound;
-	
+
 	public int getBlood() {
 		return blood;
 	}
 
-	public void decreaseBlood(){
+	public void decreaseBlood() {
 		this.blood--;
 	}
 
@@ -119,7 +121,7 @@ public abstract class Obstacle {
 		// Init the current position of the obstacle
 		this.currentX = Scene.SCENE_WIDTH;
 		this.currentY = Scene.SCENE_FLOOR_POSITION_Y;
-		
+
 		// Allow overlap
 		this.allowOverlap = true;
 
@@ -153,11 +155,44 @@ public abstract class Obstacle {
 	public Rectangle getCurrentPosition() {
 		return currentPosition;
 	}
-	
-	public void playExplosionSound(){
+
+	public void playExplosionSound() {
 		this.explosionSound.play();
 	}
-	
+
+	/**
+	 * Init the current position, should be called in constructor of derived
+	 * classes, after finishing initializing the texture
+	 * 
+	 * @param obstacleTexture
+	 *            The obstacle texture
+	 */
+	protected void initCurrentPosition(Texture obstacleTexture) {
+		// Set the current position
+		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
+				Scene.SCENE_FLOOR_POSITION_Y, obstacleTexture.getWidth(),
+				obstacleTexture.getHeight());
+
+		// Set the obstacle width
+		this.width = obstacleTexture.getWidth();
+	}
+
+	/**
+	 * Init for the obstacle that allows to be shot Should be called at the end
+	 * of the constructor of that obstacle
+	 */
+	protected void initAllowBeShot(int blood) {
+		// Allow to be shot
+		this.allowShot = true;
+
+		// Obstacle blood (explode after 3 shot)
+		this.blood = blood;
+
+		// Obstacle explosion sound
+		this.explosionSound = Gdx.audio.newSound(Gdx.files
+				.internal("explosion.mp3"));
+	}
+
 	public abstract void changeToCollapseTexture();
 
 }

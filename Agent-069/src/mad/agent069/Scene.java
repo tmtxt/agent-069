@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import mad.agent069.*;
 import mad.agent069.DirectionGestureDetector.DirectionListener;
 
 import com.badlogic.gdx.ApplicationListener;

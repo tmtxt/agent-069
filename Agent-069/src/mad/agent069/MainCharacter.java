@@ -12,8 +12,6 @@ public class MainCharacter {
 	public static float ORIGINAL_Y = Scene.SCENE_FLOOR_POSITION_Y;
 
 	// The current position of the main character
-	private float currentX;
-	private float currentY;
 	private Rectangle currentPosition;
 	
 	// The actual position of the main character
@@ -100,8 +98,6 @@ public class MainCharacter {
 		this.currentTexture = this.normalTexture;
 
 		// Set the current position of the main character
-		this.currentX = MainCharacter.ORIGINAL_X;
-		this.currentY = MainCharacter.ORIGINAL_Y;
 		this.currentPosition = new Rectangle(MainCharacter.ORIGINAL_X, MainCharacter.ORIGINAL_Y,
 				this.currentTexture.getWidth(), this.currentTexture.getHeight());
 		this.currentPositionCrop = new Rectangle(this.currentPosition.getX() + MainCharacter.TEXTURE_GAP_X,
