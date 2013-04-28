@@ -48,11 +48,6 @@ public class HeliObstacle extends Obstacle {
 
 	}
 
-	@Override
-	public void collapse() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void changeToCollapseTexture() {

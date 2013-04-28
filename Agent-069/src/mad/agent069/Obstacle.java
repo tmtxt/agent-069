@@ -76,13 +76,6 @@ public abstract class Obstacle {
 	 */
 	public void drawObstacle(SpriteBatch batch, long currentTime) {
 		this.drawSpecificObstacle(batch, currentTime);
-
-		// move it backward
-		if (currentTime - lastTimeObstacle >= movingSpeed) {
-			this.moveObstacleBackward();
-			this.lastTimeObstacle = currentTime;
-		}
-
 	}
 
 	public boolean isAllowShot() {
@@ -99,11 +92,6 @@ public abstract class Obstacle {
 	 */
 	protected abstract void drawSpecificObstacle(SpriteBatch batch,
 			long currentTime);
-
-	/**
-	 * Call when this obstacle hit the main character
-	 */
-	public abstract void collapse();
 
 	/**
 	 * 
@@ -135,11 +123,17 @@ public abstract class Obstacle {
 
 	/**
 	 * Move the obstacle backward
+	 * 
+	 * @param long The current time in nanoseconds
 	 */
-	protected void moveObstacleBackward() {
-		// this.currentX -= Scene.BACKGROUND_MOVING_DISTANCE;
-		this.currentPosition.setX(this.currentPosition.getX()
-				- Scene.BACKGROUND_MOVING_DISTANCE);
+	protected void moveObstacleBackward(long currentTime) {
+
+		if (currentTime - lastTimeObstacle >= movingSpeed) {
+			this.currentPosition.setX(this.currentPosition.getX()
+					- Scene.BACKGROUND_MOVING_DISTANCE);
+			this.lastTimeObstacle = currentTime;
+		}
+
 	}
 
 	/**
@@ -191,11 +185,11 @@ public abstract class Obstacle {
 		this.explosionSound = Gdx.audio.newSound(Gdx.files
 				.internal("explosion.mp3"));
 	}
-	
+
 	/**
 	 * Set this obstacle moving time to the scene moving time
 	 */
-	public void setMovingTimeToSceneMovingTime(){
+	public void setMovingTimeToSceneMovingTime() {
 		this.movingSpeed = this.currentScene.getActualMovingTime();
 	}
 

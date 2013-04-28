@@ -256,6 +256,9 @@ public class Scene implements ApplicationListener {
 	 * @param long The current time in nanosecond
 	 */
 	protected void obstacleHandler(long currentTime) {
+		// Move the obstacle backward
+		this.obstacle.moveObstacleBackward(currentTime);
+		
 		// If the obstacle allows to be shot
 		if (this.obstacle.isAllowShot()) {
 			if (this.bulletList.size() > 0) {
@@ -282,6 +285,7 @@ public class Scene implements ApplicationListener {
 				}
 			}
 		}
+		
 		// Create new obstacle if the last obstacle disappear
 		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
 			this.obstacle = this.createNewObstacle(currentTime);

@@ -36,12 +36,6 @@ public class RockObstacle extends Obstacle {
 	}
 
 	@Override
-	public void collapse() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
 

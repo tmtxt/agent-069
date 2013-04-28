@@ -44,12 +44,6 @@ public class TankObstacle extends Obstacle {
 	}
 
 	@Override
-	public void collapse() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
 		this.tankTexture = this.collapseTexture;

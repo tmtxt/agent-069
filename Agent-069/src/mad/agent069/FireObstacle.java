@@ -37,11 +37,6 @@ public class FireObstacle extends Obstacle {
 				this.currentPosition.getX(), this.currentPosition.getY());
 	}
 
-	@Override
-	public void collapse() {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void changeToCollapseTexture() {
