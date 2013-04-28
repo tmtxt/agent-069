@@ -262,9 +262,21 @@ public class Scene implements ApplicationListener {
 			if (this.bulletList.size() > 0) {
 				if (this.obstacle.getCurrentPosition().overlaps(
 						this.bulletList.get(0).getCurrentPosition())) {
-					// Not allow this obstacle to be overlap
-					this.obstacle.setAllowOverlap(false);
-					this.obstacle.changeToCollapseTexture();
+					// Remove the bullet first
+					this.bulletList.remove(0);
+
+					// Decrease this obstacle's blood
+					this.obstacle.decreaseBlood();
+
+					// If the obstacle blood is 0
+					if (this.obstacle.getBlood() <= 0) {
+						// Not allow this obstacle to be overlap
+						this.obstacle.setAllowOverlap(false);
+						this.obstacle.changeToCollapseTexture();
+						
+						// Play the explosion sound
+						this.obstacle.playExplosionSound();
+					}
 				}
 			}
 		}

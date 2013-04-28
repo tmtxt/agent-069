@@ -1,5 +1,6 @@
 package mad.agent069;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -32,6 +33,20 @@ public abstract class Obstacle {
 	// Allow overlap
 	protected boolean allowOverlap;
 	
+	// Obstacle's blood
+	protected int blood;
+	
+	// The explosion sound
+	protected Sound explosionSound;
+	
+	public int getBlood() {
+		return blood;
+	}
+
+	public void decreaseBlood(){
+		this.blood--;
+	}
+
 	public boolean isAllowOverlap() {
 		return allowOverlap;
 	}
@@ -137,6 +152,10 @@ public abstract class Obstacle {
 
 	public Rectangle getCurrentPosition() {
 		return currentPosition;
+	}
+	
+	public void playExplosionSound(){
+		this.explosionSound.play();
 	}
 	
 	public abstract void changeToCollapseTexture();

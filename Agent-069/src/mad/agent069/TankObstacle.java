@@ -18,7 +18,7 @@ public class TankObstacle extends Obstacle {
 		// TODO Auto-generated constructor stub
 
 		// Init the speed
-		this.speed = (float) 0.3;
+		this.speed = (float) 0.2;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
@@ -37,6 +37,12 @@ public class TankObstacle extends Obstacle {
 
 		// Allow to be shot
 		this.allowShot = true;
+		
+		// Obstacle blood (explode after 3 shot)
+		this.blood = 3;
+
+		// Obstacle explosion sound
+		this.explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
 	}
 
 	@Override
