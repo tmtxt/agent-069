@@ -26,8 +26,8 @@ public class TankObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.tankTexture = new Texture(Gdx.files.internal("tank.png"));
-		this.collapseTexture = new Texture(Gdx.files.internal("tankcollapse.png"));
+		this.tankTexture = ObstacleTexture.TANK_OBSTACLE_TEXTURE;
+		this.collapseTexture = ObstacleTexture.TANK_COLLAPSE_OBSTACLE_TEXTURE;
 
 		// Init the current position
 		this.initCurrentPosition(tankTexture);

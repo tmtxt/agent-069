@@ -21,7 +21,7 @@ public class ThornsObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.tankTexture = new Texture(Gdx.files.internal("thorns.png"));
+		this.tankTexture = ObstacleTexture.THORNS_OBSTACLE_TEXTURE;
 
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
@@ -53,7 +53,7 @@ public class ThornsObstacle extends Obstacle {
 	@Override
 	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
