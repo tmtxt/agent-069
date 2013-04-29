@@ -14,6 +14,6 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new Scene1(), cfg);
+        initialize(new AgentMain(), cfg);
     }
 }

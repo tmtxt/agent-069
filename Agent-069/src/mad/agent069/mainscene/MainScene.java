@@ -41,6 +41,7 @@ public class MainScene implements Screen{
 	private TextButton loadButton;
 	private TextButton settingButton;
 	private TextButton scoreButton;
+	private TextButtonStyle style;
 	
 	TweenManager manager;
 	AgentMain agentMain;
@@ -158,7 +159,7 @@ public class MainScene implements Screen{
 		font = new BitmapFont(Gdx.files.internal("mainscene/white_font.fnt"),false);
 		
 		//New Buttons
-		TextButtonStyle style = new TextButtonStyle();
+		style = new TextButtonStyle();
 		style.up = skin.getDrawable("button_up");
 		style.down = skin.getDrawable("button_down");
 		style.font = font;
@@ -195,6 +196,7 @@ public class MainScene implements Screen{
 		//Get music from music/ and loop forever until it's told to stop
 		background_music = MyMusic.musicMainScene();
 		background_music.setLooping(true);
+		background_music.setVolume(MyMusic.music_volume);
 		background_music.play();
 	}
 

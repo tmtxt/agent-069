@@ -1,0 +1,19 @@
+
+uiskin.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+uiskin_slider
+  rotate: false
+  xy: 1, 1
+  size: 24, 80
+  orig: 24, 80
+  offset: 0, 0
+  index: -1
+uiskin_bakcground
+  rotate: false
+  xy: 27, 50
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
