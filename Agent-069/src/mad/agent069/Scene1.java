@@ -41,8 +41,11 @@ public class Scene1 extends Scene {
 		// Init the actual scene moving time
 		this.actualMovingTime = this.backgroundMovingTime;
 
+		// The current time
+		long currentTime;
+		
 		// Last time draw
-		long currentTime = TimeUtils.nanoTime();
+		currentTime = TimeUtils.nanoTime();
 		this.backgroundLastTimeDraw = currentTime;
 
 		// Init the scene floor position
@@ -50,6 +53,9 @@ public class Scene1 extends Scene {
 
 		// Init some other properties
 		this.initAfterCreate(currentTime);
+		
+		// Reset the score
+		Score.resetScore();
 	}
 
 	@Override

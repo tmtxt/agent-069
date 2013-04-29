@@ -135,7 +135,16 @@ public class Scene implements ApplicationListener {
 				this.explosionSound.play();
 				Gdx.input.vibrate(100);
 
+				// Stop rendering
 				Gdx.graphics.setContinuousRendering(false);
+				
+				// Disable gesture detection
+				Gdx.input.setInputProcessor(null);
+				
+				// Calculate the score
+				long currentTime = TimeUtils.millis();
+				Score.finishCurrentScene(currentTime);
+				System.out.println(Score.getScore());
 			}
 		}
 
@@ -163,6 +172,10 @@ public class Scene implements ApplicationListener {
 
 		// Init the list of bullet
 		this.bulletList = new ArrayList<Bullet>();
+
+		// Init the score
+		long currentTime = TimeUtils.millis();
+		Score.startNewScene(currentTime);
 	}
 
 	/**

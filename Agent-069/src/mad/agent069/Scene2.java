@@ -71,8 +71,11 @@ public class Scene2 extends Scene {
 		this.skyTextureWidth = this.skyTexture.getWidth();
 		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
 
+		// The current time
+		long currentTime;
+		
 		// Last time draw
-		long currentTime = TimeUtils.nanoTime();
+		currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
 
@@ -81,6 +84,7 @@ public class Scene2 extends Scene {
 
 		// Init some other properties
 		this.initAfterCreate(currentTime);
+		
 	}
 
 	@Override
