@@ -17,7 +17,7 @@ public class RocketObstacle extends Obstacle {
 		// TODO Auto-generated constructor stub
 
 		// The speed
-		this.speed = (float) 1.8;
+		this.speed = (float) 1.75;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
