@@ -144,7 +144,7 @@ public class SettingScene implements Screen {
 	public void show() {
 		// Camera settings
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 1024, 512);
+		camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
 		// Create new batch
 		batch = new SpriteBatch();

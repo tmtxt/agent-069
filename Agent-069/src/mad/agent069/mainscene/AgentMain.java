@@ -1,5 +1,6 @@
 package mad.agent069.mainscene;
 
+import switchscene.SwitchScene;
 import mad.agent069.music.MyMusic;
 
 import com.badlogic.gdx.Game;

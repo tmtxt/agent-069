@@ -2,6 +2,7 @@ package mad.agent069.mainscene;
 
 import mad.agent069.music.MyMusic;
 import mad.agent069.tween.MainSceneAccessor;
+import switchscene.SwitchScene;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
@@ -163,9 +164,15 @@ public class MainScene implements Screen{
 		style.up = skin.getDrawable("button_up");
 		style.down = skin.getDrawable("button_down");
 		style.font = font;
-		playButton = new TextButton("Play", style);
+		playButton = new TextButton("New game", style);
 		playButton.setColor(1, 1, 1, 0);
-		
+		playButton.addListener(new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				agentMain.setScreen(new SwitchScene(agentMain, SwitchScene.STAGE_1, new SettingScene(agentMain)));
+				background_music.stop();
+			}
+		});
 		
 		settingButton = new TextButton("Setting", style);
 		settingButton.setColor(1, 1, 1, 0);

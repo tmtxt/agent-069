@@ -1,0 +1,26 @@
+
+Stage.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Stage_1
+  rotate: false
+  xy: 1, 1
+  size: 232, 42
+  orig: 232, 42
+  offset: 0, 0
+  index: 1
+Stage_2
+  rotate: false
+  xy: 235, 1
+  size: 232, 42
+  orig: 232, 42
+  offset: 0, 0
+  index: 2
+Stage_3
+  rotate: false
+  xy: 469, 1
+  size: 232, 42
+  orig: 232, 42
+  offset: 0, 0
+  index: 3
