@@ -24,4 +24,19 @@ public class MyMusic {
 		return temp;
 	}
 	
+	
+	public static Music musicScene1(){
+		Music temp = Gdx.audio.newMusic(Gdx.files.internal("bg1.mp3"));
+		return temp;
+	}
+	
+	public static Music musicScene2(){
+		Music temp = Gdx.audio.newMusic(Gdx.files.internal("bg1.mp3"));
+		return temp;
+	}
+	
+	public static Music musicScene3(){
+		Music temp = Gdx.audio.newMusic(Gdx.files.internal("bg1.mp3"));
+		return temp;
+	}
 }

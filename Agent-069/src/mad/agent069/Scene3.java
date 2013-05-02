@@ -1,6 +1,7 @@
 package mad.agent069;
 
 import mad.agent069.mainscene.AgentMain;
+import mad.agent069.music.MyMusic;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,7 +36,8 @@ public class Scene3 extends Scene {
 		// Only allow these types of obstacle
 		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
 				"ThornsObstacle", "HeliObstacleFast", "FireObstacle",
-				"TankObstacle", "RocketObstacleFast", "BombObstacle", "RocketObstacleLow"};
+				"TankObstacle", "RocketObstacleFast", "BombObstacle",
+				"RocketObstacleLow" };
 
 		// Init scene speed
 		this.speed = 1;
@@ -63,12 +65,19 @@ public class Scene3 extends Scene {
 		Scene.SCENE_FLOOR_POSITION_Y = 45;
 		this.floorPosition = 45;
 
+		// Init the background music
+		this.backgroundMusic = MyMusic.musicScene1();
+		this.backgroundMusic.setLooping(true);
+		this.backgroundMusic.play();
+
 		// Init some other properties
 		this.initAfterCreate(currentTime);
 	}
 
 	@Override
 	protected void changeScene() {
+		super.changeScene();
+
 		// TODO Auto-generated method stub
 		super.changeScene();
 	}

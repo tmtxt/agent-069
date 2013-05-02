@@ -19,6 +19,7 @@ import mad.agent069.switchscene.SwitchScene;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -61,6 +62,9 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The main scene
 	protected AgentMain agentMain;
+	
+	// The background music
+	protected Music backgroundMusic;
 
 	public Scene(AgentMain agentMain) {
 		super();
@@ -167,6 +171,10 @@ public class Scene implements ApplicationListener, Screen {
 				Score.finishCurrentScene(currentTime);
 				System.out.println(Score.getScore());
 				
+				// Stop the music
+				this.backgroundMusic.stop();
+				
+				// Change scene
 				agentMain.setScreen(new SwitchScene(agentMain, Score
 						.getScore() + "", SwitchScene.LOSE_SCENE,
 						new DisplayStageScene(agentMain,
@@ -399,7 +407,7 @@ public class Scene implements ApplicationListener, Screen {
 	}
 
 	protected void changeScene() {
-
+		
 	}
 
 	@Override
@@ -417,7 +425,7 @@ public class Scene implements ApplicationListener, Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-
+		this.backgroundMusic.stop();
 	}
 
 	// GENERATED METHODS
@@ -445,7 +453,7 @@ public class Scene implements ApplicationListener, Screen {
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-
+		this.backgroundMusic.stop();
 	}
 
 }

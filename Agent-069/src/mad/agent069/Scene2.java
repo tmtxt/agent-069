@@ -1,6 +1,7 @@
 package mad.agent069;
 
 import mad.agent069.mainscene.AgentMain;
+import mad.agent069.music.MyMusic;
 import mad.agent069.switchscene.DisplayStageScene;
 import mad.agent069.switchscene.SwitchScene;
 
@@ -87,6 +88,11 @@ public class Scene2 extends Scene {
 		this.skyCurrentX = Scene.SCENE_WIDTH;
 		this.skyTextureWidth = this.skyTexture.getWidth();
 		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
+		
+		// Init the background music
+		this.backgroundMusic = MyMusic.musicScene1();
+		this.backgroundMusic.setLooping(true);
+		this.backgroundMusic.play();
 
 		// The current time
 		long currentTime;
@@ -103,6 +109,8 @@ public class Scene2 extends Scene {
 
 	@Override
 	protected void changeScene() {
+		super.changeScene();
+		
 		// TODO Auto-generated method stub
 		long currentTime = TimeUtils.millis();
 		if (currentTime - this.startTime > this.length) {
