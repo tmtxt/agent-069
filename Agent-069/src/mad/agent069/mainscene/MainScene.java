@@ -1,8 +1,8 @@
 package mad.agent069.mainscene;
 
 import mad.agent069.music.MyMusic;
+import mad.agent069.switchscene.DisplayStageScene;
 import mad.agent069.tween.MainSceneAccessor;
-import switchscene.SwitchScene;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
@@ -169,7 +169,7 @@ public class MainScene implements Screen{
 		playButton.addListener(new ClickListener(){
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				agentMain.setScreen(new SwitchScene(agentMain, SwitchScene.STAGE_1, new SettingScene(agentMain)));
+				agentMain.setScreen(new DisplayStageScene(agentMain, DisplayStageScene.STAGE_1, new SettingScene(agentMain)));
 				background_music.stop();
 			}
 		});
@@ -180,7 +180,7 @@ public class MainScene implements Screen{
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				agentMain.setScreen(new SettingScene(agentMain));
-				background_music.stop();
+				
 			}
 		}));
 		
@@ -218,7 +218,7 @@ public class MainScene implements Screen{
 	
 	@Override
 	public void hide() {
-		
+		background_music.stop();
 	}
 
 	@Override
@@ -228,12 +228,12 @@ public class MainScene implements Screen{
 
 	@Override
 	public void resume() {
-		
+		background_music.play();
 	}
 
 	@Override
 	public void dispose() {
-		
+		background_music.stop();
 	}
 
 }

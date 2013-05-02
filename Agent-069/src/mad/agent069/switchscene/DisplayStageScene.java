@@ -1,4 +1,4 @@
-package switchscene;
+package mad.agent069.switchscene;
 
 import mad.agent069.mainscene.AgentMain;
 import mad.agent069.tween.MainSceneAccessor;
@@ -10,6 +10,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,9 +18,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
-public class SwitchScene implements Screen {
+public class DisplayStageScene implements Screen {
 
 	//Constant
 	private static final String STAGE_ATLAS = "switchingscene/Stage.atlas";
@@ -27,6 +32,7 @@ public class SwitchScene implements Screen {
 	public static final String STAGE_2 = "Stage_2";
 	public static final String STAGE_3 = "Stage_3";
 	
+	//Properties
 	AgentMain agent;
 	OrthographicCamera camera;
 	SpriteBatch batch;
@@ -44,7 +50,7 @@ public class SwitchScene implements Screen {
 	 * Constructor that display the stage name and change to the newScreen
 	 * directly
 	 */
-	public SwitchScene(AgentMain agent, String screenNumber, Screen newScreen) {
+	public DisplayStageScene(AgentMain agent, String screenNumber, Screen newScreen) {
 		this.agent = agent;
 		
 		titleName = screenNumber;
@@ -78,6 +84,7 @@ public class SwitchScene implements Screen {
 	public void resize(int width, int height) {
 		
 		sprite.setPosition(Gdx.graphics.getWidth()/2 - sprite.getWidth()/2, Gdx.graphics.getHeight()/2 - sprite.getHeight()/2);
+
 	}
 
 	@Override
@@ -100,7 +107,7 @@ public class SwitchScene implements Screen {
 		//Create Stage texture
 		sprite = skin.getSprite(titleName);
 		sprite.setColor(1, 1, 1, 0);
-
+		
 		// Calling Tween
 		manager = new TweenManager();
 		TweenCallback cb = new TweenCallback() {
