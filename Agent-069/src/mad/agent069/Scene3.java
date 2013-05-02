@@ -34,8 +34,8 @@ public class Scene3 extends Scene {
 
 		// Only allow these types of obstacle
 		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
-				"ThornsObstacle", "HeliObstacle", "FireObstacle",
-				"TankObstacle", "RocketObstacle", "BombObstacle", "MummyObstacle" };
+				"ThornsObstacle", "HeliObstacleFast", "HeliObstacleNormal", "FireObstacle",
+				"TankObstacle", "RocketObstacle", "BombObstacle"};
 
 		// Init scene speed
 		this.speed = 1;
