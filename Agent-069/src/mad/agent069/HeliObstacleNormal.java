@@ -7,7 +7,7 @@ public class HeliObstacleNormal extends HeliObstacle {
 		// TODO Auto-generated constructor stub
 
 		// The speed of this obstacle
-		this.speed = (float) 1.4;
+		this.speed = (float) 1.5;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();

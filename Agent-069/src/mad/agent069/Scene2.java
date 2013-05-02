@@ -57,9 +57,10 @@ public class Scene2 extends Scene {
 		super.create();
 
 		// Only allow these types of obstacle
-		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
-				"ThornsObstacle", "HeliObstacleSlow", "HeliObstacleNormal", "FireObstacle",
-				"RocketObstacleNormal", "BombObstacle", "MummyObstacle" };
+		Scene.OBSTACLE_CLASS_NAMES = new String[] { "ThornsObstacle",
+				"HeliObstacleSlow", "HeliObstacleNormal", "FireObstacle",
+				"RocketObstacleNormal", "BombObstacle", "MummyObstacle",
+				"RocketObstacleLow" };
 
 		// The speed of this scene, used for calculating the moving time of the
 		// background, main character and obstacles
@@ -104,9 +105,12 @@ public class Scene2 extends Scene {
 	protected void changeScene() {
 		// TODO Auto-generated method stub
 		long currentTime = TimeUtils.millis();
-		if(currentTime - this.startTime > this.length){
+		if (currentTime - this.startTime > this.length) {
 			Score.finishCurrentScene(currentTime);
-			this.agentMain.setScreen(new SwitchScene(agentMain, Score.getScore() + "", SwitchScene.WIN_SCENE, new DisplayStageScene(agentMain, DisplayStageScene.STAGE_3, new Scene3(agentMain))));
+			this.agentMain.setScreen(new SwitchScene(agentMain, Score
+					.getScore() + "", SwitchScene.WIN_SCENE,
+					new DisplayStageScene(agentMain, DisplayStageScene.STAGE_3,
+							new Scene3(agentMain))));
 		}
 	}
 
