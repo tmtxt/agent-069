@@ -8,9 +8,15 @@ public class MummyObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
 	private Texture mummyTexture;
+	
+	// The collapse texture
+	private Texture collapseTexture;
 
 	// The position of the texture from the scene floor
 	private final int distanceFromFloor = 65;
+	
+	// This obstacle's blood
+	private final int blood = 1;
 
 	public MummyObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
@@ -24,8 +30,9 @@ public class MummyObstacle extends Obstacle {
 
 		// Init the texture
 		this.mummyTexture = ObstacleTexture.MUMMY_OBSTACLE_TEXTURE;
+		this.collapseTexture = ObstacleTexture.TANK_COLLAPSE_OBSTACLE_TEXTURE;
 
-		// CUrrent position
+		// Current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
 				Scene.SCENE_FLOOR_POSITION_Y + this.distanceFromFloor,
 				this.mummyTexture.getWidth(), this.mummyTexture.getHeight());
@@ -34,7 +41,7 @@ public class MummyObstacle extends Obstacle {
 		this.width = mummyTexture.getWidth();
 
 		// Not allow to be shot
-		this.allowShot = false;
+		this.initAllowBeShot(this.blood);
 	}
 
 	@Override
@@ -48,6 +55,7 @@ public class MummyObstacle extends Obstacle {
 	@Override
 	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
+		this.mummyTexture = this.collapseTexture;
 
 	}
 

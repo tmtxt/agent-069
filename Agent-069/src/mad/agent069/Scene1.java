@@ -42,7 +42,7 @@ public class Scene1 extends Scene {
 		this.speed = (float) 1;
 		
 		// Init the length
-		this.length = 5000;
+		this.length = 1000;
 
 		// Init the background texture to draw
 		this.backgroundTexture = new Texture(Gdx.files.internal("factory.png"));

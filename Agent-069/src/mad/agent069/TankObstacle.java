@@ -20,7 +20,7 @@ public class TankObstacle extends Obstacle {
 		// TODO Auto-generated constructor stub
 
 		// Init the speed
-		this.speed = (float) 0.2;
+		this.speed = (float) 0.5;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
