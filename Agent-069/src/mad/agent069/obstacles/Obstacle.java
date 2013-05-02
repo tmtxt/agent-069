@@ -1,4 +1,6 @@
-package mad.agent069;
+package mad.agent069.obstacles;
+
+import mad.agent069.Scene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -33,7 +35,7 @@ public abstract class Obstacle {
 	protected boolean allowShot;
 
 	// Allow overlap
-	protected boolean allowOverlap;
+	public boolean allowOverlap;
 
 	// Obstacle's blood
 	protected int blood;
@@ -126,7 +128,7 @@ public abstract class Obstacle {
 	 * 
 	 * @param long The current time in nanoseconds
 	 */
-	protected void moveObstacleBackward(long currentTime) {
+	public void moveObstacleBackward(long currentTime) {
 
 		if (currentTime - lastTimeObstacle >= movingSpeed) {
 			this.currentPosition.setX(this.currentPosition.getX()

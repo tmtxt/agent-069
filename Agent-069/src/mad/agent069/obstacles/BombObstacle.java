@@ -1,16 +1,17 @@
-package mad.agent069;
+package mad.agent069.obstacles;
 
-import com.badlogic.gdx.Gdx;
+import mad.agent069.Scene;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class ThornsObstacle extends Obstacle {
+public class BombObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
-	private Texture tankTexture;
+	private Texture bombTexture;
 
-	public ThornsObstacle(Scene currentScene, long lastTimeObstacle) {
+	public BombObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
@@ -21,15 +22,15 @@ public class ThornsObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.tankTexture = ObstacleTexture.THORNS_OBSTACLE_TEXTURE;
+		this.bombTexture = ObstacleTexture.BOMB_OBSTACLE_TEXTURE;
 
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
-				Scene.SCENE_FLOOR_POSITION_Y, this.tankTexture.getWidth(),
-				this.tankTexture.getHeight());
+				Scene.SCENE_FLOOR_POSITION_Y, this.bombTexture.getWidth(),
+				this.bombTexture.getHeight());
 
 		// Set the obstacle width
-		this.width = tankTexture.getWidth();
+		this.width = this.bombTexture.getWidth();
 
 		// Not allow to be shot
 		this.allowShot = false;
@@ -38,8 +39,9 @@ public class ThornsObstacle extends Obstacle {
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
+
 		// draw the obstacle
-		batch.draw(this.tankTexture, this.currentPosition.getX(),
+		batch.draw(this.bombTexture, this.currentPosition.getX(),
 				this.currentPosition.getY());
 
 	}

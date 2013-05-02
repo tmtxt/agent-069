@@ -1,35 +1,33 @@
-package mad.agent069;
+package mad.agent069.obstacles;
 
-import com.badlogic.gdx.Gdx;
+import mad.agent069.Scene;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class RockObstacle extends Obstacle {
+public class RocketObstacle extends Obstacle {
 
-	// The texture to draw this obstacle
-	private Texture rockTexture;
+	// The texture to draw
+	private Texture rocketTexture;
 
-	public RockObstacle(Scene currentScene, long lastTimeObstacle) {
+	// The position of the texture from the scene floor
+	private final int distanceFromFloor = 65;
+
+	public RocketObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
-		// The speed of this obstacle
-		this.speed = 1;
-
-		// Calculate the actual obstacle moving speed
-		this.calculateMovingSpeed();
-
 		// Init the texture
-		this.rockTexture = ObstacleTexture.ROCK_OBSTACLE_TEXTURE;
+		this.rocketTexture = ObstacleTexture.ROCKET_OBSTACLE_TEXTURE;
 
-		// Set the current position
+		// Init the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
-				Scene.SCENE_FLOOR_POSITION_Y, this.rockTexture.getWidth(),
-				this.rockTexture.getHeight());
+				Scene.SCENE_FLOOR_POSITION_Y + this.distanceFromFloor,
+				this.rocketTexture.getWidth(), this.rocketTexture.getHeight());
 
 		// Set the obstacle width
-		this.width = rockTexture.getWidth();
+		this.width = this.rocketTexture.getWidth();
 
 		// Not allow to be shot
 		this.allowShot = false;
@@ -40,7 +38,7 @@ public class RockObstacle extends Obstacle {
 		// TODO Auto-generated method stub
 
 		// draw the obstacle
-		batch.draw(this.rockTexture, this.currentPosition.getX(),
+		batch.draw(this.rocketTexture, this.currentPosition.getX(),
 				this.currentPosition.getY());
 
 	}
@@ -48,7 +46,7 @@ public class RockObstacle extends Obstacle {
 	@Override
 	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -1,4 +1,4 @@
-package mad.agent069;
+package mad.agent069.obstacles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

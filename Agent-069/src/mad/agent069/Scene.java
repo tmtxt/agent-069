@@ -12,6 +12,7 @@ import javax.swing.Timer;
 
 import mad.agent069.DirectionGestureDetector.DirectionListener;
 import mad.agent069.mainscene.AgentMain;
+import mad.agent069.obstacles.Obstacle;
 import mad.agent069.switchscene.DisplayStageScene;
 import mad.agent069.switchscene.SwitchScene;
 
@@ -107,7 +108,7 @@ public class Scene implements ApplicationListener, Screen {
 		Obstacle obstacle = null;
 
 		// Get the random obstacle class name
-		String obstacleClassName = "mad.agent069."
+		String obstacleClassName = "mad.agent069.obstacles."
 				+ Scene.OBSTACLE_CLASS_NAMES[random
 						.nextInt(Scene.OBSTACLE_CLASS_NAMES.length)];
 

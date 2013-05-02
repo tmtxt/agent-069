@@ -1,4 +1,6 @@
-package mad.agent069;
+package mad.agent069.obstacles;
+
+import mad.agent069.Scene;
 
 public class RocketObstacleLow extends RocketObstacle {
 
