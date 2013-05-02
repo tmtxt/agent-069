@@ -2,27 +2,26 @@ package mad.agent069.obstacles;
 
 import mad.agent069.Scene;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class TankObstacle extends Obstacle {
+public class TankObstacleSlow extends Obstacle {
 
 	// The texture to draw this obstacle
 	private Texture tankTexture;
-	
+
 	// The collapse texture
 	private Texture collapseTexture;
-	
-	// The obstacle blood
-	private final int tankBlood = 3;
 
-	public TankObstacle(Scene currentScene, long lastTimeObstacle) {
+	// The obstacle blood
+	private final int tankBlood = 10;
+
+	public TankObstacleSlow(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
 		// Init the speed
-		this.speed = (float) 0.7;
+		this.speed = (float) 0.2;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
@@ -41,12 +40,14 @@ public class TankObstacle extends Obstacle {
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 		batch.draw(this.tankTexture, this.currentPosition.getX(),
 				this.currentPosition.getY());
 	}
 
 	@Override
 	public void changeToCollapseTexture() {
+		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 		this.tankTexture = this.collapseTexture;
 	}

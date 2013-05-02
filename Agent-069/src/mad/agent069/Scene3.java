@@ -37,7 +37,7 @@ public class Scene3 extends Scene {
 		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
 				"ThornsObstacle", "HeliObstacleFast", "FireObstacle",
 				"TankObstacle", "RocketObstacleFast", "BombObstacle",
-				"RocketObstacleLow" };
+				"RocketObstacleLow", "TankObstacleSlow" };
 
 		// Init scene speed
 		this.speed = 1;
@@ -68,6 +68,7 @@ public class Scene3 extends Scene {
 		// Init the background music
 		this.backgroundMusic = MyMusic.musicScene1();
 		this.backgroundMusic.setLooping(true);
+		this.backgroundMusic.setVolume(mad.agent069.sound.MySound.sound_volume);
 		this.backgroundMusic.play();
 
 		// Init some other properties

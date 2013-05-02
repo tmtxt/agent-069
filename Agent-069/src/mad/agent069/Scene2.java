@@ -92,6 +92,7 @@ public class Scene2 extends Scene {
 		// Init the background music
 		this.backgroundMusic = MyMusic.musicScene1();
 		this.backgroundMusic.setLooping(true);
+		this.backgroundMusic.setVolume(mad.agent069.sound.MySound.sound_volume);
 		this.backgroundMusic.play();
 
 		// The current time
