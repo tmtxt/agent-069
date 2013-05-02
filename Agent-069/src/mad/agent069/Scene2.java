@@ -1,10 +1,19 @@
 package mad.agent069;
 
+import mad.agent069.mainscene.AgentMain;
+import mad.agent069.switchscene.DisplayStageScene;
+import mad.agent069.switchscene.SwitchScene;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene2 extends Scene {
+
+	public Scene2(AgentMain agentMain) {
+		super(agentMain);
+		// TODO Auto-generated constructor stub
+	}
 
 	// The track texture
 	private Texture trackTexture;
@@ -56,6 +65,13 @@ public class Scene2 extends Scene {
 		// background, main character and obstacles
 		this.speed = 1;
 
+		// Init the length
+		this.length = 5000;
+
+		// Floor position
+		Scene.SCENE_FLOOR_POSITION_Y = 20;
+		this.floorPosition = 20;
+
 		// Init the texture to draw the track
 		this.trackTexture = new Texture(Gdx.files.internal("scene2/track.png"));
 		this.trackCurrentX = Scene.SCENE_WIDTH;
@@ -73,18 +89,25 @@ public class Scene2 extends Scene {
 
 		// The current time
 		long currentTime;
-		
+
 		// Last time draw
 		currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
 
-		// Init the scene floor position
-		Scene.SCENE_FLOOR_POSITION_Y = 20;
-
 		// Init some other properties
 		this.initAfterCreate(currentTime);
-		
+
+	}
+
+	@Override
+	protected void changeScene() {
+		// TODO Auto-generated method stub
+		long currentTime = TimeUtils.millis();
+		if(currentTime - this.startTime > this.length){
+			Score.finishCurrentScene(currentTime);
+			this.agentMain.setScreen(new SwitchScene(agentMain, Score.getScore() + "", SwitchScene.WIN_SCENE, new DisplayStageScene(agentMain, DisplayStageScene.STAGE_3, new Scene3(agentMain))));
+		}
 	}
 
 	@Override

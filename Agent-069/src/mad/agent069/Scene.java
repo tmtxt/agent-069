@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import mad.agent069.DirectionGestureDetector.DirectionListener;
+import mad.agent069.mainscene.AgentMain;
+import mad.agent069.switchscene.DisplayStageScene;
+import mad.agent069.switchscene.SwitchScene;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -25,6 +28,9 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The position of the floor
 	public static float SCENE_FLOOR_POSITION_Y = 20;
+	
+	// The floor position
+	public float floorPosition;
 
 	// The camera of the game
 	protected OrthographicCamera camera;
@@ -46,12 +52,20 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The actual scene moving time
 	protected long actualMovingTime;
+	
+	// The main scene
+	protected AgentMain agentMain;
+
+	public Scene(AgentMain agentMain) {
+		super();
+		this.agentMain = agentMain;
+	}
 
 	public long getActualMovingTime() {
 		return actualMovingTime;
 	}
 
-	// The length of the scene
+	// The length of the scene (in milisecond)
 	protected long length;
 
 	// The distance each time the background move
@@ -72,6 +86,9 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The list of bullets
 	List<Bullet> bulletList;
+	
+	// The start time of this scene (in milisecond)
+	protected long startTime;
 
 	/**
 	 * Generate a random obstacle
@@ -177,6 +194,7 @@ public class Scene implements ApplicationListener, Screen {
 		// Init the score
 		long currentTime = TimeUtils.millis();
 		Score.startNewScene(currentTime);
+		this.startTime = currentTime;
 	}
 
 	/**
@@ -366,6 +384,13 @@ public class Scene implements ApplicationListener, Screen {
 
 		// Remove the bullet if it goes out of the screen
 		this.removeBullet();
+		
+		// End the scene if reach the scene length
+		this.changeScene();
+	}
+	
+	protected void changeScene(){
+		
 	}
 
 	@Override

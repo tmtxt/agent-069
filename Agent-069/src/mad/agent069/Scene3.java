@@ -1,10 +1,17 @@
 package mad.agent069;
 
+import mad.agent069.mainscene.AgentMain;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene3 extends Scene {
+	public Scene3(AgentMain agentMain) {
+		super(agentMain);
+		// TODO Auto-generated constructor stub
+	}
+
 	// The background texture
 	private Texture backgroundTexture;
 	// The background texture width
@@ -33,6 +40,9 @@ public class Scene3 extends Scene {
 		// Init scene speed
 		this.speed = 1;
 
+		// Init the length
+		this.length = 60000;
+
 		// Init the texture to draw the background
 		this.backgroundTexture = new Texture(Gdx.files.internal("forest.png"));
 		this.backgroundCurrentX = Scene.SCENE_WIDTH;
@@ -44,16 +54,23 @@ public class Scene3 extends Scene {
 
 		// The current time
 		long currentTime;
-		
+
 		// Last time draw
 		currentTime = TimeUtils.nanoTime();
 		this.backgroundLastTimeDraw = currentTime;
 
 		// Init the scene floor position
 		Scene.SCENE_FLOOR_POSITION_Y = 45;
+		this.floorPosition = 45;
 
 		// Init some other properties
 		this.initAfterCreate(currentTime);
+	}
+
+	@Override
+	protected void changeScene() {
+		// TODO Auto-generated method stub
+		super.changeScene();
 	}
 
 	@Override

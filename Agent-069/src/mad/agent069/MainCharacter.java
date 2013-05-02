@@ -87,7 +87,9 @@ public class MainCharacter {
 	public MainCharacter(Scene currentScene) {
 		// The current scene
 		this.currentScene = currentScene;
-
+		
+		MainCharacter.ORIGINAL_Y = Scene.SCENE_FLOOR_POSITION_Y;
+		
 		// Init the normal texture
 		this.normalTexture = new Texture(
 				Gdx.files.internal("player-normal.png"));

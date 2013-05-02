@@ -132,7 +132,7 @@ public class SwitchScene implements Screen {
 	public void show() {
 		// Camera settings
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 1024, 512);
+		camera.setToOrtho(false, 800, 480);
 
 		// New batch
 		batch = new SpriteBatch();

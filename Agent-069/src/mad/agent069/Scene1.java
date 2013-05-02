@@ -1,10 +1,19 @@
 package mad.agent069;
 
+import mad.agent069.mainscene.AgentMain;
+import mad.agent069.switchscene.DisplayStageScene;
+import mad.agent069.switchscene.SwitchScene;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene1 extends Scene {
+	public Scene1(AgentMain agentMain) {
+		super(agentMain);
+		// TODO Auto-generated constructor stub
+	}
+
 	// The background texture
 	private Texture backgroundTexture;
 	// The background texture width
@@ -31,6 +40,9 @@ public class Scene1 extends Scene {
 
 		// Init the scene speed
 		this.speed = (float) 1;
+		
+		// Init the length
+		this.length = 5000;
 
 		// Init the background texture to draw
 		this.backgroundTexture = new Texture(Gdx.files.internal("factory.png"));
@@ -50,12 +62,23 @@ public class Scene1 extends Scene {
 
 		// Init the scene floor position
 		Scene.SCENE_FLOOR_POSITION_Y = 50;
+		this.floorPosition = 50;
 
 		// Init some other properties
 		this.initAfterCreate(currentTime);
 		
 		// Reset the score
 		Score.resetScore();
+	}
+
+	@Override
+	protected void changeScene() {
+		// TODO Auto-generated method stub
+		long currentTime = TimeUtils.millis();
+		if(currentTime - this.startTime > this.length){
+			Score.finishCurrentScene(currentTime);
+			this.agentMain.setScreen(new SwitchScene(agentMain, Score.getScore() + "", SwitchScene.WIN_SCENE, new DisplayStageScene(agentMain, DisplayStageScene.STAGE_2, new Scene2(agentMain))));
+		}
 	}
 
 	@Override
