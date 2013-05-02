@@ -39,7 +39,7 @@ public class MainCharacter {
 	// This is not the actual lower head time, just a number for used with
 	// current scene speed
 	// to calculate the real lower head time in nanosecond
-	private final long lowerheadTime = 1000000000;
+	private final long lowerheadTime = 700000000;
 	// The actual lowerhead time
 	private long lowerheadActualTime;
 	// Start time draw lowerhead

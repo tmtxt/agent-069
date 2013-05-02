@@ -15,7 +15,7 @@ public class TankObstacle extends Obstacle {
 	private Texture collapseTexture;
 	
 	// The obstacle blood
-	private final int tankBlood = 4;
+	private final int tankBlood = 5;
 
 	public TankObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
