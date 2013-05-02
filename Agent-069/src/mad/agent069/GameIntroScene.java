@@ -3,9 +3,14 @@ package mad.agent069;
 import java.util.ArrayList;
 import java.util.List;
 
+import mad.agent069.mainscene.AgentMain;
+import mad.agent069.mainscene.MainScene;
+import mad.agent069.music.MyMusic;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -26,6 +31,17 @@ public class GameIntroScene implements ApplicationListener, Screen {
 
 	// The current texture to be drawn
 	private int currentTexture;
+	
+	// The background music
+	private Music background_music;
+
+	// The main scene
+	private AgentMain agentMain;
+
+	public GameIntroScene(AgentMain agentMain) {
+		super();
+		this.agentMain = agentMain;
+	}
 
 	@Override
 	public void create() {
@@ -52,19 +68,19 @@ public class GameIntroScene implements ApplicationListener, Screen {
 
 		// Action listener
 		Gdx.input.setInputProcessor(new GestureDetector(new GestureListener() {
-			
+
 			@Override
 			public boolean zoom(float initialDistance, float distance) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean touchDown(float x, float y, int pointer, int button) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean tap(float x, float y, int count, int button) {
 				// TODO Auto-generated method stub
@@ -72,32 +88,38 @@ public class GameIntroScene implements ApplicationListener, Screen {
 				Gdx.graphics.requestRendering();
 				return false;
 			}
-			
+
 			@Override
-			public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-					Vector2 pointer1, Vector2 pointer2) {
+			public boolean pinch(Vector2 initialPointer1,
+					Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean pan(float x, float y, float deltaX, float deltaY) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean longPress(float x, float y) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean fling(float velocityX, float velocityY, int button) {
 				// TODO Auto-generated method stub
 				return false;
 			}
 		}));
+		
+		// Music for the game
+		background_music = MyMusic.musicMainScene();
+		background_music.setLooping(true);
+		background_music.setVolume(MyMusic.music_volume);
+		background_music.play();
 
 		// Non continuous rendering
 		Gdx.graphics.setContinuousRendering(false);
@@ -143,7 +165,9 @@ public class GameIntroScene implements ApplicationListener, Screen {
 			batch.draw(this.textureList.get(currentTexture), 0, 0);
 		} else {
 			// Quit the scene
-			System.out.print("Quit");
+			Gdx.graphics.setContinuousRendering(true);
+			background_music.stop();
+			agentMain.setScreen(new MainScene(agentMain));
 		}
 
 		batch.end();

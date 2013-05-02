@@ -3,9 +3,14 @@ package mad.agent069;
 import java.util.ArrayList;
 import java.util.List;
 
+import mad.agent069.mainscene.AgentMain;
+import mad.agent069.mainscene.MainScene;
+import mad.agent069.music.MyMusic;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -25,6 +30,17 @@ public class HowToPlayScene implements ApplicationListener, Screen {
 
 	// The current texture to be drawn
 	private int currentTexture;
+
+	// The background music
+	private Music background_music;
+
+	// The main scene
+	private AgentMain agentMain;
+
+	public HowToPlayScene(AgentMain agentMain) {
+		super();
+		this.agentMain = agentMain;
+	}
 
 	@Override
 	public void render(float delta) {
@@ -62,8 +78,8 @@ public class HowToPlayScene implements ApplicationListener, Screen {
 
 		// Init the image to draw
 		for (int i = 0; i < 8; i++) {
-			Texture texture = new Texture(Gdx.files.internal("htp" + i
-					+ ".png"));
+			Texture texture = new Texture(
+					Gdx.files.internal("htp" + i + ".png"));
 			this.textureList.add(texture);
 		}
 
@@ -116,6 +132,12 @@ public class HowToPlayScene implements ApplicationListener, Screen {
 			}
 		}));
 
+		// Music for the game
+		background_music = MyMusic.musicMainScene();
+		background_music.setLooping(true);
+		background_music.setVolume(MyMusic.music_volume);
+		background_music.play();
+
 		// Non continuous rendering
 		Gdx.graphics.setContinuousRendering(false);
 		Gdx.graphics.requestRendering();
@@ -142,7 +164,9 @@ public class HowToPlayScene implements ApplicationListener, Screen {
 			batch.draw(this.textureList.get(currentTexture), 0, 0);
 		} else {
 			// Quit the scene
-			System.out.print("Quit");
+			Gdx.graphics.setContinuousRendering(true);
+			background_music.stop();
+			agentMain.setScreen(new MainScene(agentMain));
 		}
 
 		batch.end();
