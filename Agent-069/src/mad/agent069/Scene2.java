@@ -59,7 +59,7 @@ public class Scene2 extends Scene {
 		// Only allow these types of obstacle
 		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
 				"ThornsObstacle", "HeliObstacle", "FireObstacle",
-				"RocketObstacle", "BombObstacle" };
+				"RocketObstacle", "BombObstacle", "MummyObstacle" };
 
 		// The speed of this scene, used for calculating the moving time of the
 		// background, main character and obstacles
