@@ -9,6 +9,7 @@ import mad.agent069.DirectionGestureDetector.DirectionListener;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +17,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public class Scene implements ApplicationListener {
+public class Scene implements ApplicationListener, Screen {
 
 	// The screen size of the game, measured in pixel
 	public static final int SCENE_WIDTH = 800;
@@ -393,6 +394,24 @@ public class Scene implements ApplicationListener {
 
 	public float getSpeed() {
 		return speed;
+	}
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		this.render();
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		this.create();
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
