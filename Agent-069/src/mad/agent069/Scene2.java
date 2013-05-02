@@ -1,10 +1,7 @@
 package mad.agent069;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene2 extends Scene {
@@ -36,6 +33,12 @@ public class Scene2 extends Scene {
 	private long skyLastTimeDraw;
 	// Sky moving time
 	private long skyMovingTime;
+
+	@Override
+	protected void swipeRightHandler() {
+		// TODO Auto-generated method stub
+	}
+
 	// Sky moving distance (pixel)
 	private final float skyMovingDistance = 10;
 
@@ -43,6 +46,11 @@ public class Scene2 extends Scene {
 	public void create() {
 		// TODO Auto-generated method stub
 		super.create();
+
+		// Only allow these types of obstacle
+		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
+				"ThornsObstacle", "HeliObstacle", "FireObstacle",
+				"RocketObstacle", "BombObstacle" };
 
 		// The speed of this scene, used for calculating the moving time of the
 		// background, main character and obstacles
@@ -53,7 +61,7 @@ public class Scene2 extends Scene {
 		this.trackCurrentX = Scene.SCENE_WIDTH;
 		this.trackTextureWidth = this.trackTexture.getWidth();
 		this.trackMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
-		
+
 		// Init the actual scene moving time
 		this.actualMovingTime = this.trackMovingTime;
 
@@ -63,16 +71,20 @@ public class Scene2 extends Scene {
 		this.skyTextureWidth = this.skyTexture.getWidth();
 		this.skyMovingTime = (long) (Scene.SCENE_MOVING_TIME / this.speed);
 
+		// The current time
+		long currentTime;
+		
 		// Last time draw
-		long currentTime = TimeUtils.nanoTime();
+		currentTime = TimeUtils.nanoTime();
 		this.skyLastTimeDraw = currentTime;
 		this.trackLastTimeDraw = currentTime;
-		
+
 		// Init the scene floor position
 		Scene.SCENE_FLOOR_POSITION_Y = 20;
 
 		// Init some other properties
 		this.initAfterCreate(currentTime);
+		
 	}
 
 	@Override
@@ -89,6 +101,9 @@ public class Scene2 extends Scene {
 		// Current time
 		long currentTime = TimeUtils.nanoTime();
 
+		// Prepare for main character drawing
+		this.mainCharacter.prepareForDrawing(currentTime);
+
 		// Begin drawing
 		batch.begin();
 
@@ -101,11 +116,7 @@ public class Scene2 extends Scene {
 				this.trackY);
 		batch.draw(trackTexture, trackCurrentX, this.trackY);
 
-		// Draw the main character
-		this.mainCharacter.drawMainCharacter(batch, currentTime);
-
-		// Draw the obstacle
-		obstacle.drawObstacle(batch, currentTime);
+		this.drawGeneral(batch, currentTime);
 
 		batch.end();
 		// End drawing
@@ -132,13 +143,9 @@ public class Scene2 extends Scene {
 			trackCurrentX = Scene.SCENE_WIDTH;
 		}
 
-		// Create new obstacle if the last obstacle disappear
-		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
-			this.obstacle = this.createNewObstacle(currentTime);
-		}
+		// Handler for obstacle
+		this.obstacleHandler(currentTime);
 
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap();
 	}
 
 	@Override

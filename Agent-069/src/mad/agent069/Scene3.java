@@ -25,6 +25,11 @@ public class Scene3 extends Scene {
 		// TODO Auto-generated method stub
 		super.create();
 
+		// Only allow these types of obstacle
+		Scene.OBSTACLE_CLASS_NAMES = new String[] { "RockObstacle",
+				"ThornsObstacle", "HeliObstacle", "FireObstacle",
+				"TankObstacle", "RocketObstacle", "BombObstacle" };
+
 		// Init scene speed
 		this.speed = 1;
 
@@ -37,8 +42,11 @@ public class Scene3 extends Scene {
 		// Init the actual scene moving time
 		this.actualMovingTime = this.backgroundMovingTime;
 
+		// The current time
+		long currentTime;
+		
 		// Last time draw
-		long currentTime = TimeUtils.nanoTime();
+		currentTime = TimeUtils.nanoTime();
 		this.backgroundLastTimeDraw = currentTime;
 
 		// Init the scene floor position
@@ -62,6 +70,9 @@ public class Scene3 extends Scene {
 		// The current time
 		long currentTime = TimeUtils.nanoTime();
 
+		// Prepare for main character drawing
+		this.mainCharacter.prepareForDrawing(currentTime);
+
 		// Begin drawing
 		batch.begin();
 
@@ -71,11 +82,7 @@ public class Scene3 extends Scene {
 		batch.draw(this.backgroundTexture, this.backgroundCurrentX
 				- this.backgroundTextureWidth, this.backgroundY);
 
-		// Draw the main character
-		this.mainCharacter.drawMainCharacter(batch, currentTime);
-
-		// Draw the obstacle
-		this.obstacle.drawObstacle(batch, currentTime);
+		this.drawGeneral(batch, currentTime);
 
 		batch.end();
 		// End drawing
@@ -92,13 +99,9 @@ public class Scene3 extends Scene {
 			this.backgroundCurrentX = Scene.SCENE_WIDTH;
 		}
 
-		// Create new obstacle if the last obstacle disappear
-		if (this.obstacle.getCurrentX() <= 0 - this.obstacle.getWidth()) {
-			this.obstacle = this.createNewObstacle(currentTime);
-		}
+		// Handler for obstacle
+		this.obstacleHandler(currentTime);
 
-		// Check if the main character overlap the obstacle
-		this.obstacleOverlap();
 	}
 
 	@Override

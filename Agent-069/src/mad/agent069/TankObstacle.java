@@ -3,47 +3,50 @@ package mad.agent069;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 
 public class TankObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
 	private Texture tankTexture;
+	
+	// The collapse texture
+	private Texture collapseTexture;
+	
+	// The obstacle blood
+	private final int tankBlood = 4;
 
 	public TankObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
-		// The speed of this obstacle
-		this.speed = 1;
+		// Init the speed
+		this.speed = (float) 0.2;
 
 		// Calculate the actual obstacle moving speed
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.tankTexture = new Texture(Gdx.files.internal("tank.png"));
+		this.tankTexture = ObstacleTexture.TANK_OBSTACLE_TEXTURE;
+		this.collapseTexture = ObstacleTexture.TANK_COLLAPSE_OBSTACLE_TEXTURE;
 
-		// Set the current position
-		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
-				Scene.SCENE_FLOOR_POSITION_Y, this.tankTexture.getWidth(),
-				this.tankTexture.getHeight());
+		// Init the current position
+		this.initCurrentPosition(tankTexture);
 
-		// Set the obstacle width
-		this.width = tankTexture.getWidth();
+		// Init allow to be shot
+		this.initAllowBeShot(this.tankBlood);
 	}
 
 	@Override
 	protected void drawSpecificObstacle(SpriteBatch batch, long currentTime) {
 		// TODO Auto-generated method stub
-		// draw the obstacle
-		batch.draw(this.tankTexture, this.currentPosition.getX(), this.currentPosition.getY());
-
+		batch.draw(this.tankTexture, this.currentPosition.getX(),
+				this.currentPosition.getY());
 	}
 
 	@Override
-	public void collapse() {
+	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
-
+		this.tankTexture = this.collapseTexture;
 	}
 
 }

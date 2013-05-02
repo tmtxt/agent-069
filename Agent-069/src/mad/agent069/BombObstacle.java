@@ -1,16 +1,15 @@
 package mad.agent069;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class RockObstacle extends Obstacle {
+public class BombObstacle extends Obstacle {
 
 	// The texture to draw this obstacle
-	private Texture rockTexture;
+	private Texture bombTexture;
 
-	public RockObstacle(Scene currentScene, long lastTimeObstacle) {
+	public BombObstacle(Scene currentScene, long lastTimeObstacle) {
 		super(currentScene, lastTimeObstacle);
 		// TODO Auto-generated constructor stub
 
@@ -21,15 +20,15 @@ public class RockObstacle extends Obstacle {
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.rockTexture = ObstacleTexture.ROCK_OBSTACLE_TEXTURE;
+		this.bombTexture = ObstacleTexture.BOMB_OBSTACLE_TEXTURE;
 
 		// Set the current position
 		this.currentPosition = new Rectangle(Scene.SCENE_WIDTH,
-				Scene.SCENE_FLOOR_POSITION_Y, this.rockTexture.getWidth(),
-				this.rockTexture.getHeight());
+				Scene.SCENE_FLOOR_POSITION_Y, this.bombTexture.getWidth(),
+				this.bombTexture.getHeight());
 
 		// Set the obstacle width
-		this.width = rockTexture.getWidth();
+		this.width = this.bombTexture.getWidth();
 
 		// Not allow to be shot
 		this.allowShot = false;
@@ -40,7 +39,7 @@ public class RockObstacle extends Obstacle {
 		// TODO Auto-generated method stub
 
 		// draw the obstacle
-		batch.draw(this.rockTexture, this.currentPosition.getX(),
+		batch.draw(this.bombTexture, this.currentPosition.getX(),
 				this.currentPosition.getY());
 
 	}
@@ -48,7 +47,7 @@ public class RockObstacle extends Obstacle {
 	@Override
 	public void changeToCollapseTexture() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
