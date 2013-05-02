@@ -9,13 +9,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
 
-public class GameIntroScene implements ApplicationListener, Screen {
+public class HowToPlayScene implements ApplicationListener, Screen {
 
 	// The list of all textures will be drawn
 	private List<Texture> textureList;
@@ -26,6 +25,24 @@ public class GameIntroScene implements ApplicationListener, Screen {
 
 	// The current texture to be drawn
 	private int currentTexture;
+
+	@Override
+	public void render(float delta) {
+		// TODO Auto-generated method stub
+		this.render();
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		this.create();
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+
+	}
 
 	@Override
 	public void create() {
@@ -44,27 +61,27 @@ public class GameIntroScene implements ApplicationListener, Screen {
 		this.currentTexture = 0;
 
 		// Init the image to draw
-		for (int i = 0; i < 3; i++) {
-			Texture texture = new Texture(Gdx.files.internal("gameintro" + i
+		for (int i = 0; i < 8; i++) {
+			Texture texture = new Texture(Gdx.files.internal("htp" + i
 					+ ".png"));
 			this.textureList.add(texture);
 		}
 
 		// Action listener
 		Gdx.input.setInputProcessor(new GestureDetector(new GestureListener() {
-			
+
 			@Override
 			public boolean zoom(float initialDistance, float distance) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean touchDown(float x, float y, int pointer, int button) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean tap(float x, float y, int count, int button) {
 				// TODO Auto-generated method stub
@@ -72,26 +89,26 @@ public class GameIntroScene implements ApplicationListener, Screen {
 				Gdx.graphics.requestRendering();
 				return false;
 			}
-			
+
 			@Override
-			public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-					Vector2 pointer1, Vector2 pointer2) {
+			public boolean pinch(Vector2 initialPointer1,
+					Vector2 initialPointer2, Vector2 pointer1, Vector2 pointer2) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean pan(float x, float y, float deltaX, float deltaY) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean longPress(float x, float y) {
 				// TODO Auto-generated method stub
 				return false;
 			}
-			
+
 			@Override
 			public boolean fling(float velocityX, float velocityY, int button) {
 				// TODO Auto-generated method stub
@@ -102,24 +119,6 @@ public class GameIntroScene implements ApplicationListener, Screen {
 		// Non continuous rendering
 		Gdx.graphics.setContinuousRendering(false);
 		Gdx.graphics.requestRendering();
-	}
-
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		this.render();
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-		this.create();
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -164,8 +163,7 @@ public class GameIntroScene implements ApplicationListener, Screen {
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		Gdx.graphics.setContinuousRendering(true);
-		Gdx.input.setInputProcessor(null);
+
 	}
 
 }
