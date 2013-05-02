@@ -67,6 +67,7 @@ public class SwitchScene implements Screen {
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
 		batch.setProjectionMatrix(camera.combined);
+		stage.act(delta);
 
 		// Begin drawing batch
 		batch.begin();
@@ -198,7 +199,7 @@ public class SwitchScene implements Screen {
 
 	@Override
 	public void hide() {
-
+		dispose();
 	}
 
 	@Override
@@ -213,7 +214,14 @@ public class SwitchScene implements Screen {
 
 	@Override
 	public void dispose() {
-
+		stage.clear();
+//		this.batch.dispose();
+//		this.skin.dispose();
+//		this.atlas.dispose();
+//		this.normalFont.dispose();
+//		this.bigFont.dispose();
+//		this.stage.dispose();
+//		this.background.dispose();
 	}
 
 }

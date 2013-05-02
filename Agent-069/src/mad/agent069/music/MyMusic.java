@@ -6,7 +6,7 @@ import com.badlogic.gdx.audio.Music;
 public class MyMusic {
 
 	//Properties
-	public static float music_volume = 0.5f;
+	public static float music_volume;
 	
 	/*
 	 * MUSIC FOR MAIN SCENE

@@ -186,6 +186,10 @@ public class SettingScene implements Screen {
 				MySound.sound_volume = soundSlide.getValue();
 				MyMusic.music_volume = musicSlide.getValue();
 				agent.setScreen(new MainScene(agent));
+				AgentMain.prefs.putFloat("musicVolume", MyMusic.music_volume);
+				AgentMain.prefs.flush();
+				AgentMain.prefs.putFloat("soundVolume", MySound.sound_volume);
+				AgentMain.prefs.flush();
 				background_music.stop();
 			}
 		});

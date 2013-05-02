@@ -119,7 +119,7 @@ public class DisplayStageScene implements Screen {
 		};
 		
 		Tween.registerAccessor(Sprite.class, new MainSceneAccessor());
-		Tween.to(sprite, MainSceneAccessor.ALPHA, 2f).target(1).ease(TweenEquations.easeInQuad).repeatYoyo(1, 2f).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
+		Tween.to(sprite, MainSceneAccessor.ALPHA, 1f).target(1).ease(TweenEquations.easeInQuad).repeatYoyo(1, 1f).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
 		
 	}
 

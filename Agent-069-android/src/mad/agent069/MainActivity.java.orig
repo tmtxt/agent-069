@@ -1,0 +1,23 @@
+package mad.agent069;
+
+import mad.agent069.mainscene.AgentMain;
+import android.os.Bundle;
+
+import com.badlogic.gdx.backends.android.AndroidApplication;
+import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
+public class MainActivity extends AndroidApplication {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
+        cfg.useGL20 = false;
+        
+<<<<<<< HEAD
+        initialize(new AgentMain(), cfg);
+=======
+        initialize(new Scene3(), cfg);
+>>>>>>> 66bbbd368b525f1ca7f9609e59e1bc032701b952
+    }
+}

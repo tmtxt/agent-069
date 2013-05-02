@@ -176,6 +176,7 @@ public class MainScene implements Screen{
 			}
 		});
 		
+		
 		settingButton = new TextButton("Setting", style);
 		settingButton.setColor(1, 1, 1, 0);
 		settingButton.addListener((new ClickListener(){
@@ -197,7 +198,7 @@ public class MainScene implements Screen{
 		sprite.setColor(1, 1, 1, 0);
 		
 		Tween.registerAccessor(Sprite.class, new MainSceneAccessor());
-		Tween.to(sprite, MainSceneAccessor.ALPHA, 2.5f).target(1).ease(TweenEquations.easeInQuad).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
+		Tween.to(sprite, MainSceneAccessor.ALPHA, 1.5f).target(1).ease(TweenEquations.easeInQuad).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
 
 		//Will add Tween to fade mainscene away
 //		Tween.to(sprite, MainSceneAccessor.ALPHA, 3f).target(1).ease(TweenEquations.easeInQuad).repeatYoyo(1, 2.5f).setCallback(cb).setCallbackTriggers(TweenCallback.COMPLETE).start(manager);
@@ -220,7 +221,8 @@ public class MainScene implements Screen{
 	
 	@Override
 	public void hide() {
-		background_music.stop();
+//		background_music.stop();
+		dispose();
 	}
 
 	@Override
@@ -235,7 +237,9 @@ public class MainScene implements Screen{
 
 	@Override
 	public void dispose() {
+		Gdx.app.log("Dispose", "Logged in dispose");
 		background_music.stop();
+		stage.clear();
 	}
 
 }
