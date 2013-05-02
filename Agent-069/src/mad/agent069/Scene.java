@@ -1,10 +1,15 @@
 package mad.agent069;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.Timer;
+
 import mad.agent069.DirectionGestureDetector.DirectionListener;
 import mad.agent069.mainscene.AgentMain;
 import mad.agent069.switchscene.DisplayStageScene;
@@ -28,7 +33,7 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The position of the floor
 	public static float SCENE_FLOOR_POSITION_Y = 20;
-	
+
 	// The floor position
 	public float floorPosition;
 
@@ -52,7 +57,7 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The actual scene moving time
 	protected long actualMovingTime;
-	
+
 	// The main scene
 	protected AgentMain agentMain;
 
@@ -86,7 +91,7 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The list of bullets
 	List<Bullet> bulletList;
-	
+
 	// The start time of this scene (in milisecond)
 	protected long startTime;
 
@@ -152,9 +157,6 @@ public class Scene implements ApplicationListener, Screen {
 				// Play the explosion sound
 				this.explosionSound.play();
 				Gdx.input.vibrate(100);
-
-				// Stop rendering
-				Gdx.graphics.setContinuousRendering(false);
 				
 				// Disable gesture detection
 				Gdx.input.setInputProcessor(null);
@@ -163,6 +165,12 @@ public class Scene implements ApplicationListener, Screen {
 				long currentTime = TimeUtils.millis();
 				Score.finishCurrentScene(currentTime);
 				System.out.println(Score.getScore());
+				
+				agentMain.setScreen(new SwitchScene(agentMain, Score
+						.getScore() + "", SwitchScene.LOSE_SCENE,
+						new DisplayStageScene(agentMain,
+								DisplayStageScene.STAGE_1,
+								new Scene1(agentMain))));
 			}
 		}
 
@@ -384,13 +392,13 @@ public class Scene implements ApplicationListener, Screen {
 
 		// Remove the bullet if it goes out of the screen
 		this.removeBullet();
-		
+
 		// End the scene if reach the scene length
 		this.changeScene();
 	}
-	
-	protected void changeScene(){
-		
+
+	protected void changeScene() {
+
 	}
 
 	@Override
@@ -436,7 +444,7 @@ public class Scene implements ApplicationListener, Screen {
 	@Override
 	public void hide() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
