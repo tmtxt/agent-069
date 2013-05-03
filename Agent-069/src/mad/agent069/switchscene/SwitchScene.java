@@ -1,5 +1,7 @@
 package mad.agent069.switchscene;
 
+import mad.agent069.Score;
+import mad.agent069.cloud.MinHighScore;
 import mad.agent069.mainscene.AgentMain;
 import mad.agent069.mainscene.MainScene;
 import mad.agent069.tween.MainSceneAccessor;
@@ -305,6 +307,16 @@ public class SwitchScene implements Screen {
 			userInput = text;
 			showUploadedText();
 			isUploadded = true;
+			
+			String username = userInput;
+			int score = Integer.parseInt(Score.getScore()+"");
+
+			MinHighScore.processHighscore(username, score);
+			
+//			if (!result.equals("0")) {
+//				System.out.println("NHAN: " + result);
+//			}
+			
 		}
 
 		@Override

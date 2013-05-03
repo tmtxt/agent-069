@@ -2,6 +2,7 @@ package mad.agent069.scorescene;
 
 import java.util.ArrayList;
 
+import mad.agent069.cloud.MinHighScore;
 import mad.agent069.mainscene.AgentMain;
 import mad.agent069.mainscene.MainScene;
 
@@ -177,14 +178,15 @@ public class ScoreScene implements Screen {
 	}
 
 	private void showTable(){
+		ArrayList<String[]> allScore = MinHighScore.getHighscoreList();
 		table.columnDefaults(0).pad(5);
 		table.columnDefaults(1).pad(5);
 		table.add(new Label("Name", ls_big_title));
 		table.add(new Label("Score", ls_big_title));
 		table.row();
-		for(int i =0; i < 10; i++){
-			table.add(new Label("Name", ls_normal_left));
-			table.add(new Label("score", ls_normal_right));
+		for(int i =0; i < allScore.size(); i++){
+			table.add(new Label(allScore.get(i)[1], ls_normal_left));
+			table.add(new Label(allScore.get(i)[0], ls_normal_right));
 			table.row();
 		}
 		
