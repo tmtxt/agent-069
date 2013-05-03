@@ -33,18 +33,18 @@ public class DisplayStageScene implements Screen {
 	public static final String STAGE_3 = "Stage_3";
 	
 	//Properties
-	AgentMain agent;
-	OrthographicCamera camera;
-	SpriteBatch batch;
-	Sprite sprite;
-	TweenManager manager;
-	BitmapFont font;
-	Texture stageTexture;
-	TextureAtlas atlas;
-	Skin skin;
+	private AgentMain agent;
+	private OrthographicCamera camera;
+	private SpriteBatch batch;
+	private Sprite sprite;
+	private TweenManager manager;
+	private BitmapFont font;
+	private Texture stageTexture;
+	private TextureAtlas atlas;
+	private Skin skin;
 
-	String titleName;
-	Screen newScreen;
+	private String titleName;
+	private Screen newScreen;
 
 	/*
 	 * Constructor that display the stage name and change to the newScreen

@@ -1,10 +1,17 @@
 package mad.agent069.switchscene;
 
-import mad.agent069.Scene;
 import mad.agent069.mainscene.AgentMain;
 import mad.agent069.mainscene.MainScene;
+import mad.agent069.tween.MainSceneAccessor;
+
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL10;
@@ -17,43 +24,54 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class SwitchScene implements Screen {
 
 	// Constant
-	private static final String BACKGROUND_PATH = "switchingscene/switch_scene.png";
+	private static final String LOSE_BACKGROUND_PATH = "switchingscene/switch_scene.png";
+	private static final String WIN_BACKGROUND_PATH = "switchingscene/switch_scene2.png";
+	private static final String UPLOADED_PATH = "switchingscene/uploaded_text.png";
 	public static final String WIN_SCENE = "winscene";
 	public static final String LOSE_SCENE = "losescene";
+	public static String userInput = "";
 
-	AgentMain agent;
-	OrthographicCamera camera;
-	Stage stage;
+	private AgentMain agent;
+	private OrthographicCamera camera;
+	private Stage stage;
 
-	Label scoreTitle;
-	Label scoreLabel;
+	private boolean isUploadded = false;
+	private Label scoreTitle;
+	private Label scoreLabel;
 
-	TextButton backMenu;
-	TextButton uploadScore;
-	TextButtonStyle style;
-	String score;
-	String endScene;
+	private TextButton backMenu;
+	private TextButton uploadScore;
+	private TextButtonStyle style;
+	private String score;
+	private String endScene;
 
-	Screen newScreen;
-	TextButton nextLevel;
+	private TweenManager manager;
+	private TweenCallback cb;
+	private Screen newScreen;
+	private TextButton nextLevel;
 	private SpriteBatch batch;
-	private Sprite sprite;
+	private Sprite backgroundSprite;
+	private Sprite uploadedTextSprite;
 	private Texture background;
+	private Texture uploaded_text;
 	private TextureAtlas atlas;
 	private Skin skin;
 	private BitmapFont normalFont;
 	private BitmapFont bigFont;
+	private MyTextInputListener listener = new MyTextInputListener();
+	private ClickListener uplis;
 
-	public SwitchScene(AgentMain agent, String score, String determineScene, Screen newScreen) {
+	public SwitchScene(AgentMain agent, String score, String determineScene,
+			Screen newScreen) {
 		this.agent = agent;
 		this.score = score;
 		this.newScreen = newScreen;
@@ -66,16 +84,27 @@ public class SwitchScene implements Screen {
 		Gdx.gl.glClearColor(0, 0, 0, 0);
 		Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 
+		manager.update(delta);
 		batch.setProjectionMatrix(camera.combined);
 		stage.act(delta);
 
+		if(isUploadded){
+			uploadScore.removeListener(uplis);
+			stage.addActor(uploadScore);
+			isUploadded = false;
+		}
+		
 		// Begin drawing batch
 		batch.begin();
-		sprite.draw(batch);
+		backgroundSprite.draw(batch);
 		batch.end();
 
 		batch.begin();
 		stage.draw();
+		batch.end();
+
+		batch.begin();
+		uploadedTextSprite.draw(batch);
 		batch.end();
 
 	}
@@ -118,10 +147,14 @@ public class SwitchScene implements Screen {
 		nextLevel.setY(Gdx.graphics.getHeight() * 3 / 9 - backMenu.getHeight()
 				/ 2);
 
-		// Add to stage
-		stage.addActor(nextLevel);
+		// Uploaded Text
+		// uploadedTextSprite.setSize(512, 32);
+
+		uploadedTextSprite.setX(1024 / 2 - uploadedTextSprite.getWidth() / 2);
+		uploadedTextSprite.setY(70);
 
 		// Add to stage
+		stage.addActor(nextLevel);
 		stage.addActor(scoreTitle);
 		stage.addActor(scoreLabel);
 		stage.addActor(backMenu);
@@ -133,7 +166,7 @@ public class SwitchScene implements Screen {
 	public void show() {
 		// Camera settings
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, 1024, 512);
 
 		// New batch
 		batch = new SpriteBatch();
@@ -145,8 +178,13 @@ public class SwitchScene implements Screen {
 		skin = new Skin();
 		skin.addRegions(atlas);
 
-		// New background
-		background = new Texture(BACKGROUND_PATH);
+		// New Texture including BACKGROUND and UPLOADED_TEXT
+		if(endScene.equals(WIN_SCENE)){
+			background = new Texture(WIN_BACKGROUND_PATH);
+		}else if(endScene.equals(LOSE_SCENE)){
+			background = new Texture(LOSE_BACKGROUND_PATH);
+		}
+		uploaded_text = new Texture(UPLOADED_PATH);
 
 		// Create font
 		bigFont = new BitmapFont(
@@ -155,8 +193,10 @@ public class SwitchScene implements Screen {
 				Gdx.files.internal("mainscene/white_font.fnt"), false);
 
 		// New Sprite
-		sprite = new Sprite(background);
-		sprite.setColor(1, 1, 1, 1);
+		backgroundSprite = new Sprite(background);
+		backgroundSprite.setColor(1, 1, 1, 1);
+		uploadedTextSprite = new Sprite(uploaded_text);
+		uploadedTextSprite.setColor(1, 1, 1, 0);
 
 		// Create score title
 		LabelStyle ls_normal = new LabelStyle(normalFont, Color.WHITE);
@@ -182,10 +222,32 @@ public class SwitchScene implements Screen {
 			}
 		});
 
+		// Calling Tween
+		manager = new TweenManager();
+		cb = new TweenCallback() {
+
+			@Override
+			public void onEvent(int arg0, BaseTween<?> arg1) {
+				tweenCompleted();
+			}
+		};
+
+		Tween.registerAccessor(Sprite.class, new MainSceneAccessor());
+
 		uploadScore = new TextButton("Upload Score", style);
-		if(endScene.equals(WIN_SCENE)){
+		uplis = new ClickListener(){
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.input.getTextInput(listener, "Enter your username", "");
+			}
+		};
+		
+		uploadScore.addListener(uplis);
+
+		// Set The right button
+		if (endScene.equals(WIN_SCENE)) {
 			nextLevel = new TextButton("Next level", style);
-		}else if(endScene.equals(LOSE_SCENE)){
+		} else if (endScene.equals(LOSE_SCENE)) {
 			nextLevel = new TextButton("Retry", style);
 		}
 		nextLevel.addListener(new ClickListener() {
@@ -195,6 +257,9 @@ public class SwitchScene implements Screen {
 			}
 		});
 
+	}
+
+	private void tweenCompleted() {
 	}
 
 	@Override
@@ -215,13 +280,37 @@ public class SwitchScene implements Screen {
 	@Override
 	public void dispose() {
 		stage.clear();
-//		this.batch.dispose();
-//		this.skin.dispose();
-//		this.atlas.dispose();
-//		this.normalFont.dispose();
-//		this.bigFont.dispose();
-//		this.stage.dispose();
-//		this.background.dispose();
+
+		// this.batch.dispose();
+		// this.skin.dispose();
+		// this.atlas.dispose();
+		// this.normalFont.dispose();
+		// this.bigFont.dispose();
+		// this.stage.dispose();
+		// this.background.dispose();
 	}
 
+	private void showUploadedText() {
+		Tween.to(uploadedTextSprite, MainSceneAccessor.ALPHA, 1f)
+		.target(1).ease(TweenEquations.easeInQuad)
+		.repeatYoyo(1, 1f).setCallback(cb)
+		.setCallbackTriggers(TweenCallback.COMPLETE)
+		.start(manager);	
+	}
+
+	class MyTextInputListener implements TextInputListener {
+
+		@Override
+		public void input(String text) {
+			userInput = text;
+			showUploadedText();
+			isUploadded = true;
+		}
+
+		@Override
+		public void canceled() {
+
+		}
+
+	}
 }

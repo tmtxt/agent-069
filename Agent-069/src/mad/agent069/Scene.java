@@ -1,14 +1,10 @@
 package mad.agent069;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.swing.Timer;
 
 import mad.agent069.DirectionGestureDetector.DirectionListener;
 import mad.agent069.mainscene.AgentMain;
@@ -24,7 +20,15 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene implements ApplicationListener, Screen {
@@ -62,9 +66,18 @@ public class Scene implements ApplicationListener, Screen {
 
 	// The main scene
 	protected AgentMain agentMain;
-	
+
 	// The background music
 	protected Music backgroundMusic;
+
+	// The Buttons - Pause and Resume
+	protected Skin skin;
+	protected TextureAtlas atlas;
+	protected TextButtonStyle style;
+	protected Stage stage;
+	protected BitmapFont font;
+	protected TextButton resume;
+	protected TextButton pause;
 
 	public Scene(AgentMain agentMain) {
 		super();
@@ -162,24 +175,23 @@ public class Scene implements ApplicationListener, Screen {
 				// Play the explosion sound
 				this.explosionSound.play();
 				Gdx.input.vibrate(100);
-				
+
 				// Disable gesture detection
 				Gdx.input.setInputProcessor(null);
-				
+
 				// Calculate the score
 				long currentTime = TimeUtils.millis();
 				Score.finishCurrentScene(currentTime);
 				System.out.println(Score.getScore());
-				
+
 				// Stop the music
 				this.backgroundMusic.stop();
-				
+
 				// Change scene
-				agentMain.setScreen(new SwitchScene(agentMain, Score
-						.getScore() + "", SwitchScene.LOSE_SCENE,
-						new DisplayStageScene(agentMain,
-								DisplayStageScene.STAGE_1,
-								new Scene1(agentMain))));
+				agentMain.setScreen(new SwitchScene(agentMain, Score.getScore()
+						+ "", SwitchScene.LOSE_SCENE, new DisplayStageScene(
+						agentMain, DisplayStageScene.STAGE_1, new Scene1(
+								agentMain))));
 			}
 		}
 
@@ -212,6 +224,57 @@ public class Scene implements ApplicationListener, Screen {
 		long currentTime = TimeUtils.millis();
 		Score.startNewScene(currentTime);
 		this.startTime = currentTime;
+
+
+		/*
+		 * ======================== BUTTON CODE ====================
+		 */
+
+		// Create atlas
+		atlas = new TextureAtlas("scene/button_control.atlas");
+
+		// Create a skin
+		skin = new Skin();
+		skin.addRegions(atlas);
+
+		// Create font
+		font = new BitmapFont(Gdx.files.internal("mainscene/white_font.fnt"),
+				false);
+
+		// Create Pause button style
+		style = new TextButtonStyle();
+		style.up = skin.getDrawable("pause_button");
+		style.down = skin.getDrawable("pause_button");
+		style.font = font;
+
+		// Create Pause button
+		pause = new TextButton("", style);
+
+		// Create Pause button style
+		style = new TextButtonStyle();
+		style.up = skin.getDrawable("resume_button");
+		style.down = skin.getDrawable("resume_button");
+		style.font = font;
+
+		// Create Pause button
+		resume = new TextButton("", style);
+		
+		// Create Listener
+		pause.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.log("Clicked", "Clicked");
+			}
+		});
+
+		resume.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Gdx.app.log("Clicked", "Clicked");
+				
+			}
+		});
+
 	}
 
 	/**
@@ -384,12 +447,6 @@ public class Scene implements ApplicationListener, Screen {
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void render() {
 		// TODO Auto-generated method stub
 		// Clear color
@@ -404,10 +461,12 @@ public class Scene implements ApplicationListener, Screen {
 
 		// End the scene if reach the scene length
 		this.changeScene();
+
+		Gdx.app.log("Rend", "Rend");
 	}
 
 	protected void changeScene() {
-		
+
 	}
 
 	@Override
@@ -441,7 +500,38 @@ public class Scene implements ApplicationListener, Screen {
 	@Override
 	public void render(float delta) {
 		// TODO Auto-generated method stub
+//		stage.act(delta);
+
 		this.render();
+
+		Gdx.app.log("Break", "BREAKKKKKKKK");
+//		batch.begin();
+//		stage.draw();
+//		batch.end();
+
+	}
+
+	@Override
+	public void resize(int width, int height) {
+//		// Create new stage
+//		if (stage == null) {
+//			stage = new Stage(width, height, true);
+//		}
+//		stage.clear();
+//
+////		Gdx.input.setInputProcessor(stage);
+//
+//		resume.setWidth(64);
+//		resume.setHeight(64);
+//		pause.setWidth(64);
+//		pause.setHeight(64);
+//		resume.setVisible(false);
+//		pause.setVisible(true);
+//
+//		// Add stage
+//		stage.addActor(resume);
+//		stage.addActor(pause);
+
 	}
 
 	@Override
@@ -454,6 +544,16 @@ public class Scene implements ApplicationListener, Screen {
 	public void hide() {
 		// TODO Auto-generated method stub
 		this.backgroundMusic.stop();
+	}
+	
+	protected void changeButton(){
+		if(pause.isVisible()){
+			resume.setVisible(false);
+		}
+		
+		if(resume.isVisible()){
+			pause.setVisible(false);
+		}
 	}
 
 }

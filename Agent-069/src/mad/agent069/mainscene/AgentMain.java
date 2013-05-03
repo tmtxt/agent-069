@@ -1,6 +1,7 @@
 package mad.agent069.mainscene;
 
 import mad.agent069.music.MyMusic;
+import mad.agent069.scorescene.ScoreScene;
 import mad.agent069.sound.MySound;
 
 import com.badlogic.gdx.Game;
@@ -36,8 +37,7 @@ public class AgentMain extends Game {
 		Gdx.app.log("Music", MyMusic.music_volume + "");
 
 		setScreen(new MainScene(this));
-		// setScreen(new SwitchScene(this, "2020", SwitchScene.WIN_SCENE, new
-		// SettingScene(this)));
+//		setScreen(new ScoreScene(this));
 	}
 
 	@Override

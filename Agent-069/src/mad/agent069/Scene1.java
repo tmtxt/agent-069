@@ -7,6 +7,8 @@ import mad.agent069.switchscene.SwitchScene;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class Scene1 extends Scene {
@@ -43,7 +45,7 @@ public class Scene1 extends Scene {
 		this.speed = (float) 1;
 		
 		// Init the length
-		this.length = 1000;
+		this.length = 5000;
 
 		// Init the background texture to draw
 		this.backgroundTexture = new Texture(Gdx.files.internal("factory.png"));
@@ -76,6 +78,7 @@ public class Scene1 extends Scene {
 		
 		// Reset the score
 		Score.resetScore();
+
 	}
 
 	@Override
@@ -150,6 +153,7 @@ public class Scene1 extends Scene {
 	@Override
 	public void pause() {
 		// TODO Auto-generated method stub
+		Gdx.app.log("Paused", "Paused");
 		super.pause();
 	}
 
