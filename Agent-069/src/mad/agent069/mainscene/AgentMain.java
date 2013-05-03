@@ -1,5 +1,6 @@
 package mad.agent069.mainscene;
 
+import mad.agent069.cloud.MinHighScore;
 import mad.agent069.music.MyMusic;
 import mad.agent069.scorescene.ScoreScene;
 import mad.agent069.sound.MySound;
@@ -36,6 +37,7 @@ public class AgentMain extends Game {
 		
 		Gdx.app.log("Music", MyMusic.music_volume + "");
 
+		MinHighScore.updateHighscoreList();
 		setScreen(new MainScene(this));
 //		setScreen(new ScoreScene(this));
 	}

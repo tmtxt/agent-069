@@ -179,6 +179,10 @@ public class ScoreScene implements Screen {
 
 	private void showTable(){
 		ArrayList<String[]> allScore = MinHighScore.getHighscoreList();
+		if(allScore == null){
+			table.add(new Label("No internet connection", ls_normal_right));
+			return;
+		}
 		table.columnDefaults(0).pad(5);
 		table.columnDefaults(1).pad(5);
 		table.add(new Label("Name", ls_big_title));

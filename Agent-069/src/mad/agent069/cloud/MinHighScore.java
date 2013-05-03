@@ -1,6 +1,7 @@
 package mad.agent069.cloud;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,6 +17,7 @@ public class MinHighScore {
 	private static final String HAS_UPLOADED_KEY = "uploaded";
 	private static final String HIGHSCORE_KEY = "highscore";
 	public static ArrayList<String[]> list = null;
+	public static String currentMsg = "0";
 
 	private static Preferences prefs = Gdx.app.getPreferences("Highscores");
 
@@ -33,7 +35,7 @@ public class MinHighScore {
 			updateHighscoreList();
 		}
 
-		return "0";
+		return currentMsg;
 	}
 
 	public static ArrayList<String[]> getHighscoreList() {
@@ -51,7 +53,7 @@ public class MinHighScore {
 		// params.put("limit", "10");
 
 		HttpRequest httpGet = new HttpRequest(HttpMethods.GET);
-
+		
 		// httpGet.setContent(HttpParametersUtils.convertHttpParameters(params));
 
 		httpGet.setUrl("https://api.parse.com/1/classes/GameScore/?order=-score&limit=10");
@@ -66,14 +68,22 @@ public class MinHighScore {
 				String result = httpResponse.getResultAsString();
 				System.out.println("NHAN: SUCCESS - " + result);
 				MinHighScore.list = processHighscoreJSON(result);
+				MinHighScore.currentMsg = "0";
 			}
 
 			public void failed(Throwable t) {
 				System.out.println("NHAN: FAILED while fetching score");
+				MinHighScore.currentMsg = "FAILED while fetching score. You must be connected to the Internet!";
 			}
 		});
 
 	}
+	
+//	private static void saveHighscoresToPrefs(ArrayList<String[]> li) {
+//		for (int i = 0; i <li.size(); i++) {
+//			prefs.putString("player" + i + "username", val)
+//		}
+//	}
 
 	private static ArrayList<String[]> processHighscoreJSON(String json) {
 		ArrayList<String[]> re = new ArrayList<String[]>();
@@ -118,10 +128,11 @@ public class MinHighScore {
 			public void handleHttpResponse(HttpResponse httpResponse) {
 				System.out.println("NHAN: SUCCESS - "
 						+ httpResponse.getResultAsString());
+				MinHighScore.currentMsg = "0";
 			}
 
 			public void failed(Throwable t) {
-				System.out.println("NHAN: FAILED while uploading score");
+				MinHighScore.currentMsg = "FAILED while fetching score. You must be connected to the Internet!";
 			}
 		});
 
@@ -165,6 +176,7 @@ public class MinHighScore {
 
 			public void failed(Throwable t) {
 				System.out.println("NHAN: FAILED while uploading score");
+				
 			}
 		});
 		prefs.putInteger(HIGHSCORE_KEY, score);
