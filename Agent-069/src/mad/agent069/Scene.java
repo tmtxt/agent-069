@@ -226,55 +226,7 @@ public class Scene implements ApplicationListener, Screen {
 		this.startTime = currentTime;
 
 
-		/*
-		 * ======================== BUTTON CODE ====================
-		 */
-
-		// Create atlas
-		atlas = new TextureAtlas("scene/button_control.atlas");
-
-		// Create a skin
-		skin = new Skin();
-		skin.addRegions(atlas);
-
-		// Create font
-		font = new BitmapFont(Gdx.files.internal("mainscene/white_font.fnt"),
-				false);
-
-		// Create Pause button style
-		style = new TextButtonStyle();
-		style.up = skin.getDrawable("pause_button");
-		style.down = skin.getDrawable("pause_button");
-		style.font = font;
-
-		// Create Pause button
-		pause = new TextButton("", style);
-
-		// Create Pause button style
-		style = new TextButtonStyle();
-		style.up = skin.getDrawable("resume_button");
-		style.down = skin.getDrawable("resume_button");
-		style.font = font;
-
-		// Create Pause button
-		resume = new TextButton("", style);
 		
-		// Create Listener
-		pause.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.log("Clicked", "Clicked");
-			}
-		});
-
-		resume.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Gdx.app.log("Clicked", "Clicked");
-				
-			}
-		});
-
 	}
 
 	/**
@@ -504,7 +456,7 @@ public class Scene implements ApplicationListener, Screen {
 
 		this.render();
 
-		Gdx.app.log("Break", "BREAKKKKKKKK");
+//		Gdx.app.log("Break", "BREAKKKKKKKK");
 //		batch.begin();
 //		stage.draw();
 //		batch.end();
