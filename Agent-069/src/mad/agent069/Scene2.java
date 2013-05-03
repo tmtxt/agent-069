@@ -68,7 +68,7 @@ public class Scene2 extends Scene {
 		this.speed = 1;
 
 		// Init the length
-		this.length = 25000;
+		this.length = 1000;
 
 		// Floor position
 		Scene.SCENE_FLOOR_POSITION_Y = 20;
