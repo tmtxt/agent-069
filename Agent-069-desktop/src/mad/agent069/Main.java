@@ -10,8 +10,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "Agent-069";
 		cfg.useGL20 = false;
-		cfg.width = 800;
-		cfg.height = Scene.SCENE_HEIGHT;
+		cfg.width = 1000;
+		cfg.height = 700;
 		
 		new LwjglApplication(new AgentMain(), cfg);
 	}

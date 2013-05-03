@@ -5,6 +5,7 @@ import mad.agent069.HowToPlayScene;
 import mad.agent069.Scene1;
 import mad.agent069.Scene2;
 import mad.agent069.music.MyMusic;
+import mad.agent069.scorescene.ScoreScene;
 import mad.agent069.switchscene.DisplayStageScene;
 import mad.agent069.tween.MainSceneAccessor;
 import aurelienribon.tweenengine.BaseTween;
@@ -227,7 +228,7 @@ public class MainScene implements Screen {
 		scoreButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-
+				agentMain.setScreen(new ScoreScene(agentMain));
 			}
 		});
 
