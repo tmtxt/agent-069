@@ -9,9 +9,14 @@ public class ObstacleTexture {
 	public static final Texture HELI_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("heli.png"));
 	public static final Texture ROCK_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("stone.png"));
 	public static final Texture TANK_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("tank.png"));
+	public static final Texture TANK_OBSTACLE_SLOW_TEXTURE = new Texture(Gdx.files.internal("tankslow.png"));
 	public static final Texture TANK_COLLAPSE_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("tankcollapse.png"));
 	public static final Texture THORNS_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("thorns.png"));
 	public static final Texture ROCKET_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("rocket.png"));
 	public static final Texture BOMB_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("bomb.png"));
 	public static final Texture MUMMY_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("mummy.png"));
+	public static final Texture MUMMY_COLLAPSE_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("mummycollapse.png"));
+	public static final Texture PLANE_MUMMY_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("planemummy.png"));
+	public static final Texture MUMMY_DROP_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("mummydrop.png"));
+	public static final Texture PLANE_OBSTACLE_TEXTURE = new Texture(Gdx.files.internal("plane.png"));
 }

@@ -1,5 +1,7 @@
 package mad.agent069.mainscene;
 
+import mad.agent069.GameIntroScene;
+import mad.agent069.HowToPlayScene;
 import mad.agent069.Scene1;
 import mad.agent069.Scene2;
 import mad.agent069.music.MyMusic;
@@ -236,7 +238,8 @@ public class MainScene implements Screen {
 		introButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-
+				agentMain.setScreen(new GameIntroScene(agentMain));
+				background_music.stop();
 			}
 		});
 
@@ -246,7 +249,8 @@ public class MainScene implements Screen {
 		howtoButton.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-
+				agentMain.setScreen(new HowToPlayScene(agentMain));
+				background_music.stop();
 			}
 		});
 

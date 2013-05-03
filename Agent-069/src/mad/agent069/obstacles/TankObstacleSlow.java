@@ -27,7 +27,7 @@ public class TankObstacleSlow extends Obstacle {
 		this.calculateMovingSpeed();
 
 		// Init the texture
-		this.tankTexture = ObstacleTexture.TANK_OBSTACLE_TEXTURE;
+		this.tankTexture = ObstacleTexture.TANK_OBSTACLE_SLOW_TEXTURE;
 		this.collapseTexture = ObstacleTexture.TANK_COLLAPSE_OBSTACLE_TEXTURE;
 
 		// Init the current position
