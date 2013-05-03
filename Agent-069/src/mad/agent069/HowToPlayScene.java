@@ -77,7 +77,7 @@ public class HowToPlayScene implements ApplicationListener, Screen {
 		this.currentTexture = 0;
 
 		// Init the image to draw
-		for (int i = 0; i < 8; i++) {
+		for (int i = 0; i < 10; i++) {
 			Texture texture = new Texture(
 					Gdx.files.internal("htp" + i + ".png"));
 			this.textureList.add(texture);
