@@ -34,8 +34,6 @@ public class AgentMain extends Game {
 			prefs.putFloat("musicVolume", MyMusic.music_volume);
 			prefs.flush();
 		}
-		
-		Gdx.app.log("Music", MyMusic.music_volume + "");
 
 		MinHighScore.updateHighscoreList();
 		setScreen(new MainScene(this));
